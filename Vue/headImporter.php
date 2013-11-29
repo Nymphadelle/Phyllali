@@ -1,10 +1,14 @@
 <!doctype html>
 <html>
+
 <head>
-<link href="style.css" type="text/css" media="screen" rel="stylesheet">
-<script type="text/javascript" src="jquery-1.8.2.min.js"></script>
+<link href="Contenu/style.css" type="text/css" media="screen" rel="stylesheet">
+<script type="text/javascript" src="Contenu/jquery-1.8.2.min.js"></script>
+<title><?= $titre ?></title>
 </head>
 <body>
+
+
 <div class="connectUtilisateur">
 <div id="titre">
 <img src="resources/images/titre.png" alt="" />
@@ -18,12 +22,10 @@ Mot de passe : <input type="text" value="******" >
 </div>
 
 </div>
-	
 <div class="content">
 	
 
 	<div class="bandeau">
-		gb
 		
 		
 	</div>
@@ -43,17 +45,11 @@ Mot de passe : <input type="text" value="******" >
 <li> <a href="index.html"><img src="resources/nav/multi.png"  alt="" /></a></li>
 </ul>
 </div>
-
-<div id="presentation">
-<h1> Troc en ligne</h1>
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </br>
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+<div id="contenu">
+	<?= $contenu ?>
 </div>
-
-produits...
-
-</div>
-
+	
+	
 
 </body>
 </html>
