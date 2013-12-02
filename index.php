@@ -1,3 +1,14 @@
+
+<?php
+require_once 'Classes/Produit.php';
+require_once 'Classes/Categorie.php';
+
+$donnees = new Categorie();
+$categories = $donnees->getCategories();
+
+$donnees = new Produit();
+$produits = $donnees->getProduits();
+?>
 <!doctype html>
 <html>
 <head>
@@ -35,12 +46,15 @@ Mot de passe : <input type="text" value="******" >
 
 <div id = "navigation_menu">
 <ul>
-<li> <img src="resources/nav/jeux.png"  alt="" /></li>
-<li> <img src="resources/nav/car.png"  alt="" /></li>
-<li> <img src="resources/nav/fournitures.png"  alt="" /></li>
-<li> <img src="resources/nav/mobilier.png"  alt="" /></li>
-<li> <img src="resources/nav/clothes.png"  alt="" /></li>
-<li> <img src="resources/nav/multi.png"  alt="" /></li>
+<?php 
+//var_dump($categories);
+foreach($categories as $categorie){
+//print_r($categorie);
+
+echo '<li> <a href="index.html"><img src="Resources/nav/'.$categorie.'.png" />'.$categorie.'</a></li>';
+}
+
+?>
 </ul>
 </div>
 
@@ -51,6 +65,17 @@ Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliqu
 </div>
 
 produits...
+
+<?php 
+
+foreach($produits as $produit){
+
+
+}
+?>
+}
+
+?>
 
 </div>
 
