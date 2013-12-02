@@ -64,18 +64,18 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
 </div>
 
-produits...
+produits...</br>
 
 <?php 
 
 foreach($produits as $produit){
 
+echo "Nom du produit : ".$produit['LIBELLE_PDT']."</br>";
+
 
 }
 ?>
-}
 
-?>
 
 </div>
 
