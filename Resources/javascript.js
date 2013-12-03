@@ -31,11 +31,16 @@ $("#enregistrer").click(function() {
 $('#presentation').on('click', '#envoyer', function(event){
 	// on annule le comportemet par défaut du bouton
 	event.preventDefault();
+	if ($('#nom').val() == '' || $('#prenom').val() == '' || $('#mail').val() == '' || $('#psw').val() == '' || $('#addr').val() == '' || $('#cp').val() == '' || $('#ville').val() == '' ) {
+		alert('tous les champs doivent être remplis.');
+		return;		
+	}
 	// si les 2 mails ne correspondent pas
 	if ($('#mail').val() != $('#mail2').val()) {
-		alert('pb mail');
+		alert('les mails ne correspondent pas');
 		return;
 	}
+	
 	validerInscription();
 });
 
