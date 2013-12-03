@@ -78,6 +78,10 @@ position:absolute;
 margin-top:2px;
 }
 
+#buttons{
+margin-left:1100px;
+}
+
 
 .bandeau{
 z-index : 1;
