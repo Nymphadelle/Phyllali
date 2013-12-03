@@ -41,7 +41,7 @@ $produits = $donnees->getProduits();
 		<ul>
 		<?php 
 		foreach($categories as $categorie){
-		echo '<li> <a href="index.html"><img src="Resources/nav/'.$categorie.'.png" />'.$categorie.'</a></li>';}
+		echo '<li> <a href="index.html" class="cat" id="METTRE ID ICI"><img src="Resources/nav/'.$categorie.'.png" />'.$categorie.'</a></li>';}
 		?>
 		</ul>
 	</div>

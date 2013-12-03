@@ -18,3 +18,6 @@ $("#enregistrer").click(function() {
 $("#connexion").click(function() {
   alert('connexion');
 });
+
+
+// handler sur 
