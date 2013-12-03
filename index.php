@@ -33,10 +33,7 @@ Mot de passe : <input type="text" value="******" >
 <div class="content">
 	
 
-	<div class="bandeau">
-		gb
-		
-		
+	<div class="bandeau">		
 	</div>
 
 

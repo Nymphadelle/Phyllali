@@ -14,13 +14,22 @@ body {
 	font-size: 11pt;
 }
 ul {
-list-style: none outside none;
+
+margin-top:4px;
+
 }
 
 #navigation_menu ul li {
 
 display: inline;
-margin-top:-50px;
+
+
+}
+
+#navigation_menu ul li 	a{
+
+vertical-align: top;
+color:black;
 
 }
 
@@ -30,7 +39,7 @@ width: 100%;
 background-color : #c6c6c6;
 float: left;
 position: relative;
-height:40px;
+height:37px;
 
 z-index:0;
 }
@@ -63,8 +72,8 @@ margin-top:2px;
 
 #compte{
 float:left;
-width:950px;
-margin-left:500px;
+width:500px;
+margin-left:720px;
 position:absolute;
 margin-top:2px;
 }
@@ -74,12 +83,12 @@ margin-top:2px;
 z-index : 1;
 background-color : white;
 background-image:url(images/banniere.jpg);
-height:194px;
+height:175px;
 margin:auto;
 position : relative;
-	-webkit-box-shadow: 0px 1px 15px 0px #000000;
-	-moz-box-shadow: 0px 1px 15px 0px #000000;
-	box-shadow: 0px 1px 15px 0px #000000;
+	-webkit-box-shadow: 0px 1px 7px 0px #000000;
+	-moz-box-shadow: 0px 1px 7px 0px #000000;
+	box-shadow: 0px 1px 7px 0px #000000;
 }
 
 .content{
