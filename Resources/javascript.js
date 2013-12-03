@@ -14,10 +14,18 @@ $("#enregistrer").click(function() {
   });
 });
 
+// handler sur le bouton envoyer (utilisation de delegates car le bouton est jouté dynamiquement)
+$('#presentation').on('click', '#envoyer', function(event){
+	// on annule le comportemet par défaut du bouton
+	event.preventDefault();
+    alert('validation formulaire');
+});
+
+
+
 // bouton connexion
 $("#connexion").click(function() {
   alert('connexion');
 });
 
 
-// handler sur 
