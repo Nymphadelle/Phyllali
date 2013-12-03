@@ -8,7 +8,7 @@ function validerInscription() {
   data: { nom: $("#nom").val(), prenom: $("#prenom").val(), mail:$("#mail").val(), psw:$("#psw").val(), addr:$("#addr").val(), cp:$("#cp").val(), ville:$("#ville").val() }
 })
   .done(function( msg ) {
-    console.log( "Data Saved: " + msg );
+    $(location).attr('href',"index.php");
   });
 }
 
