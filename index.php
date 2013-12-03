@@ -41,7 +41,7 @@ $produits = $donnees->getProduits();
 		<ul>
 		<?php 
 		foreach($categories as $categorie){
-		echo '<li> <a href="index.html" class="cat" id="METTRE ID ICI"><img src="Resources/nav/'.$categorie.'.png" />'.$categorie.'</a></li>';}
+			echo '<li> <a class="cat" id="'.$categorie['ID_CATEGORIE'].'"><img src="Resources/nav/'.$categorie['NOM_CATEG'].'.png" />'.$categorie['NOM_CATEG'].'</a></li>';}
 		?>
 		</ul>
 	</div>
@@ -50,8 +50,6 @@ $produits = $donnees->getProduits();
 	<h1> Troc en ligne</h1>
 	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </br>
 	Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-	</div>
-
 	produits...</br>
 
 	<?php 
@@ -63,6 +61,9 @@ $produits = $donnees->getProduits();
 
 	}
 	?>
+	</div>
+
+	
 	</div>
 	</body>
 </html>

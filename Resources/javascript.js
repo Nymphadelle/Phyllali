@@ -21,3 +21,17 @@ $("#connexion").click(function() {
 
 
 // handler sur 
+$(".cat").click(function() {
+// appel de la page creaclient.php
+//alert(this.id);
+ 	$.ajax({
+	  type:"GET",
+	  url: "ajax/categProduit.php",
+	  data: {id_categ: this.id}
+	})
+  .done(function( html ) {
+		// si l'appel a reussi, on affiche le résultat
+		$( "#presentation" ).html(html);
+  });
+ 
+});
