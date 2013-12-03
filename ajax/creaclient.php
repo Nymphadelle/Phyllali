@@ -4,49 +4,49 @@ Enregistrement d'un utilisateur
 <TR>
 	<TD>Nom</TD>
 	<TD>
-	<INPUT type=text name="nom">
+	<INPUT type=text id="nom">
 	</TD>
 </TR>
 
 <TR>
 	<TD>Prenom</TD>
 	<TD>
-	<INPUT type=text name="prenom">
+	<INPUT type=text id="prenom">
 	</TD>
 </TR>
 
 <TR>
 	<TD>Mail</TD>
 	<TD>
-	<INPUT type=text name="mail">
+	<INPUT type=text id="mail">
 	</TD>
 </TR>
 
 <TR>
 	<TD>Confirmation mail</TD>
 	<TD>
-	<INPUT type=text name="mail2">
+	<INPUT type=text id="mail2">
 	</TD>
 </TR>
 
 <TR>
 	<TD>Code postal</TD>
 	<TD>
-	<INPUT type=text name="cp">
+	<INPUT type=text id="cp">
 	</TD>
 </TR>
 
 <TR>
 	<TD>Ville</TD>
 	<TD>
-	<INPUT type=text name="ville">
+	<INPUT type=text id="ville">
 	</TD>
 </TR>
 
 <TR>
 	<TD>Tel</TD>
 	<TD>
-	<INPUT type=text name="tel">
+	<INPUT type=text id="tel">
 	</TD>
 </TR>
 

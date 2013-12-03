@@ -1,7 +1,10 @@
-// FONCTIONS
+//////////////////////////////////////////
+//////////////// FONCTIONS ////////////////
+//////////////////////////////////////////
 
-
-// HANDLERS
+//////////////////////////////////////////
+//////////////// HANDLERS ////////////////
+//////////////////////////////////////////
 // clic bouton enregistrer
 $("#enregistrer").click(function() {
 	// appel de la page creaclient.php
@@ -18,7 +21,13 @@ $("#enregistrer").click(function() {
 $('#presentation').on('click', '#envoyer', function(event){
 	// on annule le comportemet par défaut du bouton
 	event.preventDefault();
-    alert('validation formulaire');
+	// si les 2 mails ne correspondent pas
+	if ($('#mail').val() != $('#mail2').val()) {
+		alert('pb mail');
+		return;
+	}
+	
+	alert('validation formulaire');
 });
 
 
