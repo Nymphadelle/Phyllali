@@ -1,7 +1,20 @@
-// FONCTIONS
+//////////////////////////////////////////
+//////////////// FONCTIONS ////////////////
+//////////////////////////////////////////
+function validerInscription() {
+	$.ajax({
+  type: "POST",
+  url: "ajax/insertionclient.php",
+  data: { nom: $("#nom").val(), prenom: $("#prenom").val(), mail:$("#mail").val(), psw:$("#psw").val(), addr:$("#addr").val(), cp:$("#cp").val(), ville:$("#ville").val() }
+})
+  .done(function( msg ) {
+    console.log( "Data Saved: " + msg );
+  });
+}
 
-
-// HANDLERS
+//////////////////////////////////////////
+//////////////// HANDLERS ////////////////
+//////////////////////////////////////////
 // clic bouton enregistrer
 $("#enregistrer").click(function() {
 	// appel de la page creaclient.php
@@ -14,13 +27,26 @@ $("#enregistrer").click(function() {
   });
 });
 
+// handler sur le bouton envoyer (utilisation de delegates car le bouton est jouté dynamiquement)
+$('#presentation').on('click', '#envoyer', function(event){
+	// on annule le comportemet par défaut du bouton
+	event.preventDefault();
+	// si les 2 mails ne correspondent pas
+	if ($('#mail').val() != $('#mail2').val()) {
+		alert('pb mail');
+		return;
+	}
+	validerInscription();
+});
+
+
+
 // bouton connexion
 $("#connexion").click(function() {
   alert('connexion');
 });
 
 
-// handler sur 
 $(".cat").click(function() {
 // appel de la page creaclient.php
 //alert(this.id);
