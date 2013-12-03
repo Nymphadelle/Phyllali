@@ -5,8 +5,6 @@ require_once 'Connect.php';
 
 class Produit extends Connect{
 
-
-
 	//renvoie la liste des produits
 	public function getProduits(){
 		$sql ='select * from PRODUIT';
@@ -21,7 +19,6 @@ class Produit extends Connect{
 		}
 		return $tab;
 	}
-	
 		
 }
 

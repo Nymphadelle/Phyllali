@@ -1,6 +1,16 @@
 //////////////////////////////////////////
 //////////////// FONCTIONS ////////////////
 //////////////////////////////////////////
+function validerInscription() {
+	$.ajax({
+  type: "POST",
+  url: "ajax/insertionclient.php",
+  data: { nom: $("#nom").val(), prenom: $("#prenom").val(), mail:$("#mail").val(), psw:$("#psw").val(), addr:$("#addr").val(), cp:$("#cp").val(), ville:$("#ville").val() }
+})
+  .done(function( msg ) {
+    console.log( "Data Saved: " + msg );
+  });
+}
 
 //////////////////////////////////////////
 //////////////// HANDLERS ////////////////
@@ -26,8 +36,7 @@ $('#presentation').on('click', '#envoyer', function(event){
 		alert('pb mail');
 		return;
 	}
-	
-	alert('validation formulaire');
+	validerInscription();
 });
 
 

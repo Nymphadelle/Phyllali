@@ -30,6 +30,20 @@ Enregistrement d'un utilisateur
 </TR>
 
 <TR>
+	<TD>Mot de passe</TD>
+	<TD>
+	<INPUT type=password id="psw">
+	</TD>
+</TR>
+
+<TR>
+	<TD>Adresse</TD>
+	<TD>
+	<INPUT type=text id="addr">
+	</TD>
+</TR>
+
+<TR>
 	<TD>Code postal</TD>
 	<TD>
 	<INPUT type=text id="cp">
@@ -40,13 +54,6 @@ Enregistrement d'un utilisateur
 	<TD>Ville</TD>
 	<TD>
 	<INPUT type=text id="ville">
-	</TD>
-</TR>
-
-<TR>
-	<TD>Tel</TD>
-	<TD>
-	<INPUT type=text id="tel">
 	</TD>
 </TR>
 
