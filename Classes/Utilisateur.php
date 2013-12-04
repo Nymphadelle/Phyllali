@@ -34,7 +34,7 @@ class Utilisateur extends Connect{
 	public function connectionUser($mail, $mdp){
 		$sql = "SELECT util, mail, PRENOM FROM CONNEXION, UTILISATEUR WHERE mail ='".$mail."' AND mdp='".$mdp."' AND UTIL_ID = util";
 		$req=$this->executerRequete($sql);
-		$infoUtil = array(odbc_result($req, 'util'), odbc_result($req, 'PRENOM'), odbc_result($req, 'mail'));
+		$infoUtil = array(utf8_encode(odbc_result($req, 'util')), utf8_encode(odbc_result($req, 'PRENOM')),utf8_encode(odbc_result($req, 'mail')));
 		return $infoUtil;
 	}
 }?>

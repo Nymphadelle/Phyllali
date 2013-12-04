@@ -31,7 +31,7 @@ $produits = $donnees->getProduits();
 			echo "<div id='picto'>";
 			echo "<a title='Modifier profil'> M </a>";
 			echo "<a title='Ajouter produit'> A </a>";
-			echo "<a title='Liste de souhaits'> S </a>";
+			echo "<a id='listeSouhaits' title='Liste de souhaits'> S </a>";
 			echo "</div>";
 			echo "<div id='buttons'>";
 			echo "<form method='POST' action ='ajax/decoclient.php'><input type='submit' id='deconnexion' value='Déconnexion'></form>";
@@ -52,7 +52,7 @@ $produits = $donnees->getProduits();
 	</div>
 		
 	<div class="content">
-		<div class="bandeau">		
+		<div class="bandeau">
 		</div>
 
 	<div id = "navigation_menu">

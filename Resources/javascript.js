@@ -61,8 +61,8 @@ $("#connexion").click(function() {
 			return;
 		}
 		$('#compte').html('Bonjour '+html);
-		$("<div id='picto'><a title='Modifier profil'> M </a><a title='Ajouter produit'> A </a><a title='Liste de souhaits'> S </a></div>").insertAfter('#compte');
-		$('#buttons').html('<form method="POST" action="ajax/decoclient.php"><input type="submit" id="deconnexion" value="D&eacute;connexion"></form>');
+		$("<div id='picto'><a title='Modifier profil'> M </a><a title='Ajouter produit'> A </a><a id='listeSouhaits' title='Liste de souhaits'> S </a></div>").insertAfter('#compte');
+		$('#buttons').html('<form method="POST" action="ajax/decoclient.php"><input type="submit" id="deconnexion" value="Déconnexion"></form>');
 	});
 });
 
@@ -86,11 +86,20 @@ $(".cat").click(function() {
 	  url: "ajax/categProduit.php",
 	  data: {id_categ: this.id}
 	})
-  .done(function( html ) {
+	.done(function( html ) {
 		// si l'appel a reussi, on affiche le résultat
 		$( "#presentation" ).html(html);
   });
  
+});
+
+$("body").on('click', "#listeSouhaits", function(event){
+	$.ajax({
+		url:"ajax/listeSouhaits.php"
+	})
+	.done(function(html) {
+		$("#presentation").html(html);
+	})
 });
 
 
