@@ -39,8 +39,8 @@ $produits = $donnees->getProduits();
 
 		}
 		else{
-			echo 'Identifiant : <input type="text" value="pseudo.." id="email" >';
-			echo 'Mot de passe : <input type="text" value="******" id="mdp" >';
+			echo 'Mail : <input type="text" id="email" >';
+			echo 'Mot de passe : <input type="password" id="mdp" >';
 			echo '</div>';
 			echo '<div id="buttons">';
 			echo '<button type="button" id="connexion">Connexion</button>';

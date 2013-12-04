@@ -17,11 +17,21 @@ function modifProfil() {
   type: "POST",
   url: "ajax/getclient.php"
 })
-  .done(function( msg ) {
-		alert(msg);
+  .done(function( html ) {
+		$( "#presentation" ).html(html);
   });
 }
 
+function validerProfil() {
+	$.ajax({
+  type: "POST",
+  url: "ajax/majclient.php",
+  data: { nom: $("#nom").val(), prenom: $("#prenom").val(), addr:$("#addr").val(), cp:$("#cp").val(), ville:$("#ville").val() }
+})
+  .done(function() {
+    $(location).attr('href',"index.php");
+  });
+}
 
 //////////////////////////////////////////
 //////////////// HANDLERS ////////////////
@@ -67,6 +77,13 @@ $('body').on('click', '#modpro', function(event){
 	// on annule le comportemet par défaut de l'ancre
 	event.preventDefault();
 	modifProfil();
+});
+
+// handler sur l'ancre modifier profil utilisateur
+$('body').on('click', '#validerModifInfos', function(event){
+	// on annule le comportemet par défaut de l'ancre
+	event.preventDefault();
+	validerProfil();
 });
 
 
