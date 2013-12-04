@@ -37,4 +37,8 @@ class Utilisateur extends Connect{
 		$infoUtil = array(odbc_result($req, 'util'), odbc_result($req, 'PRENOM'), odbc_result($req, 'mail'));
 		return $infoUtil;
 	}
+	
+	public function getUser($id) {
+	
+	}
 }?>

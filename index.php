@@ -29,7 +29,7 @@ $produits = $donnees->getProduits();
 			echo "Bonjour ".$_SESSION['prenom'];
 			echo "</div>";
 			echo "<div id='picto'>";
-			echo "<a title='Modifier profil'> M </a>";
+			echo "<a id='modpro' title='Modifier profil'> M </a>";
 			echo "<a title='Ajouter produit'> A </a>";
 			echo "<a title='Liste de souhaits'> S </a>";
 			echo "</div>";

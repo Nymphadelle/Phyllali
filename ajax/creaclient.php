@@ -64,10 +64,5 @@ Enregistrement d'un utilisateur
 	</TD>
 </TR>
 
-<TR>
-	<TD COLSPAN=2>
-	<INPUT type="submit" value="Annuler" id="annuler">
-	</TD>
-</TR>
 </TABLE>
 </FORM>
