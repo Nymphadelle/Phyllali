@@ -12,6 +12,7 @@ function validerInscription() {
   });
 }
 
+
 //////////////////////////////////////////
 //////////////// HANDLERS ////////////////
 //////////////////////////////////////////
@@ -48,7 +49,21 @@ $('#presentation').on('click', '#envoyer', function(event){
 
 // bouton connexion
 $("#connexion").click(function() {
-  alert('connexion');
+	event.preventDefault();
+	$.ajax({
+		type:"POST",
+		url:"ajax/conneclient.php",
+		data:{email:$("#email").val(), mdp:$("#mdp").val()}
+	})
+	.done(function( html ) {
+		if(html == -1){
+			alert("Login ou mot de passe incorrect");
+			return;
+		}
+		$('#compte').html('Bonjour '+html);
+		$('#buttons').html('<form method="POST" action="ajax/decoclient.php"><input type="submit" id="deconnexion" value="D&eacute;connexion"></form>');
+	});
 });
+
 
 
