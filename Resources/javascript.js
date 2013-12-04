@@ -8,7 +8,12 @@ function validerInscription() {
   data: { nom: $("#nom").val(), prenom: $("#prenom").val(), mail:$("#mail").val(), psw:$("#psw").val(), addr:$("#addr").val(), cp:$("#cp").val(), ville:$("#ville").val() }
 })
   .done(function( msg ) {
-    $(location).attr('href',"index.php");
+      // run the currently selected effect
+    $( "#effect" ).show( "highlight", {}, 500 );
+     setTimeout(function() {
+        $( "#effect:visible" ).removeAttr( "style" ).fadeOut();
+		 $(location).attr('href',"index.php");
+      }, 1500 );   
   });
 }
 
@@ -29,13 +34,20 @@ function validerProfil() {
   data: { nom: $("#nom").val(), prenom: $("#prenom").val(), addr:$("#addr").val(), cp:$("#cp").val(), ville:$("#ville").val() }
 })
   .done(function() {
-    $(location).attr('href',"index.php");
+      // run the currently selected effect
+    $( "#effect" ).show( "highlight", {}, 500 );
+     setTimeout(function() {
+        $( "#effect:visible" ).removeAttr( "style" ).fadeOut();
+		 $(location).attr('href',"index.php");
+      }, 1500 );   
   });
 }
 
 //////////////////////////////////////////
 //////////////// HANDLERS ////////////////
 //////////////////////////////////////////
+// on cache par defaut
+$("#effect").hide();
 
 // clic bouton enregistrer
 $("#enregistrer").click(function() {
@@ -77,6 +89,8 @@ $('body').on('click', '#modpro', function(event){
 	// on annule le comportemet par défaut de l'ancre
 	event.preventDefault();
 	modifProfil();
+	
+	
 });
 
 // handler sur l'ancre modifier profil utilisateur
