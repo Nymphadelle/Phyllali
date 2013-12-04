@@ -29,6 +29,7 @@ $produits = $donnees->getProduits();
 			echo "Bonjour ".$_SESSION['prenom'];
 			echo "</div>";
 			echo "<div id='buttons'>";
+			echo "<form method='POST' action ='ajax/ajouterproduit.php'><input type='submit' id='ajouter' value='+'></form>";
 			echo "<form method='POST' action ='ajax/decoclient.php'><input type='submit' id='deconnexion' value='Déconnexion'></form>";
 			echo "</div>";
 		}
