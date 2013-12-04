@@ -28,9 +28,15 @@ $produits = $donnees->getProduits();
 		if(isset($_SESSION['id']) && $_SESSION['id'] != ''){
 			echo "Bonjour ".$_SESSION['prenom'];
 			echo "</div>";
+			echo "<div id='picto'>";
+			echo "<a title='Modifier profil'> M </a>";
+			echo "<a title='Ajouter produit'> A </a>";
+			echo "<a title='Liste de souhaits'> S </a>";
+			echo "</div>";
 			echo "<div id='buttons'>";
 			echo "<form method='POST' action ='ajax/decoclient.php'><input type='submit' id='deconnexion' value='Déconnexion'></form>";
 			echo "</div>";
+
 		}
 		else{
 			echo 'Identifiant : <input type="text" value="pseudo.." id="email" >';

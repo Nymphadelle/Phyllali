@@ -68,6 +68,7 @@ $("#connexion").click(function() {
 			return;
 		}
 		$('#compte').html('Bonjour '+html);
+		$("<div id='picto'><a title='Modifier profil'> M </a><a title='Ajouter produit'> A </a><a title='Liste de souhaits'> S </a></div>").insertAfter('#compte');
 		$('#buttons').html('<form method="POST" action="ajax/decoclient.php"><input type="submit" id="deconnexion" value="D&eacute;connexion"></form>');
 	});
 });
