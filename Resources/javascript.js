@@ -8,14 +8,47 @@ function validerInscription() {
   data: { nom: $("#nom").val(), prenom: $("#prenom").val(), mail:$("#mail").val(), psw:$("#psw").val(), addr:$("#addr").val(), cp:$("#cp").val(), ville:$("#ville").val() }
 })
   .done(function( msg ) {
-    $(location).attr('href',"index.php");
+      // run the currently selected effect
+    $( "#effect" ).show( "highlight", {}, 500 );
+     setTimeout(function() {
+        $( "#effect:visible" ).removeAttr( "style" ).fadeOut();
+		 $(location).attr('href',"index.php");
+      }, 1500 );   
   });
 }
 
+function modifProfil() {
+	$.ajax({
+  type: "POST",
+  url: "ajax/getclient.php"
+})
+  .done(function( html ) {
+		$( "#presentation" ).html(html);
+  });
+}
+
+function validerProfil() {
+	$.ajax({
+  type: "POST",
+  url: "ajax/majclient.php",
+  data: { nom: $("#nom").val(), prenom: $("#prenom").val(), addr:$("#addr").val(), cp:$("#cp").val(), ville:$("#ville").val() }
+})
+  .done(function() {
+      // run the currently selected effect
+    $( "#effect" ).show( "highlight", {}, 500 );
+     setTimeout(function() {
+        $( "#effect:visible" ).removeAttr( "style" ).fadeOut();
+		 $(location).attr('href',"index.php");
+      }, 1500 );   
+  });
+}
 
 //////////////////////////////////////////
 //////////////// HANDLERS ////////////////
 //////////////////////////////////////////
+// on cache par defaut
+$("#effect").hide();
+
 // clic bouton enregistrer
 $("#enregistrer").click(function() {
 	// appel de la page creaclient.php
@@ -41,8 +74,30 @@ $('#presentation').on('click', '#envoyer', function(event){
 		alert('les mails ne correspondent pas');
 		return;
 	}
-	
 	validerInscription();
+});
+
+// handler sur le bouton envoyer (utilisation de delegates car le bouton est jouté dynamiquement)
+$('#annuler').on('click', '#envoyer', function(event){
+	// on annule le comportemet par défaut du bouton
+	event.preventDefault();
+	$(location).attr('href',"index.php");
+});
+
+// handler sur l'ancre modifier profil utilisateur
+$('body').on('click', '#modpro', function(event){
+	// on annule le comportemet par défaut de l'ancre
+	event.preventDefault();
+	modifProfil();
+	
+	
+});
+
+// handler sur l'ancre modifier profil utilisateur
+$('body').on('click', '#validerModifInfos', function(event){
+	// on annule le comportemet par défaut de l'ancre
+	event.preventDefault();
+	validerProfil();
 });
 
 
@@ -61,7 +116,7 @@ $("#connexion").click(function() {
 			return;
 		}
 		$('#compte').html('Bonjour '+html);
-		$("<div id='picto'><a title='Modifier profil'> M </a><a title='Ajouter produit'> A </a><a id='listeSouhaits' title='Liste de souhaits'> S </a></div>").insertAfter('#compte');
+		$("<div id='picto'><a id='modpro' title='Modifier profil'> M </a><a title='Ajouter produit'> A </a><a title='Liste de souhaits'> S </a></div>").insertAfter('#compte');
 		$('#buttons').html('<form method="POST" action="ajax/decoclient.php"><input type="submit" id="deconnexion" value="Déconnexion"></form>');
 	});
 });
