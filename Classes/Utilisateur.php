@@ -37,4 +37,12 @@ class Utilisateur extends Connect{
 		$infoUtil = array(odbc_result($req, 'util'), odbc_result($req, 'PRENOM'), odbc_result($req, 'mail'));
 		return $infoUtil;
 	}
+	
+	//nom de l'utilisateur
+	public function getName($id_util){
+		$sql = "Select PRENOM from UTILISATEUR where UTIL_ID=".$id_util;
+		$util = $this->executerRequete($sql);
+		return odbc_result($util,'PRENOM');
+	}
+	
 }?>
