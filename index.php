@@ -14,6 +14,9 @@ $produits = $donnees->getProduits();
 	<head>
 		<link href="Resources/style.css" type="text/css" media="screen" rel="stylesheet">
 		<script type="text/javascript" src="Resources/jquery-1.8.2.min.js"></script>
+		  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	</head>
 <body>
 	<div class="connectUtilisateur">
@@ -28,13 +31,19 @@ $produits = $donnees->getProduits();
 		if(isset($_SESSION['id']) && $_SESSION['id'] != ''){
 			echo "Bonjour ".$_SESSION['prenom'];
 			echo "</div>";
+			echo "<div id='picto'>";
+			echo "<a id='modpro' title='Modifier profil'> M </a>";
+			echo "<a title='Ajouter produit'> A </a>";
+			echo "<a id='listeSouhaits' title='Liste de souhaits'> S </a>";
+			echo "</div>";
 			echo "<div id='buttons'>";
 			echo "<form method='POST' action ='ajax/decoclient.php'><input type='submit' id='deconnexion' value='Déconnexion'></form>";
 			echo "</div>";
+
 		}
 		else{
-			echo 'Identifiant : <input type="text" value="pseudo.." id="email" >';
-			echo 'Mot de passe : <input type="text" value="******" id="mdp" >';
+			echo 'Mail : <input type="text" id="email" >';
+			echo 'Mot de passe : <input type="password" id="mdp" >';
 			echo '</div>';
 			echo '<div id="buttons">';
 			echo '<button type="button" id="connexion">Connexion</button>';
@@ -44,9 +53,10 @@ $produits = $donnees->getProduits();
 		?>
 		
 	</div>
-		
+  
+  
 	<div class="content">
-		<div class="bandeau">		
+		<div class="bandeau">
 		</div>
 
 	<div id = "navigation_menu">
@@ -58,12 +68,22 @@ $produits = $donnees->getProduits();
 		</ul>
 	</div>
 
+	  <div class="toggler">
+  <div id="effect" class="ui-widget-content ui-corner-all">
+    <h3 class="ui-widget-header ui-corner-all">Effectué</h3>
+  </div>
+</div>
+
 	<div id="presentation">
 	<h1> Troc en ligne</h1>
 	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </br>
 	Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
 	produits...</br>
 
+	
+	
+	
+	
 	<?php 
 
 	foreach($produits as $produit){
