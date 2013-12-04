@@ -78,7 +78,7 @@ margin-top:2px;
 
 #compte{
 float:left;
-width:400px;
+width:300px;
 margin-left:720px;
 position:absolute;
 margin-top:2px;
@@ -188,4 +188,10 @@ opacity: 0.5;
 
 .description a{
 	color : #44353c;
+}
+
+#picto{
+	width : 100px;
+	float:left;
+	margin-left:1000px;
 }
