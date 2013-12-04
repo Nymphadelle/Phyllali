@@ -30,4 +30,11 @@ class Utilisateur extends Connect{
 		$sql = "INSERT INTO CONNEXION (mail,mdp,util) VALUES ('".$mail."','".$mdp."',".$indiceUtil.");";
 		$this->executerRequete($sql);
 	}
+	
+	public function connectionUser($mail, $mdp){
+		$sql = "SELECT util, mail, PRENOM FROM CONNEXION, UTILISATEUR WHERE mail ='".$mail."' AND mdp='".$mdp."' AND UTIL_ID = util";
+		$req=$this->executerRequete($sql);
+		$infoUtil = array(odbc_result($req, 'util'), odbc_result($req, 'PRENOM'), odbc_result($req, 'mail'));
+		return $infoUtil;
+	}
 }?>

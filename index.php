@@ -2,7 +2,7 @@
 <?php
 require_once 'Classes/Produit.php';
 require_once 'Classes/Categorie.php';
-
+session_start();
 $donnees = new Categorie();
 $categories = $donnees->getCategories();
 
@@ -23,14 +23,26 @@ $produits = $donnees->getProduits();
 		<div id = "recherche">
 			<input type="text" value="Recherche" size="50px">
 		</div>
-		<div id ="compte">
-			Identifiant : <input type="text" value="pseudo.." >
-			Mot de passe : <input type="text" value="******" >
-		</div>
-		<div id="buttons">
-			<button type="button" id="connexion">Connexion</button>
-			<button type="button" id="enregistrer">S'enregistrer</button>
-		</div>
+		<div id="compte">
+		<?php
+		if(isset($_SESSION['id']) && $_SESSION['id'] != ''){
+			echo "Bonjour ".$_SESSION['prenom'];
+			echo "</div>";
+			echo "<div id='buttons'>";
+			echo "<form method='POST' action ='ajax/decoclient.php'><input type='submit' id='deconnexion' value='Déconnexion'></form>";
+			echo "</div>";
+		}
+		else{
+			echo 'Identifiant : <input type="text" value="pseudo.." id="email" >';
+			echo 'Mot de passe : <input type="text" value="******" id="mdp" >';
+			echo '</div>';
+			echo '<div id="buttons">';
+			echo '<button type="button" id="connexion">Connexion</button>';
+			echo '<button type="button" id="enregistrer">S\'enregistrer</button>';
+			echo '</div>';
+		}
+		?>
+		
 	</div>
 		
 	<div class="content">
@@ -41,7 +53,7 @@ $produits = $donnees->getProduits();
 		<ul>
 		<?php 
 		foreach($categories as $categorie){
-		echo '<li> <a href="index.html" class="cat" id="METTRE ID ICI"><img src="Resources/nav/'.$categorie.'.png" />'.$categorie.'</a></li>';}
+			echo '<li> <a class="cat" id="'.$categorie['ID_CATEGORIE'].'"><img src="Resources/nav/'.$categorie['NOM_CATEG'].'.png" />'.$categorie['NOM_CATEG'].'</a></li>';}
 		?>
 		</ul>
 	</div>
@@ -50,8 +62,6 @@ $produits = $donnees->getProduits();
 	<h1> Troc en ligne</h1>
 	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </br>
 	Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-	</div>
-
 	produits...</br>
 
 	<?php 
@@ -63,6 +73,9 @@ $produits = $donnees->getProduits();
 
 	}
 	?>
+	</div>
+
+	
 	</div>
 	</body>
 </html>

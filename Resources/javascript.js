@@ -12,6 +12,7 @@ function validerInscription() {
   });
 }
 
+
 //////////////////////////////////////////
 //////////////// HANDLERS ////////////////
 //////////////////////////////////////////
@@ -55,7 +56,49 @@ $('#annuler').on('click', '#envoyer', function(event){
 
 // bouton connexion
 $("#connexion").click(function() {
-  alert('connexion');
+	event.preventDefault();
+	$.ajax({
+		type:"POST",
+		url:"ajax/conneclient.php",
+		data:{email:$("#email").val(), mdp:$("#mdp").val()}
+	})
+	.done(function( html ) {
+		if(html == -1){
+			alert("Login ou mot de passe incorrect");
+			return;
+		}
+		$('#compte').html('Bonjour '+html);
+		$('#buttons').html('<form method="POST" action="ajax/decoclient.php"><input type="submit" id="deconnexion" value="D&eacute;connexion"></form>');
+	});
 });
+
+$(".vignette").click(function() {
+// appel de la page afficheProduit.php
+ 	$.ajax({
+	  type:"GET",
+	  url: "ajax/afficheProduit.php",
+	  data: {id_pdt: this.id}
+	})
+  .done(function( html ) {
+		// si l'appel a reussi, on affiche le résultat
+		$( ".Aff_Produits" ).html(html);
+  });
+});
+
+$(".cat").click(function() {
+// appel de la page categProduit.php
+ 	$.ajax({
+	  type:"GET",
+	  url: "ajax/categProduit.php",
+	  data: {id_categ: this.id}
+	})
+  .done(function( html ) {
+		// si l'appel a reussi, on affiche le résultat
+		$( "#presentation" ).html(html);
+  });
+ 
+});
+
+
 
 
