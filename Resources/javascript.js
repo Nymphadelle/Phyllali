@@ -15,6 +15,7 @@ function validerInscription() {
 //////////////////////////////////////////
 //////////////// HANDLERS ////////////////
 //////////////////////////////////////////
+
 // clic bouton enregistrer
 $("#enregistrer").click(function() {
 	// appel de la page creaclient.php
@@ -40,8 +41,14 @@ $('#presentation').on('click', '#envoyer', function(event){
 		alert('les mails ne correspondent pas');
 		return;
 	}
-	
 	validerInscription();
+});
+
+// handler sur le bouton envoyer (utilisation de delegates car le bouton est jouté dynamiquement)
+$('#annuler').on('click', '#envoyer', function(event){
+	// on annule le comportemet par défaut du bouton
+	event.preventDefault();
+	$(location).attr('href',"index.php");
 });
 
 
