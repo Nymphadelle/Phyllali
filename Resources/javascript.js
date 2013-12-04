@@ -46,10 +46,21 @@ $("#connexion").click(function() {
   alert('connexion');
 });
 
+$(".vignette").click(function() {
+// appel de la page afficheProduit.php
+ 	$.ajax({
+	  type:"GET",
+	  url: "ajax/afficheProduit.php",
+	  data: {id_pdt: this.id}
+	})
+  .done(function( html ) {
+		// si l'appel a reussi, on affiche le résultat
+		$( ".Aff_Produits" ).html(html);
+  });
+});
 
 $(".cat").click(function() {
-// appel de la page creaclient.php
-//alert(this.id);
+// appel de la page categProduit.php
  	$.ajax({
 	  type:"GET",
 	  url: "ajax/categProduit.php",
@@ -61,3 +72,6 @@ $(".cat").click(function() {
   });
  
 });
+
+
+
