@@ -8,9 +8,10 @@ function validerInscription() {
   data: { nom: $("#nom").val(), prenom: $("#prenom").val(), mail:$("#mail").val(), psw:$("#psw").val(), addr:$("#addr").val(), cp:$("#cp").val(), ville:$("#ville").val() }
 })
   .done(function( msg ) {
-    console.log( "Data Saved: " + msg );
+    $(location).attr('href',"index.php");
   });
 }
+
 
 //////////////////////////////////////////
 //////////////// HANDLERS ////////////////
@@ -31,11 +32,16 @@ $("#enregistrer").click(function() {
 $('#presentation').on('click', '#envoyer', function(event){
 	// on annule le comportemet par défaut du bouton
 	event.preventDefault();
+	if ($('#nom').val() == '' || $('#prenom').val() == '' || $('#mail').val() == '' || $('#psw').val() == '' || $('#addr').val() == '' || $('#cp').val() == '' || $('#ville').val() == '' ) {
+		alert('tous les champs doivent être remplis.');
+		return;		
+	}
 	// si les 2 mails ne correspondent pas
 	if ($('#mail').val() != $('#mail2').val()) {
-		alert('pb mail');
+		alert('les mails ne correspondent pas');
 		return;
 	}
+	
 	validerInscription();
 });
 
@@ -43,7 +49,20 @@ $('#presentation').on('click', '#envoyer', function(event){
 
 // bouton connexion
 $("#connexion").click(function() {
-  alert('connexion');
+	event.preventDefault();
+	$.ajax({
+		type:"POST",
+		url:"ajax/conneclient.php",
+		data:{email:$("#email").val(), mdp:$("#mdp").val()}
+	})
+	.done(function( html ) {
+		if(html == -1){
+			alert("Login ou mot de passe incorrect");
+			return;
+		}
+		$('#compte').html('Bonjour '+html);
+		$('#buttons').html('<form method="POST" action="ajax/decoclient.php"><input type="submit" id="deconnexion" value="D&eacute;connexion"></form>');
+	});
 });
 
 $(".vignette").click(function() {
@@ -72,6 +91,7 @@ $(".cat").click(function() {
   });
  
 });
+
 
 
 
