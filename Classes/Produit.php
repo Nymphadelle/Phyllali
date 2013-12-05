@@ -5,6 +5,34 @@ require_once 'Connect.php';
 
 class Produit extends Connect{
 
+	public function insertProduct($cat,$user,$libelle,$description,$etat,$photo){
+		/* $sql = "SELECT ID_VILLE FROM VILLE WHERE NOM_VILLE='".strtoupper($ville)."' AND CODE_POSTAL_=".$cp."";
+		$ret = $this->executerRequete($sql);
+		$indiceVille = odbc_result($ret,'ID_VILLE');
+		
+		// si la ville n'existe pas on insère
+		if ( $indiceVille == '' ) {
+			// on insère 
+			$sql = "INSERT INTO VILLE(NOM_VILLE,CODE_POSTAL_) VALUES ('".strtoupper($ville)."', ".$cp.");";
+			$this->executerRequete($sql);
+			// obtenir le max de l'indice actuel
+			$sql = "SELECT MAX(ID_VILLE) as ID FROM VILLE";
+			$ret = $this->executerRequete($sql);
+			$indiceVille = odbc_result($ret,'ID');
+		}
+		 */
+		// on insère l'utilisateur
+		$sql = "INSERT INTO PORDUIT (ID_CATEGORIE,UTIL_ID,LIBELLE_PDT,DESCRIPTION,DATE_FIN,ETAT,PHOTO_PDT) VALUES (".$cat.",".$user.",'".$libelle."','".$description."','','".$etat."','".$photo."');";
+		//$this->executerRequete($sql);
+		$sql = "SELECT MAX(UTIL_ID) as ID FROM UTILISATEUR";
+		//$ret = $this->executerRequete($sql);
+		//$indiceUtil = odbc_result($ret,'ID');
+		
+		// on insère ses identifiants de connexion
+		$sql = "INSERT INTO CONNEXION (mail,mdp,util) VALUES ('".$mail."','".$mdp."',".$indiceUtil.");";
+		//$this->executerRequete($sql);
+	}
+	
 	//renvoie la liste des produits
 	public function getProduits(){
 		$sql ='select * from PRODUIT';

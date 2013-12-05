@@ -45,7 +45,31 @@ $('#presentation').on('click', '#envoyer', function(event){
 	validerInscription();
 });
 
+//formulaire pour ajouter un objet
+$('html').on('click', '#ajouter', function(event){
+	// on annule le comportemet par défaut du bouton
+	event.preventDefault();
+	$.ajax({
+		type:"POST",
+		url:"ajax/ajouterproduit.php"
+	})
+	.done(function( html ) {
+		$("#presentation").html(html);
+	});
+});
 
+//insérer un objet - fonctionne pas
+$('html').on('click', '#valider_objet', function(event){
+	alert();
+	$.ajax({
+		type:"POST",
+		url:"ajax/insererproduit.php"
+		data:{libele:$("#libelle").val(), cat:$("#cat").val(), description:$("#description").val(), etat:$("#etat").val(), delai:$("#etat").val(), photo:$("#photo").val()}
+	})
+	.done(function( html ) {
+		$(location).attr('href',"index.php");
+	});
+});
 
 // bouton connexion
 $("#connexion").click(function() {

@@ -11,28 +11,31 @@ require_once '../Classes/Categorie.php';
 		</TR>
 
 		<TR>
-			<TD>Cat&ecute;gorie</TD><!-- catégorie -->
+			<TD>Cat&eacute;gorie</TD><!-- catégorie -->
 			<TD>
-				<select name="select">
+				<select id="cat">
 				<?php
 				$cat = new Categorie;
+				
+				//on affiche chaque catégorie
 				$tab_cat = array();
 				$tab_cat = $cat->getCategories();
+				
+				
 				foreach($tab_cat as $row){
 					//print_r($row);
 					echo '<option value="'.$row['ID_CATEGORIE'].'">'.$row['NOM_CATEG'].'</option>';
 					
+					//on affiche les sous catégories directement sous leur catégorie
 					$tab_scat = array();
 					$tab_scat = $cat->getSousCategories($row['ID_CATEGORIE']);
+					
 					foreach($tab_scat as $row){
 						echo '<option value="'.$row['ID_CATEGORIE'].'"> - '.$row['NOM_CATEG'].'</option>';;
 					}
 				}
-				// <select name="select">
-					// <option value="1">bangalore</option>
-					// <option value="2">mumbai</option>
-				// </select>
 				?>
+				</select>
 			</TD>
 		</TR>
 
@@ -51,15 +54,24 @@ require_once '../Classes/Categorie.php';
 		</TR>
 
 		<TR>
+			<TD>Choix d&eacute;lai d'activit&eacute;</TD>
+			<TD>
+			<INPUT type=radio id="delai" value="12"><label>12 heures</label>
+			<INPUT type=radio id="delai" value="24" checked><label>24 heures</label>
+			<INPUT type=radio id="delai" value="48"><label>48 heures</label>
+			</TD>
+		</TR>
+		
+		<TR>
 			<TD>Photo</TD>
 			<TD>
-			<INPUT type=password id="photo">
+			<INPUT type=file id="photo">
 			</TD>
 		</TR>
 
 		<TR>
 			<TD COLSPAN=2>
-			<INPUT type="submit" value="Ajouter l'objet" id="ajouter">
+			<INPUT type="button" value="Ajouter l'objet" id="valider_objet">
 			</TD>
 		</TR>
 	</TABLE>
