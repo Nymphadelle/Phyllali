@@ -200,3 +200,8 @@ opacity: 0.5;
 	float:left;
 	margin-left:1000px;
 }
+
+#ListerSouhaits{
+	margin:10px 0 10px 250px;
+	border:1px solid black;
+}
