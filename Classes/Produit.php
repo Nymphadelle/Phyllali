@@ -40,7 +40,7 @@ class Produit extends Connect{
 	
 	//renvoie un produit via son id
 	public function getProduitParId($id_pdt){
-		$sql = "select PRODUIT.ID_CATEGORIE, NOM_CATEG, PRODUIT.UTIL_ID, mail,";
+		$sql = "select PDT_ID,PRODUIT.ID_CATEGORIE, NOM_CATEG, PRODUIT.UTIL_ID, mail,";
 		$sql .=" LIBELLE_PDT, DESCRIPTION, DATE_FIN, ETAT, PHOTO_PDT ";
 		$sql .=" FROM UTILISATEUR, CONNEXION, PRODUIT, CATEGORIE" ;
 		$sql .= " WHERE util = PRODUIT.UTIL_ID AND CATEGORIE.ID_CATEGORIE = ";
@@ -58,6 +58,29 @@ class Produit extends Connect{
 		return $tableau;
 	}
 	
+	public function getName($id_pdt){
+		$sql = "Select LIBELLE_PDT from PRODUIT where PDT_ID=".$id_pdt;
+		$produit = $this->executerRequete($sql);
+		return odbc_result($produit,'LIBELLE_PDT');
+	}
+	
+	public function getProduitsActifsFromUtil($id_util){
+		$sql = "Select * from PRODUIT, PRODUIT_ACTIF where ";
+		$sql .= " PRODUIT_ACTIF.PDT_ID= PRODUIT.PDT_ID AND ";
+		$sql .= " PRODUIT_ACTIF.UTIL_ID = ".$id_util;
+	
+		$produits = $this->executerRequete($sql);
+		
+	$tab = array();
+		while(odbc_fetch_row($produits)){
+			$tableau = array();		
+			for($i=1;$i<=odbc_num_fields($produits);$i++){
+				$tableau[odbc_field_name ( $produits, $i )] =odbc_result($produits,$i);
+			}
+			array_push($tab, $tableau);
+		}
+		return $tab;
+	}
 }
 
 

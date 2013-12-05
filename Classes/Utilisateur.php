@@ -65,4 +65,12 @@ class Utilisateur extends Connect{
 		$sql = "update UTILISATEUR SET ID_VILLE=".$indiceVille.",NOM='".$nom."',PRENOM='".$prenom."',ADRESSE='".$addr."' WHERE UTIL_ID =".$id;
 		$req=$this->executerRequete($sql);
 	}
+	
+	//nom de l'utilisateur
+	public function getName($id_util){
+		$sql = "Select PRENOM from UTILISATEUR where UTIL_ID=".$id_util;
+		$util = $this->executerRequete($sql);
+		return odbc_result($util,'PRENOM');
+	}
+	
 }?>

@@ -101,6 +101,26 @@ $('body').on('click', '#validerModifInfos', function(event){
 });
 
 
+// handler sur le bouton valider un souhait
+$('html').on('click', '#valider_souhait', function(event){
+	// on annule le comportemet par défaut du bouton
+	event.preventDefault();
+	
+	var valeurs = [];
+	$(function(){
+		tabval=new Array();
+		tabval = $(":checkbox:checked").map(function(){ return $(this).val()}).get()
+	} )
+	$.ajax({
+		type:"POST",
+		url:"ajax/souhaitFini.php",
+		data:{liste_pdts:tabval}
+	})
+	.done(function( html ) {
+		$( ".Aff_Produits" ).html(html);
+	});
+});
+
 
 // bouton connexion
 $("#connexion").click(function() {
@@ -120,6 +140,9 @@ $("#connexion").click(function() {
 		$('#buttons').html('<form method="POST" action="ajax/decoclient.php"><input type="submit" id="deconnexion" value="Déconnexion"></form>');
 	});
 });
+
+
+
 
 $(".vignette").click(function() {
 // appel de la page afficheProduit.php
@@ -158,6 +181,20 @@ $("body").on('click', "#listeSouhaits", function(event){
 });
 
 
+// bouton ficheSouhait
+$("#souhaiter").click(function() {
+	$.ajax({
+		
+		url:"ajax/ficheSouhait.php",
+		
+		data:{idPdtVoulu:$(".pdt").attr("id"), util_id:$(".proprietaire").attr("id")}
+	})
+	.done(function( html ) {
+		// si l'appel a reussi, on affiche le résultat
+		$( ".Produit" ).html(html);
+		
+		});
+});
 $("body").on('click', ".mesSouhaits", function(event){
 	event.preventDefault();
 	$.ajax({
