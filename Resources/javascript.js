@@ -132,7 +132,8 @@ $('html').on('click', '#valider_souhait', function(event){
 
 
 // bouton connexion
-$("#connexion").click(function() {
+$("#connexion").unbind().click(function(event) {
+	console.log('event connexion');
 	event.preventDefault();
 	$.ajax({
 		type:"POST",
@@ -144,6 +145,7 @@ $("#connexion").click(function() {
 			alert("Login ou mot de passe incorrect");
 			return;
 		}
+		console.log('maj html');
 		$('#compte').html('Bonjour, '+html);
 		$("<div id='picto'><a id='modpro' title='Modifier profil'> M </a><a title='Ajouter produit'> A </a><a id='listeSouhaits' title='Liste de souhaits'> S </a></div>").insertAfter('#compte');
 		$('#buttons').html('<form method="POST" action="ajax/decoclient.php"><input type="submit" id="deconnexion" value="Déconnexion"></form>');
