@@ -145,7 +145,7 @@ $("#connexion").click(function() {
 			return;
 		}
 		$('#compte').html('Bonjour, '+html);
-		$("<div id='picto'><a id='modpro' title='Modifier profil'> M </a><a title='Ajouter produit'> A </a><a title='Liste de souhaits'> S </a></div>").insertAfter('#compte');
+		$("<div id='picto'><a id='modpro' title='Modifier profil'> M </a><a title='Ajouter produit'> A </a><a id='listeSouhaits' title='Liste de souhaits'> S </a></div>").insertAfter('#compte');
 		$('#buttons').html('<form method="POST" action="ajax/decoclient.php"><input type="submit" id="deconnexion" value="Déconnexion"></form>');
 	});
 });
@@ -222,5 +222,18 @@ $("#souhaiter").click(function() {
 		
 		});
 });
+$("body").on('click', ".mesSouhaits", function(event){
+	event.preventDefault();
+	$.ajax({
+		type:"POST",
+		url:"ajax/listeSouhaits.php",
+		data:{souhaits:$(this).data("type")}
+	})
+	.done(function(html){
+		$("#presentation").html(html);
+	})
+});
+
+
 
 
