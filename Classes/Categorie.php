@@ -2,7 +2,7 @@
 <?php
 
 require_once 'Connect.php';
-
+header('Content-Type: text/html; charset=iso-8859-1');
 class Categorie extends Connect{
 
 
@@ -45,6 +45,11 @@ public function getSousCategories($id_categ){
 	return $tableau;
 }
 
-
+public function getLibelle($id) {
+	$sql = 'select ID_CATEGORIE,NOM_CATEG from CATEGORIE ID_CATEGORIE WHERE ID_CATEGORIE = '.$id;
+	$categorie = $this->executerRequete($sql);	
+	return (odbc_result ( $categorie, 'NOM_CATEG' ));
+}
+	
 }
 ?>

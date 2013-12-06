@@ -34,6 +34,15 @@ function validerProfil() {
   data: { nom: $("#nom").val(), prenom: $("#prenom").val(), addr:$("#addr").val(), cp:$("#cp").val(), ville:$("#ville").val() }
 })
   .done(function() {
+		 html = " 	  <div class=\"toggler\">";
+		 html +=	  "<div id=\"effect\" class=\"ui-widget-content ui-corner-all\">";
+		html +=	  "<h3 class=\"ui-widget-header ui-corner-all\">Effectu&eacute;</h3>";
+		html +=	  "	  </div>";
+		html +=	  "	</div>";
+		$( "#presentation" ).html(html);
+
+
+
       // run the currently selected effect
     $( "#effect" ).show( "highlight", {}, 500 );
      setTimeout(function() {
@@ -135,7 +144,7 @@ $("#connexion").click(function() {
 			alert("Login ou mot de passe incorrect");
 			return;
 		}
-		$('#compte').html('Bonjour '+html);
+		$('#compte').html('Bonjour, '+html);
 		$("<div id='picto'><a id='modpro' title='Modifier profil'> M </a><a title='Ajouter produit'> A </a><a title='Liste de souhaits'> S </a></div>").insertAfter('#compte');
 		$('#buttons').html('<form method="POST" action="ajax/decoclient.php"><input type="submit" id="deconnexion" value="Déconnexion"></form>');
 	});
@@ -157,6 +166,8 @@ $(".vignette").click(function() {
   });
 });
 
+
+// Clic sur une catégorie
 $(".cat").click(function() {
 // appel de la page categProduit.php
  	$.ajax({
@@ -165,11 +176,27 @@ $(".cat").click(function() {
 	  data: {id_categ: this.id}
 	})
 	.done(function( html ) {
+
 		// si l'appel a reussi, on affiche le résultat
 		$( "#presentation" ).html(html);
   });
  
 });
+
+// Clic sur une sous categorie
+$(".sous_cat").click(function() {
+ 	$.ajax({
+	  type:"GET",
+	  url: "ajax/sousCategProduit.php",
+	  data: {id_categ: this.id}
+	})
+	.done(function( html ) {
+		$( ".Aff_Produits" ).html(html);
+  });
+});
+
+
+
 
 $("body").on('click', "#listeSouhaits", function(event){
 	$.ajax({

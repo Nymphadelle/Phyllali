@@ -3,6 +3,7 @@
 require_once 'Classes/Produit.php';
 require_once 'Classes/Categorie.php';
 session_start();
+
 $donnees = new Categorie();
 $categories = $donnees->getCategories();
 
@@ -29,7 +30,7 @@ $produits = $donnees->getProduits();
 		<div id="compte">
 		<?php
 		if(isset($_SESSION['id']) && $_SESSION['id'] != ''){
-			echo "Bonjour ".$_SESSION['prenom'];
+			echo "Bonjour, ".$_SESSION['prenom'];
 			echo "</div>";
 			echo "<div id='picto'>";
 			echo "<a id='modpro' title='Modifier profil'> M </a>";
@@ -68,31 +69,22 @@ $produits = $donnees->getProduits();
 		</ul>
 	</div>
 
-	  <div class="toggler">
-  <div id="effect" class="ui-widget-content ui-corner-all">
-    <h3 class="ui-widget-header ui-corner-all">Effectué</h3>
-  </div>
-</div>
+
 
 	<div id="presentation">
 	<h1> Troc en ligne</h1>
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </br>
-	Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-	produits...</br>
-
 	
-	
-	
-	
-	<?php 
-
-	foreach($produits as $produit){
-
-	echo "Nom du produit : ".$produit['LIBELLE_PDT']."</br>";
-
-
-	}
+	<?php
+		// si authentifié
+		if(isset($_SESSION['id']) && $_SESSION['id'] != '')
+			echo 'affichage des paires de produits ici.';
+		// si pas authentifié
+		else
+			echo 'affichage des produits bientot fini ici.';
 	?>
+			
+
+	
 	</div>
 
 	

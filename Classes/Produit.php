@@ -38,6 +38,8 @@ class Produit extends Connect{
 		return $tab;
 	}
 	
+
+	
 	//renvoie un produit via son id
 	public function getProduitParId($id_pdt){
 		$sql = "select PDT_ID,PRODUIT.ID_CATEGORIE, NOM_CATEG, PRODUIT.UTIL_ID, mail,";
