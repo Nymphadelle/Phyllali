@@ -14,6 +14,7 @@ class Produit extends Connect{
 			$tableau = array();		
 			for($i=1;$i<=odbc_num_fields($produits);$i++){
 				$tableau[odbc_field_name ( $produits, $i )] =odbc_result($produits,$i);
+
 			}
 			array_push($tab, $tableau);
 		}
@@ -80,6 +81,24 @@ class Produit extends Connect{
 				$tableau[odbc_field_name ( $produits, $i )] =odbc_result($produits,$i);
 			}
 			array_push($tab, $tableau);
+		}
+		return $tab;
+	}
+	
+	public function getPoids() {
+		$sql = "select PDT_ID,POIDS_APPAIRAGE from PRODUIT";
+		$produits = $this->executerRequete($sql);
+		$tab = array();
+		$lettre = 'a';
+		while(odbc_fetch_row($produits)){
+			$tableau = array();		
+			for($i=1;$i<=odbc_num_fields($produits);$i++){
+				$tableau[odbc_field_name ( $produits, $i )] =odbc_result($produits,$i);
+				$tableau['lettre'] = $lettre;
+				
+			}
+			array_push($tab, $tableau);
+			$lettre++;
 		}
 		return $tab;
 	}
