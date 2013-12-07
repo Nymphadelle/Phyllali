@@ -102,6 +102,11 @@ class Produit extends Connect{
 		}
 		return $tab;
 	}
+	
+	public function insertCouple($p1,$p2) {
+		$sql = "insert into COUPLES_PRODUITS(P1,P2) VALUES ($p1,$p2)";
+		$produits = $this->executerRequete($sql);
+	}
 }
 
 

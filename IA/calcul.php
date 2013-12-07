@@ -21,12 +21,15 @@ if (sizeof($poids) %2 != 0)
 	array_pop($poids);
 
 	$array = array();
-	
+
+$hash = array();	
 // on renseigne le tableau de valeurs pour créer les combinaisons
 foreach ($poids as $val) {
+	$hash[$val['lettre']] = $val['PDT_ID'];
 	$tmp = array($val['lettre'],$val['POIDS_APPAIRAGE']);
 	array_push($array,$tmp);
 }
+
 
 $array2 = array();
 $array3 = array();
@@ -98,5 +101,10 @@ while(!$trouve && sizeof($a) != 0) {
 	}
 }
 
-print_r($solution);
+$couples = array();
+foreach($solution->sol as $couple) {
+	$prod->insertCouple($hash[substr($couple->action[0],0,1)],$hash[substr($couple->action[0],1,1)]);
+}
+
+
 ?>
