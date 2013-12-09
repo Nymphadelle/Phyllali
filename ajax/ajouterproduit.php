@@ -21,10 +21,8 @@ require_once '../Classes/Categorie.php';
 				$tab_cat = array();
 				$tab_cat = $cat->getCategories();
 				
-				
 				foreach($tab_cat as $row){
-					//print_r($row);
-					echo '<option value="'.$row['ID_CATEGORIE'].'">'.$row['NOM_CATEG'].'</option>';
+					echo '<option id="'.$row['ID_CATEGORIE'].'">'.$row['NOM_CATEG'].'</option>';
 					
 					//on affiche les sous catégories directement sous leur catégorie
 					$tab_scat = array();
@@ -56,9 +54,9 @@ require_once '../Classes/Categorie.php';
 		<TR>
 			<TD>Choix d&eacute;lai d'activit&eacute;</TD>
 			<TD>
-			<INPUT type=radio id="delai" value="12"><label>12 heures</label>
-			<INPUT type=radio id="delai" value="24" checked><label>24 heures</label>
-			<INPUT type=radio id="delai" value="48"><label>48 heures</label>
+			<INPUT type=radio id="delai12" name="delai" value="12" checked><label>12 heures</label>
+			<INPUT type=radio id="delai24" name="delai" value="24"><label>24 heures</label>
+			<INPUT type=radio id="delai48" name="delai" value="48"><label>48 heures</label>
 			</TD>
 		</TR>
 		

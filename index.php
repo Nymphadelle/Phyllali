@@ -34,11 +34,10 @@ $produits = $donnees->getProduits();
 			echo "</div>";
 			echo "<div id='picto'>";
 			echo "<a id='modpro' title='Modifier profil'> M </a>";
-			echo "<a title='Ajouter produit'> A </a>";
+			echo "<a id='ajouter' title='Ajouter produit'> A </a>";
 			echo "<a id='listeSouhaits' title='Liste de souhaits'> S </a>";
 			echo "</div>";
 			echo "<div id='buttons'>";
-			echo "<form method='POST' action ='#'><input type='submit' id='ajouter' value='+'></form><br>";
 			echo "<form method='POST' action ='ajax/decoclient.php'><input type='submit' id='deconnexion' value='Déconnexion'></form>";
 			echo "</div>";
 
