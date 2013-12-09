@@ -58,13 +58,12 @@ $('html').on('click', '#ajouter', function(event){
 	});
 });
 
-//insérer un objet - fonctionne pas
+//insérer un objet
 $('html').on('click', '#valider_objet', function(event){
-	alert();
 	$.ajax({
 		type:"POST",
-		url:"ajax/insererproduit.php"
-		data:{libele:$("#libelle").val(), cat:$("#cat").val(), description:$("#description").val(), etat:$("#etat").val(), delai:$("#etat").val(), photo:$("#photo").val()}
+		url:"ajax/insererproduit.php",
+		data:{libele:$("#libelle").val(), cat:$("#cat").val(), description:$("#description").val(), etat:$("#etat").val(), delai:$("#delai").val(), photo:$("#photo").val()}
 	})
 	.done(function( html ) {
 		$(location).attr('href',"index.php");
