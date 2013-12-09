@@ -60,7 +60,9 @@ Enregistrement d'un utilisateur
 <TR>
 	<TD COLSPAN=2>
 	<INPUT type="submit" value="Envoyer" id="envoyer">
+	<INPUT type="submit" value="Annuler" id="annuler">
 	</TD>
 </TR>
+
 </TABLE>
 </FORM>

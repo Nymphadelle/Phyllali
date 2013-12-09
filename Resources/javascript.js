@@ -8,14 +8,56 @@ function validerInscription() {
   data: { nom: $("#nom").val(), prenom: $("#prenom").val(), mail:$("#mail").val(), psw:$("#psw").val(), addr:$("#addr").val(), cp:$("#cp").val(), ville:$("#ville").val() }
 })
   .done(function( msg ) {
-    $(location).attr('href',"index.php");
+      // run the currently selected effect
+    $( "#effect" ).show( "highlight", {}, 500 );
+     setTimeout(function() {
+        $( "#effect:visible" ).removeAttr( "style" ).fadeOut();
+		 $(location).attr('href',"index.php");
+      }, 1500 );   
   });
 }
 
+function modifProfil() {
+	$.ajax({
+  type: "POST",
+  url: "ajax/getclient.php"
+})
+  .done(function( html ) {
+		$( "#presentation" ).html(html);
+  });
+}
+
+function validerProfil() {
+	$.ajax({
+  type: "POST",
+  url: "ajax/majclient.php",
+  data: { nom: $("#nom").val(), prenom: $("#prenom").val(), addr:$("#addr").val(), cp:$("#cp").val(), ville:$("#ville").val() }
+})
+  .done(function() {
+		 html = " 	  <div class=\"toggler\">";
+		 html +=	  "<div id=\"effect\" class=\"ui-widget-content ui-corner-all\">";
+		html +=	  "<h3 class=\"ui-widget-header ui-corner-all\">Effectu&eacute;</h3>";
+		html +=	  "	  </div>";
+		html +=	  "	</div>";
+		$( "#presentation" ).html(html);
+
+
+
+      // run the currently selected effect
+    $( "#effect" ).show( "highlight", {}, 500 );
+     setTimeout(function() {
+        $( "#effect:visible" ).removeAttr( "style" ).fadeOut();
+		 $(location).attr('href',"index.php");
+      }, 1500 );   
+  });
+}
 
 //////////////////////////////////////////
 //////////////// HANDLERS ////////////////
 //////////////////////////////////////////
+// on cache par defaut
+$("#effect").hide();
+
 // clic bouton enregistrer
 $("#enregistrer").click(function() {
 	// appel de la page creaclient.php
@@ -41,37 +83,57 @@ $('#presentation').on('click', '#envoyer', function(event){
 		alert('les mails ne correspondent pas');
 		return;
 	}
-	
 	validerInscription();
 });
 
-//formulaire pour ajouter un objet
-$('html').on('click', '#ajouter', function(event){
+// handler sur le bouton envoyer (utilisation de delegates car le bouton est jouté dynamiquement)
+$('#annuler').on('click', '#envoyer', function(event){
 	// on annule le comportemet par défaut du bouton
 	event.preventDefault();
+	$(location).attr('href',"index.php");
+});
+
+// handler sur l'ancre modifier profil utilisateur
+$('body').on('click', '#modpro', function(event){
+	// on annule le comportemet par défaut de l'ancre
+	event.preventDefault();
+	modifProfil();
+	
+	
+});
+
+// handler sur l'ancre modifier profil utilisateur
+$('body').on('click', '#validerModifInfos', function(event){
+	// on annule le comportemet par défaut de l'ancre
+	event.preventDefault();
+	validerProfil();
+});
+
+
+// handler sur le bouton valider un souhait
+$('html').on('click', '#valider_souhait', function(event){
+	// on annule le comportemet par défaut du bouton
+	event.preventDefault();
+	
+	var valeurs = [];
+	$(function(){
+		tabval=new Array();
+		tabval = $(":checkbox:checked").map(function(){ return $(this).val()}).get()
+	} )
 	$.ajax({
 		type:"POST",
-		url:"ajax/ajouterproduit.php"
+		url:"ajax/souhaitFini.php",
+		data:{liste_pdts:tabval}
 	})
 	.done(function( html ) {
-		$("#presentation").html(html);
+		$( ".Aff_Produits" ).html(html);
 	});
 });
 
-//insérer un objet
-$('html').on('click', '#valider_objet', function(event){
-	$.ajax({
-		type:"POST",
-		url:"ajax/insererproduit.php",
-		data:{libele:$("#libelle").val(), cat:$("#cat").val(), description:$("#description").val(), etat:$("#etat").val(), delai:$("#delai").val(), photo:$("#photo").val()}
-	})
-	.done(function( html ) {
-		$(location).attr('href',"index.php");
-	});
-});
 
 // bouton connexion
-$("#connexion").click(function() {
+$("#connexion").unbind().click(function(event) {
+	console.log('event connexion');
 	event.preventDefault();
 	$.ajax({
 		type:"POST",
@@ -83,10 +145,15 @@ $("#connexion").click(function() {
 			alert("Login ou mot de passe incorrect");
 			return;
 		}
-		$('#compte').html('Bonjour '+html);
-		$('#buttons').html('<form method="POST" action="ajax/decoclient.php"><input type="submit" id="deconnexion" value="D&eacute;connexion"></form>');
+		console.log('maj html');
+		$('#compte').html('Bonjour, '+html);
+		$("<div id='picto'><a id='modpro' title='Modifier profil'> M </a><a title='Ajouter produit'> A </a><a id='listeSouhaits' title='Liste de souhaits'> S </a></div>").insertAfter('#compte');
+		$('#buttons').html('<form method="POST" action="ajax/decoclient.php"><input type="submit" id="deconnexion" value="Déconnexion"></form>');
 	});
 });
+
+
+
 
 $(".vignette").click(function() {
 // appel de la page afficheProduit.php
@@ -101,6 +168,8 @@ $(".vignette").click(function() {
   });
 });
 
+
+// Clic sur une catégorie
 $(".cat").click(function() {
 // appel de la page categProduit.php
  	$.ajax({
@@ -108,11 +177,63 @@ $(".cat").click(function() {
 	  url: "ajax/categProduit.php",
 	  data: {id_categ: this.id}
 	})
-  .done(function( html ) {
+	.done(function( html ) {
+
 		// si l'appel a reussi, on affiche le résultat
 		$( "#presentation" ).html(html);
   });
  
+});
+
+// Clic sur une sous categorie
+$(".sous_cat").click(function() {
+ 	$.ajax({
+	  type:"GET",
+	  url: "ajax/sousCategProduit.php",
+	  data: {id_categ: this.id}
+	})
+	.done(function( html ) {
+		$( ".Aff_Produits" ).html(html);
+  });
+});
+
+
+
+
+$("body").on('click', "#listeSouhaits", function(event){
+	$.ajax({
+		url:"ajax/listeSouhaits.php"
+	})
+	.done(function(html) {
+		$("#presentation").html(html);
+	})
+});
+
+
+// bouton ficheSouhait
+$("#souhaiter").click(function() {
+	$.ajax({
+		
+		url:"ajax/ficheSouhait.php",
+		
+		data:{idPdtVoulu:$(".pdt").attr("id"), util_id:$(".proprietaire").attr("id")}
+	})
+	.done(function( html ) {
+		// si l'appel a reussi, on affiche le résultat
+		$( ".Produit" ).html(html);
+		
+		});
+});
+$("body").on('click', ".mesSouhaits", function(event){
+	event.preventDefault();
+	$.ajax({
+		type:"POST",
+		url:"ajax/listeSouhaits.php",
+		data:{souhaits:$(this).data("type")}
+	})
+	.done(function(html){
+		$("#presentation").html(html);
+	})
 });
 
 
