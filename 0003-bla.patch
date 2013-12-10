@@ -1,0 +1,81 @@
+From ca6c528ad1cfdbd0a5b9717e333a42e099a43dac Mon Sep 17 00:00:00 2001
+From: a <a>
+Date: Mon, 9 Dec 2013 18:25:03 +0100
+Subject: [PATCH 3/4] bla
+
+---
+ Classes/Produit.php     | 11 ++++++-----
+ Resources/javascript.js |  7 +++----
+ index.php               |  2 +-
+ 3 files changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/Classes/Produit.php b/Classes/Produit.php
+index dbe3dbc..5a8a4dd 100644
+--- a/Classes/Produit.php
++++ b/Classes/Produit.php
+@@ -5,7 +5,7 @@ require_once 'Connect.php';
+ 
+ class Produit extends Connect{
+ 
+-	public function insertProduct($cat,$user,$libelle,$description,$etat,$photo){
++	public function insertProduct($cat,$user,$libelle,$description,$etat,$delai,$photo){
+ 		/* $sql = "SELECT ID_VILLE FROM VILLE WHERE NOM_VILLE='".strtoupper($ville)."' AND CODE_POSTAL_=".$cp."";
+ 		$ret = $this->executerRequete($sql);
+ 		$indiceVille = odbc_result($ret,'ID_VILLE');
+@@ -22,14 +22,15 @@ class Produit extends Connect{
+ 		}
+ 		 */
+ 		// on insère l'utilisateur
+-		$sql = "INSERT INTO PORDUIT (ID_CATEGORIE,UTIL_ID,LIBELLE_PDT,DESCRIPTION,DATE_FIN,ETAT,PHOTO_PDT) VALUES (".$cat.",".$user.",'".$libelle."','".$description."','','".$etat."','".$photo."');";
+-		//$this->executerRequete($sql);
+-		$sql = "SELECT MAX(UTIL_ID) as ID FROM UTILISATEUR";
++		
++		$sql = "INSERT INTO PORDUIT (ID_CATEGORIE,UTIL_ID,LIBELLE_PDT,DESCRIPTION,DATE_FIN,ETAT,PHOTO_PDT) VALUES (".$cat.",".$user.",'".$libelle."','".$description."','now()','".$etat."','".$photo."');";
++		$this->executerRequete($sql);
++		//$sql = "SELECT MAX(UTIL_ID) as ID FROM UTILISATEUR";
+ 		//$ret = $this->executerRequete($sql);
+ 		//$indiceUtil = odbc_result($ret,'ID');
+ 		
+ 		// on insère ses identifiants de connexion
+-		$sql = "INSERT INTO CONNEXION (mail,mdp,util) VALUES ('".$mail."','".$mdp."',".$indiceUtil.");";
++		//$sql = "INSERT INTO CONNEXION (mail,mdp,util) VALUES ('".$mail."','".$mdp."',".$indiceUtil.");";
+ 		//$this->executerRequete($sql);
+ 	}
+ 	
+diff --git a/Resources/javascript.js b/Resources/javascript.js
+index 2c8cca2..0819783 100644
+--- a/Resources/javascript.js
++++ b/Resources/javascript.js
+@@ -58,13 +58,12 @@ $('html').on('click', '#ajouter', function(event){
+ 	});
+ });
+ 
+-//insÃ©rer un objet - fonctionne pas
++//insÃ©rer un objet
+ $('html').on('click', '#valider_objet', function(event){
+-	alert();
+ 	$.ajax({
+ 		type:"POST",
+-		url:"ajax/insererproduit.php"
+-		data:{libele:$("#libelle").val(), cat:$("#cat").val(), description:$("#description").val(), etat:$("#etat").val(), delai:$("#etat").val(), photo:$("#photo").val()}
++		url:"ajax/insererproduit.php",
++		data:{libele:$("#libelle").val(), cat:$("#cat").val(), description:$("#description").val(), etat:$("#etat").val(), delai:$("#delai").val(), photo:$("#photo").val()}
+ 	})
+ 	.done(function( html ) {
+ 		$(location).attr('href',"index.php");
+diff --git a/index.php b/index.php
+index dbaa847..64f4aef 100644
+--- a/index.php
++++ b/index.php
+@@ -29,7 +29,7 @@ $produits = $donnees->getProduits();
+ 			echo "Bonjour ".$_SESSION['prenom'];
+ 			echo "</div>";
+ 			echo "<div id='buttons'>";
+-			echo "<form method='POST' action ='#'><input type='submit' id='ajouter' value='+'></form>";
++			echo "<form method='POST' action ='#'><input type='submit' id='ajouter' value='+'></form><br>";
+ 			echo "<form method='POST' action ='ajax/decoclient.php'><input type='submit' id='deconnexion' value='Déconnexion'></form>";
+ 			echo "</div>";
+ 		}
+-- 
+1.8.4.msysgit.0
+
