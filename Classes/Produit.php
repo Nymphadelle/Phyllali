@@ -5,6 +5,19 @@ require_once 'Connect.php';
 
 class Produit extends Connect{
 
+	public function insertProduct($cat,$user,$libelle,$description,$etat,$delai,$photo){
+		// on insère le nouveau produit
+		$sql = "INSERT INTO PRODUIT (ID_CATEGORIE,UTIL_ID,LIBELLE_PDT,DESCRIPTION,DATE_FIN,ETAT,PHOTO_PDT) VALUES (".$cat.",".$user.",'".$libelle."','".$description."',dateadd(hh,".$delai.",getdate()),'".$etat."','".$photo."') SELECT @@identity AS ID;";
+
+		$res = $this->executerRequete($sql);
+		//on récupère l'id du produit inséré
+		$id_prod = odbc_result($res,'ID');
+		
+		//on l'insère ensuite dans les produits actifs
+		$sql = "INSERT INTO PRODUIT_ACTIF (PDT_ID,UTIL_ID) VALUES (".$id_prod.",".$user.");";
+		$this->executerRequete($sql);
+	}
+	
 	//renvoie la liste des produits
 	public function getProduits(){
 		$sql ='select * from PRODUIT';

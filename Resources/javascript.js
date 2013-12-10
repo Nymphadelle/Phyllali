@@ -52,6 +52,27 @@ function validerProfil() {
   });
 }
 
+function ajoutProduit() {
+	$.ajax({
+  type: "POST",
+  url: "ajax/ajouterproduit.php"
+})
+  .done(function( html ) {
+		$( "#presentation" ).html(html);
+  });
+}
+
+function insererProduit() {
+	$.ajax({
+  type: "POST",
+  url: "ajax/insererproduit.php",
+  data: { libelle: $("#libelle").val(), cat: $("#cat").val(), description: $("#description").val(), etat: $("#etat").val(), delai: $("input[name=delai]:checked").val(), photo: $("#photo").val()}
+})
+  .done(function( html ) {
+		$( "#presentation" ).html(html);
+  });
+}
+
 //////////////////////////////////////////
 //////////////// HANDLERS ////////////////
 //////////////////////////////////////////
@@ -130,6 +151,21 @@ $('html').on('click', '#valider_souhait', function(event){
 	});
 });
 
+// handler sur le bouton ajouter un produit
+$('body').on('click', '#ajouter', function(event){
+	// on annule le comportemet par défaut de l'ancre
+	event.preventDefault();
+	ajoutProduit();
+	
+});
+
+$('html').on('click', '#valider_objet', function(event){
+	// on annule le comportemet par défaut de l'ancre
+	
+	event.preventDefault();
+	insererProduit();
+	
+});
 
 // bouton connexion
 $("#connexion").unbind().click(function(event) {
@@ -147,13 +183,10 @@ $("#connexion").unbind().click(function(event) {
 		}
 		console.log('maj html');
 		$('#compte').html('Bonjour, '+html);
-		$("<div id='picto'><a id='modpro' title='Modifier profil'> M </a><a title='Ajouter produit'> A </a><a id='listeSouhaits' title='Liste de souhaits'> S </a></div>").insertAfter('#compte');
+		$("<div id='picto'><a id='modpro' title='Modifier profil'> M </a><a id='ajouter' title='Ajouter produit'> A </a><a id='listeSouhaits' title='Liste de souhaits'> S </a></div>").insertAfter('#compte');
 		$('#buttons').html('<form method="POST" action="ajax/decoclient.php"><input type="submit" id="deconnexion" value="Déconnexion"></form>');
 	});
 });
-
-
-
 
 $(".vignette").click(function() {
 // appel de la page afficheProduit.php
