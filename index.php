@@ -38,7 +38,7 @@ $produits = $donnees->getProduits();
 			echo "<a id='listeSouhaits' title='Liste de souhaits'> S </a>";
 			echo "</div>";
 			echo "<div id='buttons'>";
-			echo "<form method='POST' action ='ajax/decoclient.php'><input type='submit' id='deconnexion' value='Déconnexion'></form>";
+			echo "<form method='POST' action ='ajax/decoclient.php'><input type='submit' id='deconnexion' value='DÃ©connexion'></form>";
 			echo "</div>";
 
 		}
@@ -75,10 +75,10 @@ $produits = $donnees->getProduits();
 	<h1> Troc en ligne</h1>
 	
 	<?php
-		// si authentifié
+		// si authentifiÃ©
 		if(isset($_SESSION['id']) && $_SESSION['id'] != '')
 			echo 'affichage des paires de produits ici.';
-		// si pas authentifié
+		// si pas authentifiÃ©
 		else
 			echo 'affichage des produits bientot fini ici.';
 	?>

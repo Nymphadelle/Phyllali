@@ -61,7 +61,9 @@ else if(isset($mesSouhaits) && $mesSouhaits == 0){
 			echo "<br><br>";
 			$i++;
 		}
+	echo "<a class='boutonTroc'><img src='Resources/images/troc.png' width='175'></a>";
 	}
+	
 	else{
 		echo "Aucune demande de troc en cours";
 	}
