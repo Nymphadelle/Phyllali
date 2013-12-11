@@ -83,7 +83,6 @@ margin-top:2px;
 
 #compte{
 float:left;
-width:300px;
 margin-left:720px;
 position:absolute;
 margin-top:2px;
@@ -175,7 +174,8 @@ color :black;
 
 .vignette{
 text-align:center;
-margin:5px;
+margin:15px;
+
 float:left;
 width:125px;
 height:125px;

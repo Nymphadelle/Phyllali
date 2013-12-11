@@ -162,8 +162,7 @@ $('html').on('click', '#valider_objet', function(event){
 	// on annule le comportemet par défaut de l'ancre
 	
 	event.preventDefault();
-	insererProduit();
-	
+	insererProduit();	
 });
 
 // bouton connexion
@@ -185,7 +184,10 @@ $("#connexion").unbind().click(function(event) {
 	});
 });
 
-$(".vignette").click(function() {
+
+
+// handler sur le bouton ajouter un produit
+$('body').on('click', '.vignette', function(event){
 // appel de la page afficheProduit.php
  	$.ajax({
 	  type:"GET",
@@ -198,8 +200,12 @@ $(".vignette").click(function() {
   });
 });
 
-
-
+$('html').on('click', '#valider_objet', function(event){
+	// on annule le comportemet par défaut de l'ancre
+	
+	event.preventDefault();
+	insererProduit();	
+});
 
 
 // Clic sur une catégorie
