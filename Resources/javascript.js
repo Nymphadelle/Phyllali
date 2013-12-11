@@ -62,17 +62,6 @@ function ajoutProduit() {
   });
 }
 
-function insererProduit() {
-	$.ajax({
-  type: "POST",
-  url: "ajax/insererproduit.php",
-  data: { libelle: $("#libelle").val(), cat: $("#cat").val(), description: $("#description").val(), etat: $("#etat").val(), delai: $("input[name=delai]:checked").val(), photo: $("#photo").val()}
-})
-  .done(function( html ) {
-		$( "#presentation" ).html(html);
-  });
-}
-
 //////////////////////////////////////////
 //////////////// HANDLERS ////////////////
 //////////////////////////////////////////
@@ -156,13 +145,6 @@ $('body').on('click', '#ajouter', function(event){
 	// on annule le comportemet par défaut de l'ancre
 	event.preventDefault();
 	ajoutProduit();	
-});
-
-$('html').on('click', '#valider_objet', function(event){
-	// on annule le comportemet par défaut de l'ancre
-	event.preventDefault();
-	insererProduit();
-	
 });
 
 // bouton connexion

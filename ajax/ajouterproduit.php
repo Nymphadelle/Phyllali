@@ -1,28 +1,28 @@
 <?php
 require_once '../Classes/Categorie.php';
 ?>
-<form method=post action="#">
+<form id="form" method=post action="./ajax/insererproduit.php" enctype="multipart/form-data">
 	<TABLE BORDER=0>
 		<TR>
 			<TD>Nom</TD><!-- libellé -->
 			<TD>
-			<INPUT type=text id="libelle">
+			<INPUT type=text name="libelle" id="libelle">
 			</TD>
 		</TR>
 
 		<TR>
 			<TD>Cat&eacute;gorie</TD><!-- catégorie -->
 			<TD>
-				<select id="cat">
+				<select id="cat" name="cat">
 				<?php
 				$cat = new Categorie;
 				
 				//on affiche chaque catégorie
 				$tab_cat = array();
 				$tab_cat = $cat->getCategories();
-				
+				echo '<option value=""></option>';
 				foreach($tab_cat as $row){
-					echo '<option value="'.$row['ID_CATEGORIE'].'">'.$row['NOM_CATEG'].'</option>';
+					echo '<OPTGROUP label="'.$row['NOM_CATEG'].'" >';
 					
 					//on affiche les sous catégories directement sous leur catégorie
 					$tab_scat = array();
@@ -31,6 +31,8 @@ require_once '../Classes/Categorie.php';
 					foreach($tab_scat as $row){
 						echo '<option value="'.$row['ID_CATEGORIE'].'"> - '.$row['NOM_CATEG'].'</option>';;
 					}
+					
+					echo '</optgroup>';
 				}
 				?>
 				</select>
@@ -40,18 +42,18 @@ require_once '../Classes/Categorie.php';
 		<TR>
 			<TD>Description</TD>
 			<TD>
-			<INPUT type=text id="description">
+			<INPUT type=text name="description" id="description">
 			</TD>
 		</TR>
 
 		<TR>
 			<TD>Etat</TD>
 			<TD>
-			<select id="etat">
-				<option value="n">Neuf</option>
-				<option value="m">Moyen</option>
-				<option value="p">Passable</option>
-				<option value="a">Abimé</option>
+			<select id="etat" name="etat">
+				<option value="N">Neuf</option>
+				<option value="M">Moyen</option>
+				<option value="P">Passable</option>
+				<option value="A">Abimé</option>
 			</select>
 			</TD>
 		</TR>
@@ -68,15 +70,24 @@ require_once '../Classes/Categorie.php';
 		<TR>
 			<TD>Photo</TD>
 			<TD>
-			<INPUT type=file id="photo">
+			<INPUT type=file name="photo" id="photo">
 			</TD>
 		</TR>
 
 		<TR>
 			<TD COLSPAN=2>
-			<INPUT type="button" value="Ajouter l'objet" id="valider_objet">
+			<INPUT type="submit" value="Ajouter l'objet" id="valider_objet"> <!-- onclick="verif(); return false;"> -->
 			</TD>
 		</TR>
 	</TABLE>
 
 </form>
+<!--<script>
+	function verif(){
+		if( $('#libelle').val()== "" || $('#description').val()== "" || $('#cat').val() == "") {
+			alert("Il faut remplir tous les champs");
+		} else {
+			window.location('./insererproduit.php');
+		}
+	}
+</script>-->
