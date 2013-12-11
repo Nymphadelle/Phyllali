@@ -160,7 +160,6 @@ $('body').on('click', '#ajouter', function(event){
 
 $('html').on('click', '#valider_objet', function(event){
 	// on annule le comportemet par défaut de l'ancre
-	
 	event.preventDefault();
 	insererProduit();
 	
@@ -197,10 +196,6 @@ $(".vignette").click(function() {
 		$( ".Aff_Produits" ).html(html);
   });
 });
-
-
-
-
 
 // Clic sur une catégorie
 $(".cat").click(function() {
