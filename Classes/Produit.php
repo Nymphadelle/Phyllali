@@ -33,6 +33,22 @@ class Produit extends Connect{
 		}
 		return $tab;
 	}
+	
+		//renvoie la liste des produits
+	public function getLastProduits(){
+		$sql ='select * from PRODUIT order by PDT_ID desc ';
+		$produits = $this->executerRequete($sql);
+		$tab = array();
+		while(odbc_fetch_row($produits)){
+			$tableau = array();		
+			for($i=1;$i<=odbc_num_fields($produits);$i++){
+				$tableau[odbc_field_name ( $produits, $i )] =odbc_result($produits,$i);
+
+			}
+			array_push($tab, $tableau);
+		}
+		return $tab;
+	}
 		
 	//renvoie la liste des produits
 	public function getProduitsParCategorie($id_categ){
@@ -119,6 +135,37 @@ class Produit extends Connect{
 	public function insertCouple($p1,$p2) {
 		$sql = "insert into COUPLES_PRODUITS(P1,P2) VALUES ($p1,$p2)";
 		$produits = $this->executerRequete($sql);
+	}
+	
+	public function getPaires($id) {
+		$sql =  "select P1 as yours, P2 as his from COUPLES_PRODUITS WHERE P1 IN(select PDT_ID FROM PRODUIT_ACTIF WHERE UTIL_ID = 7) AND P2 NOT IN(select PDT_ID FROM PRODUIT_ACTIF WHERE UTIL_ID = 7)";
+		$produits = $this->executerRequete($sql);
+		$tab = array();
+		while(odbc_fetch_row($produits)){
+			$tableau = array();		
+			for($i=1;$i<=odbc_num_fields($produits);$i++){
+				$tableau[odbc_field_name ( $produits, $i )] =odbc_result($produits,$i);
+			}
+			array_push($tab, $tableau);
+		}
+		$sql =  "select P1 as his, P2 as yours from COUPLES_PRODUITS WHERE P2 IN(select PDT_ID FROM PRODUIT_ACTIF WHERE UTIL_ID = 7) AND P1 NOT IN(select PDT_ID FROM PRODUIT_ACTIF WHERE UTIL_ID = 7)";
+		$produits = $this->executerRequete($sql);
+		while(odbc_fetch_row($produits)){
+			$tableau = array();		
+			for($i=1;$i<=odbc_num_fields($produits);$i++){
+				$tableau[odbc_field_name ( $produits, $i )] =odbc_result($produits,$i);
+			}
+			array_push($tab, $tableau);
+		}
+		
+		
+		
+		return( $tab );
+	}
+	
+	public function deleteCouples(){
+		$sql = "delete from COUPLES_PRODUITS";
+				$produits = $this->executerRequete($sql);
 	}
 }
 
