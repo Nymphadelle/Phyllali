@@ -8,7 +8,7 @@ $donnees = new Categorie();
 $categories = $donnees->getCategories();
 
 $donnees = new Produit();
-$produits = $donnees->getProduits();
+$produits = $donnees->getLastProduits();
 ?>
 <!doctype html>
 <html>
@@ -72,15 +72,58 @@ $produits = $donnees->getProduits();
 
 
 	<div id="presentation">
-	<h1> Troc en ligne</h1>
 	
 	<?php
 		// si authentifié
-		if(isset($_SESSION['id']) && $_SESSION['id'] != '')
-			echo 'affichage des paires de produits ici.';
+		if(isset($_SESSION['id']) && $_SESSION['id'] != '') {
+			$paires = $donnees->getPaires($_SESSION['id']);
+			if (count($paires) > 0) {
+				if (count($paires) == 1) {
+					echo '<div class="Aff_Produits"><h2> Nous avons peut être un échange à vous proposer ! </h2>';
+						$pdt1 = $donnees->getProduitParId($paires[0]['yours']);
+						$pdt2 = $donnees->getProduitParId($paires[0]['his']);
+						echo 'seriez vous interessé par <b>'.$pdt2['LIBELLE_PDT'].'</b> en échange de votre <b>'.$pdt1['LIBELLE_PDT'].'</b> ?<br><br>';
+						echo '<div class="vignette" id='.$pdt2["PDT_ID"].'>';
+						if($pdt2['PHOTO_PDT']!=null){
+						echo '<img src="Resources/PhotosTroc/'.$pdt2['PHOTO_PDT'].'" width="125" />';
+						}else{
+						echo '<img src="Resources/images/no_image.jpg" />';
+						}
+						echo $pdt2['LIBELLE_PDT']."</br>";
+						echo '</div></div>';
+							}
+						else {
+							echo '<h2> Ne seriez vous pas interessé par ces echanges ? </h2>';
+						}
+			}
+			else {
+				echo '<h2> Derniers produits ajoutés qui pourraient vous intéresser </h2>';
+			foreach($produits as $produit){
+				echo '<div class="vignette" id='.$produit["PDT_ID"].'>';
+				if($produit['PHOTO_PDT']!=null){
+				echo '<img src="Resources/PhotosTroc/'.$produit['PHOTO_PDT'].'" width="125" />';
+				}else{
+				echo '<img src="Resources/images/no_image.jpg" />';
+				}
+				echo $produit['LIBELLE_PDT']."</br>";
+				echo '</div>';
+			}
+			}
+		}
 		// si pas authentifié
-		else
-			echo 'affichage des produits bientot fini ici.';
+		else {
+			echo '<h2> Derniers produits ajoutés qui pourraient vous intéresser </h2>';
+			foreach($produits as $produit){
+				echo '<div class="vignette" id='.$produit["PDT_ID"].'>';
+				if($produit['PHOTO_PDT']!=null){
+				echo '<img src="Resources/PhotosTroc/'.$produit['PHOTO_PDT'].'" width="125" />';
+				}else{
+				echo '<img src="Resources/images/no_image.jpg" />';
+				}
+				echo $produit['LIBELLE_PDT']."</br>";
+				echo '</div>';
+			}
+		}
 	?>
 			
 

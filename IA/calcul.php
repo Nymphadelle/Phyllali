@@ -102,6 +102,7 @@ while(!$trouve && sizeof($a) != 0) {
 }
 
 $couples = array();
+$prod->deleteCouples();
 foreach($solution->sol as $couple) {
 	$prod->insertCouple($hash[substr($couple->action[0],0,1)],$hash[substr($couple->action[0],1,1)]);
 }

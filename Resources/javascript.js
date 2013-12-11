@@ -155,8 +155,7 @@ $('html').on('click', '#valider_souhait', function(event){
 $('body').on('click', '#ajouter', function(event){
 	// on annule le comportemet par défaut de l'ancre
 	event.preventDefault();
-	ajoutProduit();
-	
+	ajoutProduit();	
 });
 
 $('html').on('click', '#valider_objet', function(event){
@@ -182,9 +181,7 @@ $("#connexion").unbind().click(function(event) {
 			return;
 		}
 		console.log('maj html');
-		$('#compte').html('Bonjour, '+html);
-		$("<div id='picto'><a id='modpro' title='Modifier profil'> M </a><a id='ajouter' title='Ajouter produit'> A </a><a id='listeSouhaits' title='Liste de souhaits'> S </a></div>").insertAfter('#compte');
-		$('#buttons').html('<form method="POST" action="ajax/decoclient.php"><input type="submit" id="deconnexion" value="Déconnexion"></form>');
+		 $(location).attr('href',"index.php");
 	});
 });
 
@@ -200,6 +197,9 @@ $(".vignette").click(function() {
 		$( ".Aff_Produits" ).html(html);
   });
 });
+
+
+
 
 
 // Clic sur une catégorie
