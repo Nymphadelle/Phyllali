@@ -22,7 +22,7 @@ require_once '../Classes/Categorie.php';
 				$tab_cat = $cat->getCategories();
 				
 				foreach($tab_cat as $row){
-					echo '<option id="'.$row['ID_CATEGORIE'].'">'.$row['NOM_CATEG'].'</option>';
+					echo '<option value="'.$row['ID_CATEGORIE'].'">'.$row['NOM_CATEG'].'</option>';
 					
 					//on affiche les sous catégories directement sous leur catégorie
 					$tab_scat = array();
@@ -47,7 +47,12 @@ require_once '../Classes/Categorie.php';
 		<TR>
 			<TD>Etat</TD>
 			<TD>
-			<INPUT type=text id="etat">
+			<select id="etat">
+				<option value="n">Neuf</option>
+				<option value="m">Moyen</option>
+				<option value="p">Passable</option>
+				<option value="a">Abimé</option>
+			</select>
 			</TD>
 		</TR>
 

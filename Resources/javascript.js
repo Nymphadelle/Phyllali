@@ -160,9 +160,8 @@ $('body').on('click', '#ajouter', function(event){
 
 $('html').on('click', '#valider_objet', function(event){
 	// on annule le comportemet par défaut de l'ancre
-	
 	event.preventDefault();
-	insererProduit();	
+	insererProduit();
 });
 
 // bouton connexion
@@ -205,10 +204,7 @@ $('html').on('click', '#valider_objet', function(event){
 	
 	event.preventDefault();
 	insererProduit();	
-});
-
-
-// Clic sur une catégorie
+});// Clic sur une catégorie
 $(".cat").click(function() {
 // appel de la page categProduit.php
  	$.ajax({

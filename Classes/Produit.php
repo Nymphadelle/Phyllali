@@ -8,7 +8,7 @@ class Produit extends Connect{
 	public function insertProduct($cat,$user,$libelle,$description,$etat,$delai,$photo){
 		// on insère le nouveau produit
 		$sql = "INSERT INTO PRODUIT (ID_CATEGORIE,UTIL_ID,LIBELLE_PDT,DESCRIPTION,DATE_FIN,ETAT,PHOTO_PDT) VALUES (".$cat.",".$user.",'".$libelle."','".$description."',dateadd(hh,".$delai.",getdate()),'".$etat."','".$photo."') SELECT @@identity AS ID;";
-
+		echo $sql;
 		$res = $this->executerRequete($sql);
 		//on récupère l'id du produit inséré
 		$id_prod = odbc_result($res,'ID');
