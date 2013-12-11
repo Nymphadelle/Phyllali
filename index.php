@@ -25,7 +25,7 @@ $produits = $donnees->getLastProduits();
 			<img src="resources/images/titre.png" alt="" />
 		</div>
 		<div id = "recherche">
-			<input type="text" value="Recherche" size="50px">
+			<input type="text" value="Recherche" size="40px">
 		</div>
 		<div id="compte">
 		<?php
