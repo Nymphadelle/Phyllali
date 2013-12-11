@@ -97,7 +97,7 @@ $produits = $donnees->getLastProduits();
 						}
 			}
 			else {
-				echo '<h2> Derniers produits ajoutés qui pourraient vous intéresser </h2>';
+				echo '<div class="Aff_Produits"><h2> Derniers produits ajoutés qui pourraient vous intéresser </h2>';
 			foreach($produits as $produit){
 				echo '<div class="vignette" id='.$produit["PDT_ID"].'>';
 				if($produit['PHOTO_PDT']!=null){
@@ -108,11 +108,12 @@ $produits = $donnees->getLastProduits();
 				echo $produit['LIBELLE_PDT']."</br>";
 				echo '</div>';
 			}
+			echo '</div>';
 			}
 		}
 		// si pas authentifié
 		else {
-			echo '<h2> Derniers produits ajoutés qui pourraient vous intéresser </h2>';
+			echo '<div class="Aff_Produits"><h2> Derniers produits ajoutés qui pourraient vous intéresser </h2>';
 			foreach($produits as $produit){
 				echo '<div class="vignette" id='.$produit["PDT_ID"].'>';
 				if($produit['PHOTO_PDT']!=null){
@@ -123,6 +124,7 @@ $produits = $donnees->getLastProduits();
 				echo $produit['LIBELLE_PDT']."</br>";
 				echo '</div>';
 			}
+			echo '</div>';
 		}
 	?>
 			
