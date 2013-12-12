@@ -73,4 +73,9 @@ class Utilisateur extends Connect{
 		return odbc_result($util,'PRENOM');
 	}
 	
+	public function getHistorique($id) {
+		$sql = "select * from TROC_HISTORIQUE WHERE ID_EMETTEUR = ".$id." OR ID_CIBLE = ".$id;
+		echo $sql;
+	}
+	
 }?>

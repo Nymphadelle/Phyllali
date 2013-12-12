@@ -227,6 +227,16 @@ $("body").on('click', "#listeSouhaits", function(event){
 	})
 });
 
+$("body").on('click', "#historique", function(event){
+	$.ajax({
+		url:"ajax/historique.php"
+	})
+	.done(function(html) {
+		$("#presentation").html(html);
+	})
+});
+
+
 
 // bouton ficheSouhait
 $("#souhaiter").click(function() {
