@@ -81,7 +81,7 @@ $("#enregistrer").click(function() {
 });
 
 // handler sur le bouton envoyer (utilisation de delegates car le bouton est jouté dynamiquement)
-$('#presentation').on('click', '#envoyer', function(event){
+$('#presentation').on('click', '#Creerclient', function(event){
 	// on annule le comportemet par défaut du bouton
 	event.preventDefault();
 	if ($('#nom').val() == '' || $('#prenom').val() == '' || $('#mail').val() == '' || $('#psw').val() == '' || $('#addr').val() == '' || $('#cp').val() == '' || $('#ville').val() == '' ) {
@@ -182,12 +182,7 @@ $('body').on('click', '.vignette', function(event){
   });
 });
 
-$('html').on('click', '#valider_objet', function(event){
-	// on annule le comportemet par défaut de l'ancre
-	
-	event.preventDefault();
-	insererProduit();	
-});// Clic sur une catégorie
+// Clic sur une catégorie
 $(".cat").click(function() {
 // appel de la page categProduit.php
  	$.ajax({
