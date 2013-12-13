@@ -1,5 +1,7 @@
 <?php
+session_start();
 require_once '../Classes/Categorie.php';
+require_once '../Classes/Produit.php';
 ?>
 <form id="form" method=post action="./ajax/insererproduit.php" enctype="multipart/form-data">
 	<TABLE BORDER=0>
@@ -82,12 +84,40 @@ require_once '../Classes/Categorie.php';
 	</TABLE>
 
 </form>
-<!--<script>
-	function verif(){
-		if( $('#libelle').val()== "" || $('#description').val()== "" || $('#cat').val() == "") {
-			alert("Il faut remplir tous les champs");
-		} else {
-			window.location('./insererproduit.php');
+
+<?php 
+	$produits = new Produit();
+	$prods = $produits->getArchive($_SESSION['id']);
+	if (count($prods)>0) {
+
+?>
+
+<p id="feedback">
+<h2> Vous possédez ces produits, mais il sont inactifs, voulez vous en remettre au troc ?  </h2>
+</p>
+ 
+
+  
+
+<?php
+		foreach($prods as $produit){
+			?>
+			<div class="vignettearchive" id=<?php echo $produit['PDT_ID']?>>
+			<?php
+			if($produit['PHOTO_PDT']!=null){
+			
+				echo '<img src="Resources/PhotosTroc/'.$produit['PHOTO_PDT'].'" width="125" />';
+			}else{
+				echo '<img src="Resources/images/no_image.jpg" />';
+			}
+			
+			echo $produit['LIBELLE_PDT']."</br>";
+			?>
+			</div>
+			<?php
+
 		}
-	}
-</script>-->
+	?>
+
+
+<?php } ?>

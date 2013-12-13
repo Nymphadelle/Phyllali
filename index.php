@@ -8,7 +8,7 @@ $donnees = new Categorie();
 $categories = $donnees->getCategories();
 
 $donnees = new Produit();
-$produits = $donnees->getLastProduits();
+
 ?>
 <!doctype html>
 <html>
@@ -98,34 +98,44 @@ $produits = $donnees->getLastProduits();
 						}
 			}
 			else {
-				echo '<div class="Aff_Produits"><h2> Derniers produits ajoutés qui pourraient vous intéresser </h2>';
-			foreach($produits as $produit){
-				echo '<div class="vignette" id='.$produit["PDT_ID"].'>';
-				if($produit['PHOTO_PDT']!=null){
-				echo '<img src="Resources/PhotosTroc/'.$produit['PHOTO_PDT'].'" width="125" />';
-				}else{
-				echo '<img src="Resources/images/no_image.jpg" />';
+				$produits = $donnees->getLastProduits($_SESSION['id']);
+				if (count($produits) == 0)
+					echo 'Aucun produits à afficher.';
+				else {
+					echo '<div class="Aff_Produits"><h2> Derniers produits ajoutés qui pourraient vous intéresser </h2>';
+					foreach($produits as $produit){
+					echo '<div class="vignette" id='.$produit["PDT_ID"].'>';
+					if($produit['PHOTO_PDT']!=null){
+					echo '<img src="Resources/PhotosTroc/'.$produit['PHOTO_PDT'].'" width="125" />';
+					}else{
+					echo '<img src="Resources/images/no_image.jpg" />';
+					}
+					echo $produit['LIBELLE_PDT']."</br>";
+					echo '</div>';
 				}
-				echo $produit['LIBELLE_PDT']."</br>";
-				echo '</div>';
 			}
 			echo '</div>';
 			}
 		}
 		// si pas authentifié
 		else {
-			echo '<div class="Aff_Produits"><h2> Derniers produits ajoutés qui pourraient vous intéresser </h2>';
-			foreach($produits as $produit){
-				echo '<div class="vignette" id='.$produit["PDT_ID"].'>';
-				if($produit['PHOTO_PDT']!=null){
-				echo '<img src="Resources/PhotosTroc/'.$produit['PHOTO_PDT'].'" width="125" />';
-				}else{
-				echo '<img src="Resources/images/no_image.jpg" />';
+			$produits = $donnees->getLastProduits();
+			if (count($produits) == 0)
+					echo 'Aucun produits à afficher.';
+			else {
+				echo '<div class="Aff_Produits"><h2> Derniers produits ajoutés qui pourraient vous intéresser </h2>';
+				foreach($produits as $produit){
+					echo '<div class="vignette" id='.$produit["PDT_ID"].'>';
+					if($produit['PHOTO_PDT']!=null){
+					echo '<img src="Resources/PhotosTroc/'.$produit['PHOTO_PDT'].'" width="125" />';
+					}else{
+					echo '<img src="Resources/images/no_image.jpg" />';
+					}
+					echo $produit['LIBELLE_PDT']."</br>";
+					echo '</div>';
 				}
-				echo $produit['LIBELLE_PDT']."</br>";
 				echo '</div>';
 			}
-			echo '</div>';
 		}
 	?>
 			

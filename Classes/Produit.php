@@ -39,8 +39,11 @@ class Produit extends Connect{
 	}
 	
 		//renvoie la liste des produits
-	public function getLastProduits(){
-		$sql ='select * from PRODUIT order by PDT_ID desc ';
+	public function getLastProduits($id=null){
+		if ($id == null)
+			$sql ='select * from PRODUIT_ACTIF INNER JOIN PRODUIT ON PRODUIT_ACTIF.PDT_ID = PRODUIT.PDT_ID order by PRODUIT.PDT_ID desc ';
+		else
+			$sql ='select * from PRODUIT_ACTIF INNER JOIN PRODUIT ON PRODUIT_ACTIF.PDT_ID = PRODUIT.PDT_ID WHERE PRODUIT_ACTIF.PDT_ID NOT IN (select PDT_ID from PRODUIT_ACTIF WHERE UTIL_ID = '.$id.') order by PRODUIT.PDT_ID desc ';
 		$produits = $this->executerRequete($sql);
 		$tab = array();
 		while(odbc_fetch_row($produits)){
@@ -170,6 +173,27 @@ class Produit extends Connect{
 	public function deleteCouples(){
 		$sql = "delete from COUPLES_PRODUITS";
 				$produits = $this->executerRequete($sql);
+	}
+	
+	public function getArchive($id) {
+		$sql = "SELECT * FROM PRODUIT_PASSIF INNER JOIN PRODUIT ON PRODUIT_PASSIF.PDT_ID = PRODUIT.PDT_ID WHERE PRODUIT.UTIL_ID = ".$id;
+		$produits = $this->executerRequete($sql);
+		$tab = array();
+		while(odbc_fetch_row($produits)){
+			$tableau = array();		
+			for($i=1;$i<=odbc_num_fields($produits);$i++){
+				$tableau[odbc_field_name ( $produits, $i )] =odbc_result($produits,$i);
+			}
+			array_push($tab, $tableau);
+		}
+		return $tab;
+	}
+	
+	public function activatePdt($idprod,$idutil,$etat,$desc,$duree) {
+		$sql = "update PRODUIT set ETAT='".$etat."', DESCRIPTION='".$desc."',DATE_FIN=dateadd(hh,".$duree.",getdate()) WHERE PDT_ID=".$idprod;
+		$produits = $this->executerRequete($sql);
+		$sql = "delete FROM PRODUIT_PASSIF WHERE PDT_ID=".$idprod." INSERT INTO PRODUIT_ACTIF(PDT_ID,UTIL_ID) values (".$idprod.",".$idutil.")";
+		$produits = $this->executerRequete($sql);	
 	}
 }
 

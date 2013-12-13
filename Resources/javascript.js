@@ -222,6 +222,17 @@ $("body").on('click', "#listeSouhaits", function(event){
 	})
 });
 
+
+$("body").on('click', ".vignettearchive", function(event){
+		$.ajax({
+		url:"ajax/activerproduit.php",
+		data: {id:this.id}
+	})
+	.done(function(html) {
+		$("#presentation").html(html);
+	})
+});
+
 $("body").on('click', "#historique", function(event){
 	$.ajax({
 		url:"ajax/historique.php"

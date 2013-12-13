@@ -115,7 +115,7 @@ position : relative;
 	width:1000px;
 
 
-	height :800px; /*<!-- a changer -->*/
+	height :1000px; /*<!-- a changer -->*/
 	color: black;
 
 	margin: 0 auto;
@@ -124,7 +124,10 @@ position : relative;
 	overflow:hidden;	
 }
 
-
+#textedroite{
+margin-left:200px;
+float:right;
+}
 
 a:hover{
 text-decoration: underline;
@@ -178,7 +181,21 @@ margin:15px;float:left;
 width:125px;
 height:125px;
 background-color:grey;
+}
 
+.vignettearchive{
+text-align:center;
+margin:15px;float:left;
+width:125px;
+height:125px;
+background-color:white;
+}
+
+.vignettearchive:hover{
+text-decoration: underline;
+cursor: pointer;
+
+opacity: 0.5;
 }
 
 .vignette:hover{

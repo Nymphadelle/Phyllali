@@ -63,6 +63,6 @@ Enregistrement d'un utilisateur
 	<INPUT type="submit" value="Annuler" id="annuler">
 	</TD>
 </TR>
-
 </TABLE>
 </FORM>
+
