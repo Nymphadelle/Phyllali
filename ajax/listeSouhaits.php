@@ -1,19 +1,22 @@
 ﻿<?php
 
 require_once("../Classes/Troc.php");
+require_once("../Classes/Produit.php");
 session_start();
 $id_util = $_SESSION['id'];
 if(isset($_POST['souhaits'])){
 	$mesSouhaits=$_POST['souhaits'];
 }
-
+?>
+	<div id='ListerSouhaits'>
+	<a class = 'mesSouhaits' data-type='1' title='Afficher mes demandes de troc'><img src="Resources/images/in.png" width="150"></a>
+	<a class ='mesSouhaits' data-type='0' title='Afficher les souhaits sur mes produits'><img src="Resources/images/out.png" width="150"></a>
+	<a class ='mesSouhaits' data-type='2' title='Afficher mes produits'><img src="Resources/images/prod.png" width="150"></a>
+	</div>
+	
+<?php
 if(isset($mesSouhaits) && $mesSouhaits == 1){
-
-	echo "<div id='ListerSouhaits'>";
-	echo "<a class = 'mesSouhaits' data-type='1'> Liste de vos demandes de troc </a>    |    ";
-	echo "<a class ='mesSouhaits' data-type='0'> Liste des demandes de trocs sur vos objets </a>";
-	echo "</div>";
-	echo "<h1>Liste de vos demandes de troc</h1>";
+	echo "<h2>Liste de vos demandes de troc</h2>";
 	$i=1;
 	$troc = new Troc();
 	$tableauSouhait=$troc->getMesSouhaits($id_util);
@@ -40,11 +43,7 @@ if(isset($mesSouhaits) && $mesSouhaits == 1){
 else if(isset($mesSouhaits) && $mesSouhaits == 0){
 	$i=1;
 	$troc = new Troc();
-	echo "<div id='ListerSouhaits'>";
-	echo "<a class = 'mesSouhaits' data-type='1'> Liste de vos demandes de troc </a>    |    ";
-	echo "<a class ='mesSouhaits' data-type='0'> Liste des demandes de trocs sur vos objets </a>";
-	echo "</div>";
-	echo "<h1>Liste des demandes de troc sur vos objets</h1>";
+	echo "<h2>Liste des demandes de troc sur vos objets</h2>";
 	$tableauSouhait=$troc->getLeursSouhaits($id_util);
 	if(!empty($tableauSouhait)){
 		foreach($tableauSouhait as $ligne){
@@ -66,11 +65,40 @@ else if(isset($mesSouhaits) && $mesSouhaits == 0){
 		echo "Aucune demande de troc en cours";
 	}
 }
-else{
-	echo "<div id='ListerSouhaits'>";
-	echo "<a class = 'mesSouhaits' data-type='1'> Liste de vos demandes de troc </a>    |    ";
-	echo "<a class ='mesSouhaits' data-type='0'> Liste des demandes de trocs sur vos objets </a>";
-	echo "</div>";
+else if(isset($mesSouhaits) && $mesSouhaits == 2){
+	$produit = new Produit();
+	$prodActifs = $produit->getProduitsActifsFromUtil($_SESSION['id']);
+	echo "<h2>Vos produits actuellements actifs</h2>";
+	if (count($prodActifs) > 0) {
+		foreach($prodActifs as $prods) { ?>
+			<div class="pdtactif">
+				<table>
+					<tr>
+						<td align="center">
+							<?php echo $prods['LIBELLE_PDT']; ?>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<img src="Resources/PhotosTroc/<?php echo $prods['PHOTO_PDT'];?>" width='150'>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<?php echo $prods['DESCRIPTION']; ?>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							actif jusqu'au : <?php echo $prods['DATE_FIN']; ?>
+						</td>
+					</tr>
+				</table>
+			</div>
+		<?php }
+	}
+	else
+		echo 'Aucun produits actifs';
 }
 
 
