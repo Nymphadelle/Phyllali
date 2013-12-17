@@ -55,9 +55,8 @@
 	?>
 	</br>
 	
-</div><div style="width:500px; height:300px;margin-top:50px;">
-			<input type="button" id="valider_souhait">
-			</div>
+</div>
+			<input type="button" id="valider_souhait" value="valider le souhait">
 			</form>	
 			
 		</div>

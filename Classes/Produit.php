@@ -58,8 +58,8 @@ class Produit extends Connect{
 	}
 		
 	//renvoie la liste des produits
-	public function getProduitsParCategorie($id_categ){
-		$sql ='select * from PRODUIT WHERE PDT_ID  IN (SELECT PDT_ID from PRODUIT_ACTIF)';
+	public function getProduitsParCategorie($id_categ,$id){
+		$sql ='select * from PRODUIT WHERE PDT_ID  IN (SELECT PDT_ID from PRODUIT_ACTIF WHERE UTIL_ID != '.$id.')';
 		$sql .= 'AND  (ID_CATEGORIE IN (SELECT ID_CATEGORIE FROM CATEGORIE ';
 		$sql .= 'where CAT_ID_CATEGORIE= '.$id_categ.') OR ID_CATEGORIE='.$id_categ.')';
 		//echo $sql;

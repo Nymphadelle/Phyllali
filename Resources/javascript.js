@@ -1,6 +1,7 @@
 //////////////////////////////////////////
 //////////////// FONCTIONS ////////////////
 //////////////////////////////////////////
+$("#load").hide();
 function validerInscription() {
 	$.ajax({
   type: "POST",
@@ -107,9 +108,7 @@ $('#annuler').on('click', '#envoyer', function(event){
 $('body').on('click', '#modpro', function(event){
 	// on annule le comportemet par défaut de l'ancre
 	event.preventDefault();
-	modifProfil();
-	
-	
+	modifProfil();	
 });
 
 // handler sur l'ancre modifier profil utilisateur
@@ -118,6 +117,8 @@ $('body').on('click', '#validerModifInfos', function(event){
 	event.preventDefault();
 	validerProfil();
 });
+
+
 
 
 // handler sur le bouton valider un souhait
@@ -139,6 +140,12 @@ $('html').on('click', '#valider_souhait', function(event){
 		$( ".Aff_Produits" ).html(html);
 	});
 });
+
+
+
+
+
+
 
 // handler sur le bouton ajouter un produit
 $('body').on('click', '#ajouter', function(event){
@@ -184,6 +191,7 @@ $('body').on('click', '.vignette', function(event){
 
 // Clic sur une catégorie
 $(".cat").click(function() {
+	$("#load").show();
 // appel de la page categProduit.php
  	$.ajax({
 	  type:"GET",
@@ -191,15 +199,15 @@ $(".cat").click(function() {
 	  data: {id_categ: this.id}
 	})
 	.done(function( html ) {
-
 		// si l'appel a reussi, on affiche le résultat
-		$( "#presentation" ).html(html);
+		$( "#presentation" ).html(html);	
   });
  
 });
 
 // Clic sur une sous categorie
 $(".sous_cat").click(function() {
+	$("#load").show();
  	$.ajax({
 	  type:"GET",
 	  url: "ajax/sousCategProduit.php",
@@ -207,6 +215,7 @@ $(".sous_cat").click(function() {
 	})
 	.done(function( html ) {
 		$( ".Aff_Produits" ).html(html);
+			$("#load").hide();
   });
 });
 
@@ -214,11 +223,13 @@ $(".sous_cat").click(function() {
 
 
 $("body").on('click', "#listeSouhaits", function(event){
+	$("#load").show();
 	$.ajax({
 		url:"ajax/listeSouhaits.php"
 	})
 	.done(function(html) {
 		$("#presentation").html(html);
+			$("#load").hide();
 	})
 });
 
@@ -234,11 +245,13 @@ $("body").on('click', ".vignettearchive", function(event){
 });
 
 $("body").on('click', "#historique", function(event){
+	$("#load").show();
 	$.ajax({
 		url:"ajax/historique.php"
 	})
 	.done(function(html) {
 		$("#presentation").html(html);
+			$("#load").hide();
 	})
 });
 
@@ -259,6 +272,7 @@ $("#souhaiter").click(function() {
 		});
 });
 $("body").on('click', ".mesSouhaits", function(event){
+	$("#load").show();
 	event.preventDefault();
 	$.ajax({
 		type:"POST",
@@ -267,6 +281,7 @@ $("body").on('click', ".mesSouhaits", function(event){
 	})
 	.done(function(html){
 		$("#presentation").html(html);
+			$("#load").hide();
 	})
 });
 
