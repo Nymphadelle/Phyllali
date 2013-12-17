@@ -69,6 +69,21 @@ class Troc extends Connect{
 		
 		
 		return $tableauSouhait;
-		
+	}
+	
+	public function getHistoriqueEmetteur($id) {
+		$sql = "select datediff(hh,DATE_TRANSACTION,getdate()) as HEURES,YEAR(DATE_TRANSACTION) as annee, MONTH(DATE_TRANSACTION) as MOIS, DAY(DATE_TRANSACTION) as JOUR, MODE_LIVRAISON,COM_UTILI_INIT,COM_UTILI_CIBLE, ID_PROD_VOULU, ID_PROD_PROPOSE, ID_EMETTEUR, ID_CIBLE from TROC_HISTORIQUE WHERE ID_EMETTEUR = 18 ORDER BY HEURES";
+		echo $sql;
+		$ret= $this->executerRequete($sql);
+		$tableau=array();
+		while($ligne=odbc_fetch_array($ret)){
+			array_push($tableau, $ligne);
+		}
+		return $tableau;
+	}
+	
+	public function getHistoriqueCible($id) {
+		$sql = "select datediff(hh,DATE_TRANSACTION,getdate()) as HEURES,DATE_TRANSACTION, MODE_LIVRAISON,COM_UTILI_INIT,COM_UTILI_CIBLE, ID_PROD_VOULU, ID_PROD_PROPOSE, ID_EMETTEUR, ID_CIBLE from TROC_HISTORIQUE  WHERE ID_CIBLE = ".$id;
+		//echo $sql;
 	}
 }
