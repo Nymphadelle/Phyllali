@@ -1,28 +1,30 @@
 <?php
+session_start();
 require_once '../Classes/Categorie.php';
+require_once '../Classes/Produit.php';
 ?>
-<form method=post action="#">
+<form id="form" method=post action="./ajax/insererproduit.php" enctype="multipart/form-data">
 	<TABLE BORDER=0>
 		<TR>
 			<TD>Nom</TD><!-- libellé -->
 			<TD>
-			<INPUT type=text id="libelle">
+			<INPUT type=text name="libelle" id="libelle">
 			</TD>
 		</TR>
 
 		<TR>
 			<TD>Cat&eacute;gorie</TD><!-- catégorie -->
 			<TD>
-				<select id="cat">
+				<select id="cat" name="cat">
 				<?php
 				$cat = new Categorie;
 				
 				//on affiche chaque catégorie
 				$tab_cat = array();
 				$tab_cat = $cat->getCategories();
-				
+				echo '<option value=""></option>';
 				foreach($tab_cat as $row){
-					echo '<option id="'.$row['ID_CATEGORIE'].'">'.$row['NOM_CATEG'].'</option>';
+					echo '<OPTGROUP label="'.$row['NOM_CATEG'].'" >';
 					
 					//on affiche les sous catégories directement sous leur catégorie
 					$tab_scat = array();
@@ -31,6 +33,8 @@ require_once '../Classes/Categorie.php';
 					foreach($tab_scat as $row){
 						echo '<option value="'.$row['ID_CATEGORIE'].'"> - '.$row['NOM_CATEG'].'</option>';;
 					}
+					
+					echo '</optgroup>';
 				}
 				?>
 				</select>
@@ -40,14 +44,19 @@ require_once '../Classes/Categorie.php';
 		<TR>
 			<TD>Description</TD>
 			<TD>
-			<INPUT type=text id="description">
+			<INPUT type=text name="description" id="description">
 			</TD>
 		</TR>
 
 		<TR>
 			<TD>Etat</TD>
 			<TD>
-			<INPUT type=text id="etat">
+			<select id="etat" name="etat">
+				<option value="N">Neuf</option>
+				<option value="M">Moyen</option>
+				<option value="P">Passable</option>
+				<option value="A">Abimé</option>
+			</select>
 			</TD>
 		</TR>
 
@@ -63,15 +72,52 @@ require_once '../Classes/Categorie.php';
 		<TR>
 			<TD>Photo</TD>
 			<TD>
-			<INPUT type=file id="photo">
+			<INPUT type=file name="photo" id="photo">
 			</TD>
 		</TR>
 
 		<TR>
 			<TD COLSPAN=2>
-			<INPUT type="button" value="Ajouter l'objet" id="valider_objet">
+			<INPUT type="submit" value="Ajouter l'objet" id="valider_objet"> <!-- onclick="verif(); return false;"> -->
 			</TD>
 		</TR>
 	</TABLE>
 
 </form>
+
+<?php 
+	$produits = new Produit();
+	$prods = $produits->getArchive($_SESSION['id']);
+	if (count($prods)>0) {
+
+?>
+
+<p id="feedback">
+<h2> Vous possédez ces produits, mais il sont inactifs, voulez vous en remettre au troc ?  </h2>
+</p>
+ 
+
+  
+
+<?php
+		foreach($prods as $produit){
+			?>
+			<div class="vignettearchive" id=<?php echo $produit['PDT_ID']?>>
+			<?php
+			if($produit['PHOTO_PDT']!=null){
+			
+				echo '<img src="Resources/PhotosTroc/'.$produit['PHOTO_PDT'].'" width="125" />';
+			}else{
+				echo '<img src="Resources/images/no_image.jpg" />';
+			}
+			
+			echo $produit['LIBELLE_PDT']."</br>";
+			?>
+			</div>
+			<?php
+
+		}
+	?>
+
+
+<?php } ?>

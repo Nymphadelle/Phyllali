@@ -40,22 +40,23 @@
 				echo '<img src="Resources/images/no_image.jpg" />';
 			}
 			
-			echo '<input type="checkbox" class="check_pdt" value="'.$produit['PDT_ID'].'.">';
-			echo $produit['LIBELLE_PDT']."</br>";
+			
 			
 			
 			?>
 		
 			</div>
+			
 			<?php
+			echo '<input type="checkbox" class="check_pdt" value="'.$produit['PDT_ID'].'">';
+			echo $produit['LIBELLE_PDT']."</br>";
 
 		}
 	?>
 	</br>
 	
-</div><div style="width:500px; height:300px;margin-top:50px;">
-			<input type="button" id="valider_souhait">
-			</div>
+</div>
+			<input type="button" id="valider_souhait" value="valider le souhait">
 			</form>	
 			
 		</div>

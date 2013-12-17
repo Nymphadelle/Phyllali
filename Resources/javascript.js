@@ -3,6 +3,7 @@ var glob;
 //////////////////////////////////////////
 //////////////// FONCTIONS ////////////////
 //////////////////////////////////////////
+$("#load").hide();
 function validerInscription() {
 	$.ajax({
   type: "POST",
@@ -64,17 +65,6 @@ function ajoutProduit() {
   });
 }
 
-function insererProduit() {
-	$.ajax({
-  type: "POST",
-  url: "ajax/insererproduit.php",
-  data: { libelle: $("#libelle").val(), cat: $("#cat").val(), description: $("#description").val(), etat: $("#etat").val(), delai: $("input[name=delai]:checked").val(), photo: $("#photo").val()}
-})
-  .done(function( html ) {
-		$( "#presentation" ).html(html);
-  });
-}
-
 //////////////////////////////////////////
 //////////////// HANDLERS ////////////////
 //////////////////////////////////////////
@@ -94,7 +84,7 @@ $("#enregistrer").click(function() {
 });
 
 // handler sur le bouton envoyer (utilisation de delegates car le bouton est jouté dynamiquement)
-$('#presentation').on('click', '#envoyer', function(event){
+$('#presentation').on('click', '#Creerclient', function(event){
 	// on annule le comportemet par défaut du bouton
 	event.preventDefault();
 	if ($('#nom').val() == '' || $('#prenom').val() == '' || $('#mail').val() == '' || $('#psw').val() == '' || $('#addr').val() == '' || $('#cp').val() == '' || $('#ville').val() == '' ) {
@@ -120,9 +110,7 @@ $('#annuler').on('click', '#envoyer', function(event){
 $('body').on('click', '#modpro', function(event){
 	// on annule le comportemet par défaut de l'ancre
 	event.preventDefault();
-	modifProfil();
-	
-	
+	modifProfil();	
 });
 
 // handler sur l'ancre modifier profil utilisateur
@@ -131,6 +119,8 @@ $('body').on('click', '#validerModifInfos', function(event){
 	event.preventDefault();
 	validerProfil();
 });
+
+
 
 
 // handler sur le bouton valider un souhait
@@ -153,20 +143,17 @@ $('html').on('click', '#valider_souhait', function(event){
 	});
 });
 
+
+
+
+
+
+
 // handler sur le bouton ajouter un produit
 $('body').on('click', '#ajouter', function(event){
 	// on annule le comportemet par défaut de l'ancre
 	event.preventDefault();
-	ajoutProduit();
-	
-});
-
-$('html').on('click', '#valider_objet', function(event){
-	// on annule le comportemet par défaut de l'ancre
-	
-	event.preventDefault();
-	insererProduit();
-	
+	ajoutProduit();	
 });
 
 // bouton connexion
@@ -183,13 +170,14 @@ $("#connexion").unbind().click(function(event) {
 			alert("Login ou mot de passe incorrect");
 			return;
 		}
-		$('#compte').html('Bonjour, '+html);
-		$("<div id='picto'><a id='modpro' title='Modifier profil'> M </a><a id='ajouter' title='Ajouter produit'> A </a><a id='listeSouhaits' title='Liste de souhaits'> S </a></div>").insertAfter('#compte');
-		$('#buttons').html('<form method="POST" action="ajax/decoclient.php"><input type="submit" id="deconnexion" value="Déconnexion"></form>');
+		 $(location).attr('href',"index.php");
 	});
 });
 
-$("body").on('click', ".vignette", function(event){
+
+
+// handler sur le bouton ajouter un produit
+$('body').on('click', '.vignette', function(event){
 // appel de la page afficheProduit.php
  	$.ajax({
 	  type:"GET",
@@ -202,9 +190,9 @@ $("body").on('click', ".vignette", function(event){
   });
 });
 
-
 // Clic sur une catégorie
 $(".cat").click(function() {
+	$("#load").show();
 // appel de la page categProduit.php
  	$.ajax({
 	  type:"GET",
@@ -212,15 +200,15 @@ $(".cat").click(function() {
 	  data: {id_categ: this.id}
 	})
 	.done(function( html ) {
-
 		// si l'appel a reussi, on affiche le résultat
-		$( "#presentation" ).html(html);
+		$( "#presentation" ).html(html);	
   });
  
 });
 
 // Clic sur une sous categorie
 $(".sous_cat").click(function() {
+	$("#load").show();
  	$.ajax({
 	  type:"GET",
 	  url: "ajax/sousCategProduit.php",
@@ -228,6 +216,7 @@ $(".sous_cat").click(function() {
 	})
 	.done(function( html ) {
 		$( ".Aff_Produits" ).html(html);
+			$("#load").hide();
   });
 });
 
@@ -235,13 +224,38 @@ $(".sous_cat").click(function() {
 
 
 $("body").on('click', "#listeSouhaits", function(event){
+	$("#load").show();
 	$.ajax({
 		url:"ajax/listeSouhaits.php"
 	})
 	.done(function(html) {
 		$("#presentation").html(html);
+			$("#load").hide();
 	})
 });
+
+
+$("body").on('click', ".vignettearchive", function(event){
+		$.ajax({
+		url:"ajax/activerproduit.php",
+		data: {id:this.id}
+	})
+	.done(function(html) {
+		$("#presentation").html(html);
+	})
+});
+
+$("body").on('click', "#historique", function(event){
+	$("#load").show();
+	$.ajax({
+		url:"ajax/historique.php"
+	})
+	.done(function(html) {
+		$("#presentation").html(html);
+			$("#load").hide();
+	})
+});
+
 
 
 // bouton ficheSouhait
@@ -259,6 +273,7 @@ $("#souhaiter").click(function() {
 		});
 });
 $("body").on('click', ".mesSouhaits", function(event){
+	$("#load").show();
 	event.preventDefault();
 	$.ajax({
 		type:"POST",
@@ -268,6 +283,7 @@ $("body").on('click', ".mesSouhaits", function(event){
 	.done(function(html){
 		glob = html;
 		$("#presentation").html(html);
+			$("#load").hide();
 	})
 });
 
