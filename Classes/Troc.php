@@ -71,4 +71,9 @@ class Troc extends Connect{
 		return $tableauSouhait;
 		
 	}
+	
+	public function ajouterSouhait($id_emetteur,$id_cible,$id_pdt_voulu,$date,$liste_pdts,$liste_md){
+	$sql="INSERT INTO TEMP_MD_LIV (id_string, id_util) VALUES (1,1)";
+	$ret= $this->executerRequete($sql);
+	}
 }

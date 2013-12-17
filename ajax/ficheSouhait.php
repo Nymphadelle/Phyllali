@@ -40,14 +40,16 @@
 				echo '<img src="Resources/images/no_image.jpg" />';
 			}
 			
-			echo '<input type="checkbox" class="check_pdt" value="'.$produit['PDT_ID'].'.">';
-			echo $produit['LIBELLE_PDT']."</br>";
+			
 			
 			
 			?>
 		
 			</div>
+			
 			<?php
+			echo '<input type="checkbox" class="check_pdt" value="'.$produit['PDT_ID'].'">';
+			echo $produit['LIBELLE_PDT']."</br>";
 
 		}
 	?>
