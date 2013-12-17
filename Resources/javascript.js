@@ -1,3 +1,5 @@
+var glob;
+
 //////////////////////////////////////////
 //////////////// FONCTIONS ////////////////
 //////////////////////////////////////////
@@ -168,7 +170,6 @@ $("#connexion").unbind().click(function(event) {
 			alert("Login ou mot de passe incorrect");
 			return;
 		}
-		console.log('maj html');
 		 $(location).attr('href',"index.php");
 	});
 });
@@ -280,11 +281,28 @@ $("body").on('click', ".mesSouhaits", function(event){
 		data:{souhaits:$(this).data("type")}
 	})
 	.done(function(html){
+		glob = html;
 		$("#presentation").html(html);
 			$("#load").hide();
 	})
 });
 
+$("body").on('click', "#btnTroc", function(event){
+	$("#presentation").html(glob);
+});
+
+
+$("body").on('click', ".proprio", function(event){
+	event.preventDefault();
+	$.ajax({
+		type:"POST",
+		url:"ajax/profilUtil.php",
+		data:{id_proprio:$(this).data("proprio")}
+	})
+	.done(function(html){
+		$("#presentation").html(html);
+	})
+});
 
 
 

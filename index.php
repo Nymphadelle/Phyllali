@@ -75,7 +75,6 @@ $donnees = new Produit();
 	<div id="presentation">
 	
 	<?php
-		// si authentifié
 		if(isset($_SESSION['id']) && $_SESSION['id'] != '') {
 			$paires = $donnees->getPaires($_SESSION['id']);
 			if (count($paires) > 0) {

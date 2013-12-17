@@ -38,7 +38,7 @@ $produit = $donnee->getProduitParId($id_pdt);
 			echo "<div class='souhaiter' id='souhaiter' >";
 			
 			?>
-			<a ><img src="Resources/images/souhait.png" width="175" /></a>
+			<a><img src="Resources/images/souhait.png" width="175" /></a>
 			<?php
 			echo "</div>";
 		}
