@@ -1,3 +1,5 @@
+var glob;
+
 //////////////////////////////////////////
 //////////////// FONCTIONS ////////////////
 //////////////////////////////////////////
@@ -181,14 +183,13 @@ $("#connexion").unbind().click(function(event) {
 			alert("Login ou mot de passe incorrect");
 			return;
 		}
-		console.log('maj html');
 		$('#compte').html('Bonjour, '+html);
 		$("<div id='picto'><a id='modpro' title='Modifier profil'> M </a><a id='ajouter' title='Ajouter produit'> A </a><a id='listeSouhaits' title='Liste de souhaits'> S </a></div>").insertAfter('#compte');
 		$('#buttons').html('<form method="POST" action="ajax/decoclient.php"><input type="submit" id="deconnexion" value="Déconnexion"></form>');
 	});
 });
 
-$(".vignette").click(function() {
+$("body").on('click', ".vignette", function(event){
 // appel de la page afficheProduit.php
  	$.ajax({
 	  type:"GET",
@@ -265,10 +266,27 @@ $("body").on('click', ".mesSouhaits", function(event){
 		data:{souhaits:$(this).data("type")}
 	})
 	.done(function(html){
+		glob = html;
 		$("#presentation").html(html);
 	})
 });
 
+$("body").on('click', "#btnTroc", function(event){
+	$("#presentation").html(glob);
+});
+
+
+$("body").on('click', ".proprio", function(event){
+	event.preventDefault();
+	$.ajax({
+		type:"POST",
+		url:"ajax/profilUtil.php",
+		data:{id_proprio:$(this).data("proprio")}
+	})
+	.done(function(html){
+		$("#presentation").html(html);
+	})
+});
 
 
 

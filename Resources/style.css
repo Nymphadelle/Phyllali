@@ -116,7 +116,7 @@ position : relative;
 	width:1000px;
 
 
-	height :800px; /*<!-- a changer -->*/
+	min-height :800px; /*<!-- a changer -->*/
 	color: black;
 
 	margin: 0 auto;
@@ -202,6 +202,10 @@ opacity: 0.5;
 }
 
 #ListerSouhaits{
-	margin:10px 0 10px 250px;
+	margin:10px 0 10px 80px;
 	border:1px solid black;
+}
+
+.bouton{
+	clear:both;
 }
