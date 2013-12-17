@@ -1,11 +1,12 @@
 <script type="text/javascript" src="Resources/javascript.js?v=<?php echo rand();?>"></script>
 <?php 
+session_start();
 require_once '../Classes/Produit.php';
 require_once '../Classes/Categorie.php';
 $id_categ = $_GET['id_categ'];
 
 $donnees = new Produit();
-$produits = $donnees->getProduitsParCategorie($id_categ);
+$produits = $donnees->getProduitsParCategorie($id_categ,$_SESSION['id']);
 
 $donnees = new Categorie();
 $sousC= $donnees->getSousCategories($id_categ);
@@ -31,6 +32,8 @@ $sousC= $donnees->getSousCategories($id_categ);
 
 	<h2> <?php echo $donnees->getLibelle($id_categ);?> </h2>
 	<?php
+		if (count($produits) == 0)
+			echo 'Aucun produit dans cette cat&eacute;gorie.';
 		foreach($produits as $produit){
 			?>
 			<div class="vignette" id=<?php echo $produit['PDT_ID']?>>

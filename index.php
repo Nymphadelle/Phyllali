@@ -36,7 +36,7 @@ $donnees = new Produit();
 			echo "<a id='modpro' title='Modifier profil'><img src='Resources/images/prof.png' width='30'></a>";
 			echo "<a id='ajouter' title='Ajouter produit'><img src='Resources/images/add.png' width='30'></a>";
 			echo "<a id='listeSouhaits' title='Liste de souhaits'><img src='Resources/images/souh.png' width='30'></a>";
-			echo "<a id='historique' title='Historique'>H</a>";
+			echo "<a id='historique' title='Historique'><img src='Resources/images/histo.png' width='30'></a>";
 			echo "</div>";
 			echo "<div id='buttons'>";
 			echo "<form method='POST' action ='ajax/decoclient.php'><input type='submit' id='deconnexion' value='Déconnexion'></form>";
@@ -142,8 +142,9 @@ $donnees = new Produit();
 
 	
 	</div>
-
-	
+	</div>
+	<div id="load">
+		<img src="Resources/nav/loading.gif">
 	</div>
 	</body>
 </html>
