@@ -45,6 +45,18 @@ class Utilisateur extends Connect{
 		return array(odbc_result($req, 'NOM'), odbc_result($req, 'PRENOM'), odbc_result($req, 'ADRESSE'), odbc_result($req, 'NOM_VILLE'), odbc_result($req, 'CODE_POSTAL_'));
 	}
 	
+	// fonction qui permet à un utilisateur de consulter le profil d'un autre utilisateur
+	public function getProfil($id){
+		$sql = "SELECT PRENOM, NOM_VILLE, mail FROM UTILISATEUR, VILLE, CONNEXION WHERE UTILISATEUR.UTIL_ID=".$id." AND VILLE.ID_VILLE = UTILISATEUR.ID_VILLE AND CONNEXION.util = UTILISATEUR.UTIL_ID";
+		$req = $this->executerRequete($sql);
+		$tableau=array();
+		while($row = odbc_fetch_array($req)){
+			array_push($tableau, $row);
+		}
+		
+		return $tableau;
+	}
+	
 	// mettre à jour les informations d'un utilisateur
 	public function majUser($id,$nom,$prenom,$addr,$cp,$ville) {
 		// on met à jour sa ville

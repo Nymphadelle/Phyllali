@@ -17,6 +17,10 @@ html{
     height: 100%;
 }
 
+#tableborder {
+border-bottom-style:solid;
+border-color: #c0c0c0;
+}
 
 .fade{
 opacity:0.9;
@@ -250,4 +254,8 @@ opacity: 0.5;
 #ListerSouhaits{
 	margin:10px 0 10px 220px;
 
+}
+
+.bouton{
+	clear:both;
 }

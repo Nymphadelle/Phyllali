@@ -41,7 +41,7 @@ class Troc extends Connect{
 	}
 	
 	public function getLeursSouhaits($id_util){
-		$sql="SELECT ID_CIBLE, TROC_ID, LIBELLE_PDT, PRENOM, DATE_PROPOSITION FROM PRODUIT_ACTIF, UTILISATEUR, TROC, PRODUIT ";
+		$sql="SELECT ID_CIBLE, ID_EMETTEUR, TROC_ID, LIBELLE_PDT, PRENOM, DATE_PROPOSITION FROM PRODUIT_ACTIF, UTILISATEUR, TROC, PRODUIT ";
 		$sql .="WHERE ID_CIBLE = ".$id_util." AND PRODUIT_ACTIF.PDT_ID = ID_PROD_VOULU ";
 		$sql .="AND PRODUIT.PDT_ID = PRODUIT_ACTIF.PDT_ID AND UTILISATEUR.UTIL_ID = ID_EMETTEUR";
 		$ret= $this->executerRequete($sql);
@@ -53,7 +53,7 @@ class Troc extends Connect{
 			array_push($tableauSouhait, $ligne);
 		}
 		foreach($id_troc as $id){
-			$sql2 = "SELECT TROC_ID, LIBELLE_PDT FROM PRODUIT, PROPOSE WHERE TROC_ID=".$id." AND PRODUIT.PDT_ID=PROPOSE.PDT_ID";
+			$sql2 = "SELECT TROC_ID, LIBELLE_PDT, PRODUIT.PDT_ID FROM PRODUIT, PROPOSE WHERE TROC_ID=".$id." AND PRODUIT.PDT_ID=PROPOSE.PDT_ID";
 			$ret2=$this->executerRequete($sql2);
 			while($row = odbc_fetch_array($ret2)){
 				array_push($tableauProduits, $row);
@@ -71,21 +71,22 @@ class Troc extends Connect{
 		return $tableauSouhait;
 	}
 	
-	public function getHistoriqueEmetteur($id) {
-		$sql = "select datediff(hh,DATE_TRANSACTION,getdate()) as HEURES,YEAR(DATE_TRANSACTION) as annee, MONTH(DATE_TRANSACTION) as MOIS, DAY(DATE_TRANSACTION) as JOUR, MODE_LIVRAISON,COM_UTILI_INIT,COM_UTILI_CIBLE, ID_PROD_VOULU, ID_PROD_PROPOSE, ID_EMETTEUR, ID_CIBLE from TROC_HISTORIQUE WHERE ID_EMETTEUR = 18 ORDER BY HEURES";
-		echo $sql;
+	public function getHistorique($id) {
+		$sql = "select TROC_H_ID,datediff(hh,DATE_TRANSACTION,getdate()) as HEURES,YEAR(DATE_TRANSACTION) as ANNEE, MONTH(DATE_TRANSACTION) as MOIS, DAY(DATE_TRANSACTION) as JOUR, MODE_LIVRAISON,COM_UTILI_CIBLE as com, ID_PROD_VOULU, ID_PROD_PROPOSE, ID_EMETTEUR, ID_CIBLE from TROC_HISTORIQUE WHERE ID_EMETTEUR = ".$id." ORDER BY HEURES";
 		$ret= $this->executerRequete($sql);
 		$tableau=array();
 		while($ligne=odbc_fetch_array($ret)){
 			array_push($tableau, $ligne);
 		}
+		
+		$sql = "select TROC_H_ID,datediff(hh,DATE_TRANSACTION,getdate()) as HEURES,YEAR(DATE_TRANSACTION) as ANNEE, MONTH(DATE_TRANSACTION) as MOIS, DAY(DATE_TRANSACTION) as JOUR, MODE_LIVRAISON,COM_UTILI_INIT as com, ID_PROD_VOULU as ID_PROD_PROPOSE, ID_PROD_PROPOSE as ID_PROD_VOULU, ID_EMETTEUR as ID_CIBLE, ID_CIBLE as ID_EMETTEUR from TROC_HISTORIQUE WHERE ID_CIBLE = ".$id." ORDER BY HEURES";
+		$ret= $this->executerRequete($sql);	
+		while($ligne=odbc_fetch_array($ret)){
+			array_push($tableau, $ligne);
+		}		
 		return $tableau;
 	}
 	
-	public function getHistoriqueCible($id) {
-		$sql = "select datediff(hh,DATE_TRANSACTION,getdate()) as HEURES,DATE_TRANSACTION, MODE_LIVRAISON,COM_UTILI_INIT,COM_UTILI_CIBLE, ID_PROD_VOULU, ID_PROD_PROPOSE, ID_EMETTEUR, ID_CIBLE from TROC_HISTORIQUE  WHERE ID_CIBLE = ".$id;
-		//echo $sql;
-	}
 	
 	public function ajouterSouhait($id_emetteur,$id_cible,$id_pdt_voulu,$date,$liste_pdts,$liste_md){
 		$sql="BEGIN TRANSACTION ajouterSouhait ";
@@ -106,4 +107,27 @@ class Troc extends Connect{
 		//echo $sql;
 		$ret= $this->executerRequete($sql);
 	}
+	
+	public function ajouterNote($id,$idcible,$com,$note,$troc){
+		$sql = "INSERT INTO NOTE(TROC_H_ID,UTIL_ID,UTI_UTIL_ID,NOTE,COMMENTAIRE,DATE) values (".$troc.",".$id.",".$idcible.",".$note.",'".$com."',getdate())";
+		$ret= $this->executerRequete($sql);
+		echo $sql.'   ';
+		
+		echo 'id cible = '.$id.', id session = '.$_SESSION['id'];
+		
+		// est ce que je suis proprio du roduit ?
+		$sql = "select * FROM TROC_HISTORIQUE WHERE ID_PROD_VOULU IN ( select PDT_ID FROM PRODUIT WHERE UTIL_ID = ".$_SESSION['id']." ) AND TROC_H_ID = ".$troc;
+		$ret= $this->executerRequete($sql);
+		$tableau=array();
+		while($ligne=odbc_fetch_array($ret)){
+			array_push($tableau, $ligne);
+		}
+		if (count($tableau)==0)
+			$sql = "UPDATE TROC_HISTORIQUE set COM_UTILI_INIT=1 WHERE TROC_H_ID=".$troc;
+		else
+			$sql = "UPDATE TROC_HISTORIQUE set COM_UTILI_CIBLE=1 WHERE TROC_H_ID=".$troc;
+
+		$ret= $this->executerRequete($sql);
+		echo $sql;
+	}	
 }

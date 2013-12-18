@@ -29,6 +29,8 @@ if(isset($mesSouhaits) && $mesSouhaits == 3){
 
 }
 
+echo "<div class='Aff_Produits'>";
+
 if(isset($mesSouhaits) && $mesSouhaits == 1){
 	echo "<h2>Liste de vos demandes de troc</h2>";
 	$i=1;
@@ -73,18 +75,27 @@ else if(isset($mesSouhaits) && $mesSouhaits == 0){
 		foreach($tableauSouhait as $ligne){
 			echo "<b>Demande n°".$i."</b><br>";
 			echo "Objet ciblé :".$ligne['LIBELLE_PDT']."<br>";
-			echo "Propriétaire de l'objet : ".$ligne['PRENOM']."<br>";
+			echo "Propriétaire de l'objet : <a class='proprio' data-proprio ='".$ligne['ID_EMETTEUR']."'>".$ligne['PRENOM']."</a><br>";
 			echo "Date du souhait : ".$ligne['DATE_PROPOSITION']."<br>";
 			echo "Produits proposés à l'échange :";
 			if(isset($ligne['ECHANGE'])){
+				echo "<div class = 'ObjetsEchange'>";
 				foreach($ligne['ECHANGE'] as $echange){
+					echo "<div class='vignette' id=".$echange['PDT_ID'].">";
 					echo $echange['LIBELLE_PDT']."<br>";
+					echo "</div>";
+					
 				}
+				echo "</div>";
 			}
-			echo "<br><br>";
+			echo "<br>";
+			echo "<div class='bouton'>";
+			echo "<a class='boutonTroc' class=".$ligne['TROC_ID']."><img src='Resources/images/troc.png' width='175'></a><br><br>";
+			echo "</div>";
 			$i++;
 		}
-	}
+		}
+	
 	else{
 		echo "Aucune demande de troc en cours";
 	}
@@ -124,6 +135,7 @@ else if(isset($mesSouhaits) && $mesSouhaits == 2){
 	else
 		echo 'Aucun produits actifs';
 }
+echo "</div>";
 
 
 ?>
