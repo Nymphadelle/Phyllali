@@ -22,6 +22,7 @@ foreach ($donnees as $donnee) {
 	else
 		array_push($tmp[5],$donnee);
 }
+print_r($donnees);
 ?>
 
   <script>
@@ -70,26 +71,30 @@ foreach ($donnees as $donnee) {
 								else
 									echo '<img src="Resources/images/no_image.jpg" width="100"/>';
 				echo '		</td>
-							<td style="border-bottom: 1px solid black;">'.
+							<td style="border-bottom: 1px solid black;"> <font size="2">'.
 								$p1['LIBELLE_PDT'].'<hr>'.$p1['DESCRIPTION'].
-							'</td>
+							'</font></td>
 							<td style="border-bottom: 1px solid black;">';	
 								if($p2['PHOTO_PDT']!=null)
 									echo '<img src="Resources/PhotosTroc/'.$p2['PHOTO_PDT'].'" width="100" />';
 								else
 									echo '<img src="Resources/images/no_image.jpg" width="100" />';
 				echo '		</td>
-							<td style="border-bottom: 1px solid black;">'.
+							<td style="border-bottom: 1px solid black;"><font size="2">'.
 								$p2['LIBELLE_PDT'].'<hr>'.$p2['DESCRIPTION'].
-							'</td style="border-bottom: 1px solid black;">';
-				echo '		<td style="border-bottom: 1px solid black;">'.$troc['JOUR'].'/'.$troc['MOIS'].'/'.$troc['ANNEE'].'</td>';
+							'</font></td style="border-bottom: 1px solid black;">';
+				echo '		<td style="border-bottom: 1px solid black;"><font size="2">'.$troc['JOUR'].'/'.$troc['MOIS'].'/'.$troc['ANNEE'].'</font></td>';
 				echo '		<td style="border-bottom: 1px solid black;">';
 				if ($troc['MODE_LIVRAISON'] == null)
-					echo 'Non pr&eacute;cis&eacute;';
+					echo '<font size="2">Non pr&eacute;cis&eacute;</font>';
 				else
-					echo $troc['MODE_LIVRAISON'];
-				echo '</td>
-				</tr>';
+					echo '<font size="2">'.$troc['MODE_LIVRAISON'].'</font>';
+				echo '</td>';
+				if ($troc['COM_UTILI_INIT'] == 0) {
+					echo '<td><font size="2"> <input type="button" class="noterutil" id="'.$troc['TROC_H_ID'].'" value="Mettre note"><input type="hidden"  id="uticible'.$troc['TROC_H_ID'].'" name="NumeroPage"  value="'.$troc['ID_CIBLE'].'"> </font></td>';
+				}
+				
+				echo '</tr>';
 				
 				
 			}

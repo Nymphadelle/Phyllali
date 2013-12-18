@@ -177,7 +177,7 @@ $("#connexion").unbind().click(function(event) {
 
 
 // handler sur le bouton ajouter un produit
-$('body').on('click', '.vignette', function(event){
+$('body').unbind().on('click', '.vignette', function(event){
 // appel de la page afficheProduit.php
  	$.ajax({
 	  type:"GET",
@@ -304,5 +304,29 @@ $("body").on('click', ".proprio", function(event){
 	})
 });
 
+$("body").on('click', ".noterutil", function(event){
+	event.preventDefault();
+	console.log("id de la cible :"+$("#uticible").val());
+	chaine = "#uticible"+this.id;
+	$.ajax({
+		type:"POST",
+		url:"ajax/formnote.php",
+		data:{troc:this.id,uti:$(chaine).val()}
+	})
+	.done(function(html){
+		$("#presentation").html(html);
+	})
+});
 
 
+$("body").on('click', "#envoyernote", function(event){
+	event.preventDefault();
+	$.ajax({
+		type:"POST",
+		url:"ajax/insertionnote.php",
+		data:{note:$('#note').find(":selected").text(),com:$("#commentaire").val(),uti:$("#idcible").val(),troc:$("#troc").val()}
+	})
+	.done(function(html){
+		$("#presentation").html(html);
+	})
+});

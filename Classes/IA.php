@@ -16,7 +16,8 @@ class Pb {
 	public function verifier($ch) {
 		for ($i=0 ; $i<sizeof($ch->sol) ; $i++) {
 			$p1 = substr($ch->sol[$i]->action[0],0,1);		
-			$p2 = substr($ch->sol[$i]->action[0],1,1);				
+			$p2 = substr($ch->sol[$i]->action[0],1,1);	
+				// si il y a des termes redondants dans le chemin, retourner faux
 			for ($j=$i+1 ; $j<sizeof($ch->sol) ; $j++) {	
 				if (strpos($ch->sol[$j]->action[0],$p1) !== false || strpos($ch->sol[$j]->action[0],$p2) !== false)
 					return false;

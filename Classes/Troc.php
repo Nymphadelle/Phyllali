@@ -72,14 +72,14 @@ class Troc extends Connect{
 	}
 	
 	public function getHistorique($id) {
-		$sql = "select datediff(hh,DATE_TRANSACTION,getdate()) as HEURES,YEAR(DATE_TRANSACTION) as ANNEE, MONTH(DATE_TRANSACTION) as MOIS, DAY(DATE_TRANSACTION) as JOUR, MODE_LIVRAISON,COM_UTILI_INIT,COM_UTILI_CIBLE, ID_PROD_VOULU, ID_PROD_PROPOSE, ID_EMETTEUR, ID_CIBLE from TROC_HISTORIQUE WHERE ID_EMETTEUR = ".$id." ORDER BY HEURES";
+		$sql = "select TROC_H_ID,datediff(hh,DATE_TRANSACTION,getdate()) as HEURES,YEAR(DATE_TRANSACTION) as ANNEE, MONTH(DATE_TRANSACTION) as MOIS, DAY(DATE_TRANSACTION) as JOUR, MODE_LIVRAISON,COM_UTILI_INIT,COM_UTILI_CIBLE, ID_PROD_VOULU, ID_PROD_PROPOSE, ID_EMETTEUR, ID_CIBLE from TROC_HISTORIQUE WHERE ID_EMETTEUR = ".$id." ORDER BY HEURES";
 		$ret= $this->executerRequete($sql);
 		$tableau=array();
 		while($ligne=odbc_fetch_array($ret)){
 			array_push($tableau, $ligne);
 		}
 		
-		$sql = "select datediff(hh,DATE_TRANSACTION,getdate()) as HEURES,YEAR(DATE_TRANSACTION) as ANNEE, MONTH(DATE_TRANSACTION) as MOIS, DAY(DATE_TRANSACTION) as JOUR, MODE_LIVRAISON,COM_UTILI_INIT as COM_UTILI_CIBLE,COM_UTILI_CIBLE as COM_UTILI_INIT, ID_PROD_VOULU as ID_PROD_PROPOSE, ID_PROD_PROPOSE as ID_PROD_VOULU, ID_EMETTEUR as ID_CIBLE, ID_CIBLE as ID_EMETTEUR from TROC_HISTORIQUE WHERE ID_CIBLE = ".$id." ORDER BY HEURES";
+		$sql = "select TROC_H_ID,datediff(hh,DATE_TRANSACTION,getdate()) as HEURES,YEAR(DATE_TRANSACTION) as ANNEE, MONTH(DATE_TRANSACTION) as MOIS, DAY(DATE_TRANSACTION) as JOUR, MODE_LIVRAISON,COM_UTILI_INIT as COM_UTILI_CIBLE,COM_UTILI_CIBLE as COM_UTILI_INIT, ID_PROD_VOULU as ID_PROD_PROPOSE, ID_PROD_PROPOSE as ID_PROD_VOULU, ID_EMETTEUR as ID_CIBLE, ID_CIBLE as ID_EMETTEUR from TROC_HISTORIQUE WHERE ID_CIBLE = ".$id." ORDER BY HEURES";
 		$ret= $this->executerRequete($sql);	
 		while($ligne=odbc_fetch_array($ret)){
 			array_push($tableau, $ligne);
@@ -92,4 +92,15 @@ class Troc extends Connect{
 	$sql="INSERT INTO TEMP_MD_LIV (id_string, id_util) VALUES (1,1)";
 	$ret= $this->executerRequete($sql);
 	}
+	
+	public function ajouterNote($id,$idcible,$com,$note,$troc){
+		$sql = "INSERT INTO NOTE(TROC_H_ID,UTIL_ID,UTI_UTIL_ID,NOTE,COMMENTAIRE,DATE) values (".$troc.",".$id.",".$idcible.",".$note.",'".$com."',getdate())";
+		$ret= $this->executerRequete($sql);
+
+		if ($idcible == $_SESSION['id'])
+			$sql = "UPDATE TROC_HISTORIQUE set COM_UTILI_INIT=1 WHERE TROC_H_ID=".$troc;
+		else
+			$sql = "UPDATE TROC_HISTORIQUE set COM_UTILI_CIBLE=1 WHERE TROC_H_ID=".$troc;
+		$ret= $this->executerRequete($sql);
+	}	
 }
