@@ -90,7 +90,7 @@ print_r($donnees);
 				else
 					echo '<font size="2">'.$troc['MODE_LIVRAISON'].'</font>';
 				echo '</td>';
-				if ($troc['COM_UTILI_INIT'] == 0) {
+				if ($troc['com'] == 0) {
 					echo '<td><font size="2"> <input type="button" class="noterutil" id="'.$troc['TROC_H_ID'].'" value="Mettre note"><input type="hidden"  id="uticible'.$troc['TROC_H_ID'].'" name="NumeroPage"  value="'.$troc['ID_CIBLE'].'"> </font></td>';
 				}
 				
