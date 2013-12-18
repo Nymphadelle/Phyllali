@@ -15,6 +15,20 @@ if(isset($_POST['souhaits'])){
 	</div>
 	
 <?php
+//si suppression
+if(isset($mesSouhaits) && $mesSouhaits == 3){
+
+	if(isset($_POST['id_troc'])){
+	$id = $_POST['id_troc'];
+	$troc = new Troc();
+
+	$troc->deleteTroc($id);
+	//on va recharger les souhaits
+	$mesSouhaits = 1;
+}
+
+}
+
 if(isset($mesSouhaits) && $mesSouhaits == 1){
 	echo "<h2>Liste de vos demandes de troc</h2>";
 	$i=1;
@@ -26,13 +40,23 @@ if(isset($mesSouhaits) && $mesSouhaits == 1){
 			echo "Objet ciblé : ".$ligne['LIBELLE_PDT']."<br>";
 			echo "Propriétaire de l'objet : ".$ligne['PRENOM']."<br>";
 			echo "Date du souhait : ".$ligne['DATE_PROPOSITION']."<br>";
-			echo "Produits proposés à l'échange :";
+			echo "Produits proposés à l'échange : </br>";
 			if(isset($ligne['ECHANGE'])){
 				foreach($ligne['ECHANGE'] as $echange){
 					echo $echange['LIBELLE_PDT']."<br>";
 				}
 			}
-			echo "<br><br>";
+			
+			?>
+			<div class='annule_s' id='annuler_souhait' style="position:relative; width:175px;">
+			<a class="btn_anul" id="<?php echo $ligne['TROC_ID'] ?>" >
+			<img src="Resources/images/annuler_souhait.png" width="175" /></a>
+			</div>
+			
+			<?php
+			
+			echo "<br>";
+			
 			$i++;
 		}
 	}

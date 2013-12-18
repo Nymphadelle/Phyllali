@@ -122,27 +122,56 @@ $('body').on('click', '#validerModifInfos', function(event){
 
 
 // handler sur le bouton valider un souhait
-$('html').on('click', '#valider_souhait', function(event){
+$('html').unbind().on('click', '#valider_souhait', function(event){
 	// on annule le comportemet par défaut du bouton
 	event.preventDefault();
-	
 	var valeurs = [];
 	$(function(){
 		tabval=new Array();
-		tabval = $(":checkbox:checked").map(function(){ return $(this).val()}).get()
+		tabval = $(".check_pdt:checkbox:checked").map(function(){ return $(this).val()}).get()
+		
+		tabmodes = new Array();
+		tabmodes = $(".check_modes:checkbox:checked").map(function(){ return $(this).val()}).get()
 	} )
+	
+	if(tabval.length>0 && tabmodes.length>0){
+	
 	$.ajax({
 		type:"POST",
 		url:"ajax/souhaitFini.php",
-		data:{liste_pdts:tabval}
+		data:{liste_pdts:tabval, liste_modes:tabmodes}
 	})
 	.done(function( html ) {
 		$( ".Aff_Produits" ).html(html);
 	});
+	}else if(tabval.length==0){
+		alert("Veuillez sélectionner au moins un produit");
+	}else{
+		alert("Veuillez sélectionner au moins un mode de livraison");
+	}
 });
 
-
-
+//handler sur le bouton annuler un souhait
+$('body').unbind().on('click', '#annuler_souhait', function(event){
+	// on annule le comportemet par défaut du bouton
+	event.preventDefault();
+	
+	if (confirm('Etes-vous sur de vouloir suprimmer ce souhait ?')) {
+		$.ajax({
+			type:"POST",
+			url:"ajax/listeSouhaits.php",
+			data:{souhaits:"3", id_troc:$(".btn_anul").attr("id")}
+		})
+		.done(function(html){
+			$("#presentation").html(html);
+				$("#load").hide();
+		})
+	} else {
+		// Do nothing!
+	}
+	
+		
+});
 
 
 

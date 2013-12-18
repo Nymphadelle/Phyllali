@@ -88,7 +88,22 @@ class Troc extends Connect{
 	}
 	
 	public function ajouterSouhait($id_emetteur,$id_cible,$id_pdt_voulu,$date,$liste_pdts,$liste_md){
-	$sql="INSERT INTO TEMP_MD_LIV (id_string, id_util) VALUES (1,1)";
-	$ret= $this->executerRequete($sql);
+		$sql="BEGIN TRANSACTION ajouterSouhait ";
+		$sql.="exec ajout_souhait ".$id_emetteur.",".$id_cible.",".$id_pdt_voulu ;
+		$sql.=",".$date.",".$liste_pdts.",".$liste_md." ";
+		$sql.=" if( @@error != 0) ROLLBACK else";
+		$sql .=" COMMIT TRANSACTION ";
+		//echo $sql;
+		$ret= $this->executerRequete($sql);
+	}
+	
+	
+	public function deleteTroc($id_troc){
+		$sql="BEGIN TRANSACTION deleteSouhait ";
+		$sql.="exec deleteSouhait ".$id_troc;
+		$sql.=" if( @@error != 0) ROLLBACK else";
+		$sql .=" COMMIT TRANSACTION ";
+		//echo $sql;
+		$ret= $this->executerRequete($sql);
 	}
 }
