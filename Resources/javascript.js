@@ -123,6 +123,32 @@ $('body').on('click', '#validerModifInfos', function(event){
 
 
 
+
+
+//handler sur le bouton annuler un souhait
+//$("#annuler_souhait").unbind().click(function(event){
+$('body').unbind().on('click', '#annuler_souhait', function(event){
+	// on annule le comportemet par défaut du bouton
+	alert("test");
+	event.preventDefault();
+	
+	if (confirm('Etes-vous sur de vouloir suprimmer ce souhait ?')) {
+		$.ajax({
+			type:"POST",
+			url:"ajax/listeSouhaits.php",
+			data:{souhaits:"3", id_troc:$(".btn_anul").attr("id")}
+		})
+		.done(function(html){
+			$("#presentation").html(html);
+				$("#load").hide();
+		})
+	} else {
+		// Do nothing!
+	}
+	
+		
+});
+
 // handler sur le bouton valider un souhait
 $('html').unbind().on('click', '#valider_souhait', function(event){
 	// on annule le comportemet par défaut du bouton
@@ -152,30 +178,6 @@ $('html').unbind().on('click', '#valider_souhait', function(event){
 		alert("Veuillez sélectionner au moins un mode de livraison");
 	}
 });
-
-//handler sur le bouton annuler un souhait
-$('body').unbind().on('click', '#annuler_souhait', function(event){
-	// on annule le comportemet par défaut du bouton
-	event.preventDefault();
-	
-	if (confirm('Etes-vous sur de vouloir suprimmer ce souhait ?')) {
-		$.ajax({
-			type:"POST",
-			url:"ajax/listeSouhaits.php",
-			data:{souhaits:"3", id_troc:$(".btn_anul").attr("id")}
-		})
-		.done(function(html){
-			$("#presentation").html(html);
-				$("#load").hide();
-		})
-	} else {
-		// Do nothing!
-	}
-	
-		
-});
-
-
 
 
 // handler sur le bouton ajouter un produit

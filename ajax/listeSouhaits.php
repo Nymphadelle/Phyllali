@@ -50,7 +50,7 @@ if(isset($mesSouhaits) && $mesSouhaits == 1){
 			}
 			
 			?>
-			<div class='annule_s' id='annuler_souhait' style="position:relative; width:175px;">
+			<div class='annuler_souhait' id='annuler_souhait' style="position:relative; width:175px;">
 			<a class="btn_anul" id="<?php echo $ligne['TROC_ID'] ?>" >
 			<img src="Resources/images/annuler_souhait.png" width="175" /></a>
 			</div>
