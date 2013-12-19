@@ -15,6 +15,7 @@ $donnees = new Produit();
 <!doctype html>
 <html>
 	<head>
+		<title>Finistroc'</title>
 		<link href="Resources/style.css" type="text/css" media="screen" rel="stylesheet">
 		<script type="text/javascript" src="Resources/jquery-1.8.2.min.js"></script>
 		  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">

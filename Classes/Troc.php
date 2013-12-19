@@ -43,7 +43,7 @@ class Troc extends Connect{
 	public function getLeursSouhaits($id_util){
 		$sql="SELECT ID_CIBLE, ID_EMETTEUR, TROC_ID, LIBELLE_PDT, PRENOM, DATE_PROPOSITION,PHOTO_PDT FROM PRODUIT_ACTIF, UTILISATEUR, TROC, PRODUIT ";
 		$sql .="WHERE ID_CIBLE = ".$id_util." AND PRODUIT_ACTIF.PDT_ID = ID_PROD_VOULU ";
-		$sql .="AND PRODUIT.PDT_ID = PRODUIT_ACTIF.PDT_ID AND UTILISATEUR.UTIL_ID = ID_EMETTEUR";
+		$sql .="AND PRODUIT.PDT_ID = PRODUIT_ACTIF.PDT_ID AND UTILISATEUR.UTIL_ID = ID_EMETTEUR ORDER BY PRODUIT_ACTIF.PDT_ID";
 		$ret= $this->executerRequete($sql);
 		$id_troc=array();
 		$tableauSouhait=array();
