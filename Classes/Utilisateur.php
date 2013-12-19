@@ -94,25 +94,25 @@ class Utilisateur extends Connect{
 		if ($note == '')
 				return "";
 			else if (round($note,2) <= 0.5)
-				return '<img class="afficherprofil" id="'.$id.'" src="Resources/images/0.5.png" width="80" style>';
+				return '<div><img class="afficherprofil" id="'.$id.'" src="Resources/images/0.5.png" width="70" style></div>';
 			else if (round($note,2) <= 1)
-				return '<img class="afficherprofil" id="'.$id.'" src="Resources/images/1.png" width="80">';
+				return '<div><img class="afficherprofil" id="'.$id.'" src="Resources/images/1.png" width="70"></div>';
 			else if (round($note,2) <= 1.5)
-				return '<img class="afficherprofil" id="'.$id.'" src="Resources/images/1.5.png" width="80">';
+				return '<div><img class="afficherprofil" id="'.$id.'" src="Resources/images/1.5.png" width="70"></div>';
 			else if (round($note,2) <= 2)
-				return '<img class="afficherprofil" id="'.$id.'" src="Resources/images/2.png" width="80">';
+				return '<div><img class="afficherprofil" id="'.$id.'" src="Resources/images/2.png" width="70"></div>';
 			else if (round($note,2) <= 2.5)
-				return '<img class="afficherprofil" id="'.$id.'" src="Resources/images/2.5.png" width="80">';
+				return '<div><img class="afficherprofil" id="'.$id.'" src="Resources/images/2.5.png" width="70"></div>';
 			else if (round($note,2) <= 3)
-				return '<img class="afficherprofil" id="'.$id.'" src="Resources/images/3.png" width="80">';
+				return '<div><img class="afficherprofil" id="'.$id.'" src="Resources/images/3.png" width="70"></div>';
 			else if (round($note,2) <= 3.5)
-				return '<img class="afficherprofil" id="'.$id.'" src="Resources/images/3.5.png" width="80">';
+				return '<div><img class="afficherprofil" id="'.$id.'" src="Resources/images/3.5.png" width="70"></div>';
 			else if (round($note,2) <= 4)
-				return '<img class="afficherprofil" id="'.$id.'" src="Resources/images/4.png" width="80">';
+				return '<div><img class="afficherprofil" id="'.$id.'" src="Resources/images/4.png" width="70"></div>';
 			else if (round($note,2) <= 4.5)
-				return '<img class="afficherprofil" id="'.$id.'" src="Resources/images/4.5.png" width="80">';
+				return '<div><img class="afficherprofil" id="'.$id.'" src="Resources/images/4.5.png" width="70"></div>';
 			else 
-				return '<img class="afficherprofil" id="'.$id.'" src="Resources/images/5.png" width="80">';	
+				return '<div><img class="afficherprofil" id="'.$id.'" src="Resources/images/5.png" width="70"></div>';	
 	}
 	
 	
