@@ -2,6 +2,8 @@
 
 require_once("../Classes/Troc.php");
 require_once("../Classes/Produit.php");
+require_once("../Classes/Utilisateur.php");
+$user = new Utilisateur();
 session_start();
 $id_util = $_SESSION['id'];
 if(isset($_POST['souhaits'])){
@@ -36,8 +38,10 @@ if(isset($mesSouhaits) && $mesSouhaits == 1){
 	$i=1;
 	$troc = new Troc();
 	$tableauSouhait=$troc->getMesSouhaits($id_util);
+
 	if(!empty($tableauSouhait)){
 		foreach($tableauSouhait as $ligne){
+			
 			echo "<b>Souhait n°".$i."</b><br>";
 			echo "Objet ciblé : ".$ligne['LIBELLE_PDT']."<br>";
 			echo "Propriétaire de l'objet : ".$ligne['PRENOM']."<br>";
@@ -51,7 +55,8 @@ if(isset($mesSouhaits) && $mesSouhaits == 1){
 			
 			?>
 			<div class='annuler_souhait' id='annuler_souhait' style="position:relative; width:175px;">
-			<a class="btn_anul" id="<?php echo $ligne['TROC_ID'] ?>" >
+				<a class="btn_anul" id="<?php echo $ligne['TROC_ID'] ?>" >
+				<input type="button" class="btn_annuler_souhait" value="annuler">
 			<img src="Resources/images/annuler_souhait.png" width="175" /></a>
 			</div>
 			
@@ -66,6 +71,7 @@ if(isset($mesSouhaits) && $mesSouhaits == 1){
 		echo "Aucun souhait en cours";
 	}
 }
+
 else if(isset($mesSouhaits) && $mesSouhaits == 0){
 	$i=1;
 	$troc = new Troc();
@@ -75,7 +81,7 @@ else if(isset($mesSouhaits) && $mesSouhaits == 0){
 		foreach($tableauSouhait as $ligne){
 			echo "<b>Demande n°".$i."</b><br>";
 			echo "Objet ciblé :".$ligne['LIBELLE_PDT']."<br>";
-			echo "Propriétaire de l'objet : <a class='proprio' data-proprio ='".$ligne['ID_EMETTEUR']."'>".$ligne['PRENOM']."</a><br>";
+			echo "Propriétaire de l'objet : <a class='proprio' data-proprio ='".$ligne['ID_EMETTEUR']."'>".$ligne['PRENOM']."</a>".$user->getImageNote($ligne['ID_EMETTEUR'])."<br>";
 			echo "Date du souhait : ".$ligne['DATE_PROPOSITION']."<br>";
 			echo "Produits proposés à l'échange :";
 			if(isset($ligne['ECHANGE'])){

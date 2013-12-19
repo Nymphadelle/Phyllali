@@ -127,9 +127,9 @@ $('body').on('click', '#validerModifInfos', function(event){
 
 //handler sur le bouton annuler un souhait
 //$("#annuler_souhait").unbind().click(function(event){
-$('body').unbind().on('click', '#annuler_souhait', function(event){
+$('#presentation').on('click', '#annuler_souhait', function(event){
 	// on annule le comportemet par défaut du bouton
-	alert("test");
+
 	event.preventDefault();
 	
 	if (confirm('Etes-vous sur de vouloir suprimmer ce souhait ?')) {
@@ -208,7 +208,7 @@ $("#connexion").unbind().click(function(event) {
 
 
 // handler sur le bouton ajouter un produit
-$('body').unbind().on('click', '.vignette', function(event){
+$('body').on('click', '.vignette', function(event){
 // appel de la page afficheProduit.php
  	$.ajax({
 	  type:"GET",
@@ -359,5 +359,17 @@ $("body").on('click', "#envoyernote", function(event){
 	})
 	.done(function(html){
 		console.log(html);
+	})
+});
+
+$("body").on('click', ".afficherprofil", function(event){
+	event.preventDefault();
+		$.ajax({
+		type:"POST",
+		url:"ajax/getNotes.php",
+		data:{id:this.id}
+	})
+	.done(function(html){
+		$("#presentation").html(html);
 	})
 });

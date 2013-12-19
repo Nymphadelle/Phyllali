@@ -155,6 +155,10 @@ text-decoration: underline;
     cursor: pointer;
 }
 
+.afficherprofil{
+cursor: pointer;
+}
+
 #presentation{
 float:left;
 text-align : left;

@@ -32,9 +32,9 @@ class Utilisateur extends Connect{
 	}
 	
 	public function connectionUser($mail, $mdp){
-		$sql = "SELECT util, mail, PRENOM FROM CONNEXION, UTILISATEUR WHERE mail ='".$mail."' AND mdp='".$mdp."' AND UTIL_ID = util";
+		$sql = "SELECT util, mail, PRENOM, NOTE_MOYENNE FROM CONNEXION, UTILISATEUR WHERE mail ='".$mail."' AND mdp='".$mdp."' AND UTIL_ID = util";
 		$req=$this->executerRequete($sql);
-		$infoUtil = array(utf8_encode(odbc_result($req, 'util')), utf8_encode(odbc_result($req, 'PRENOM')),utf8_encode(odbc_result($req, 'mail')));
+		$infoUtil = array(utf8_encode(odbc_result($req, 'util')), utf8_encode(odbc_result($req, 'PRENOM')),utf8_encode(odbc_result($req, 'mail')),utf8_encode(odbc_result($req, 'NOTE_MOYENNE')));
 		return $infoUtil;
 	}
 	
@@ -83,6 +83,57 @@ class Utilisateur extends Connect{
 		$sql = "Select PRENOM from UTILISATEUR where UTIL_ID=".$id_util;
 		$util = $this->executerRequete($sql);
 		return odbc_result($util,'PRENOM');
+	}
+	
+	public function getImageNote($id) {
+	
+		$sql = "select NOTE_MOYENNE from UTILISATEUR where UTIL_ID = ".$id;	
+		$ret = $this->executerRequete($sql);
+		$note = odbc_result($ret,'NOTE_MOYENNE');
+	
+		if ($note == '')
+				return "";
+			else if (round($note,2) <= 0.5)
+				return '<img class="afficherprofil" id="'.$id.'" src="Resources/images/0.5.png" width="80" style>';
+			else if (round($note,2) <= 1)
+				return '<img class="afficherprofil" id="'.$id.'" src="Resources/images/1.png" width="80">';
+			else if (round($note,2) <= 1.5)
+				return '<img class="afficherprofil" id="'.$id.'" src="Resources/images/1.5.png" width="80">';
+			else if (round($note,2) <= 2)
+				return '<img class="afficherprofil" id="'.$id.'" src="Resources/images/2.png" width="80">';
+			else if (round($note,2) <= 2.5)
+				return '<img class="afficherprofil" id="'.$id.'" src="Resources/images/2.5.png" width="80">';
+			else if (round($note,2) <= 3)
+				return '<img class="afficherprofil" id="'.$id.'" src="Resources/images/3.png" width="80">';
+			else if (round($note,2) <= 3.5)
+				return '<img class="afficherprofil" id="'.$id.'" src="Resources/images/3.5.png" width="80">';
+			else if (round($note,2) <= 4)
+				return '<img class="afficherprofil" id="'.$id.'" src="Resources/images/4.png" width="80">';
+			else if (round($note,2) <= 4.5)
+				return '<img class="afficherprofil" id="'.$id.'" src="Resources/images/4.5.png" width="80">';
+			else 
+				return '<img class="afficherprofil" id="'.$id.'" src="Resources/images/5.png" width="80">';	
+	}
+	
+	
+	public function getNotes($id){
+		$sql = "SELECT * FROM NOTE WHERE UTIL_ID = ".$id;
+		$req = $this->executerRequete($sql);
+		$tableau=array();
+		while($row = odbc_fetch_array($req)){
+			array_push($tableau, $row);
+		}
+		return $tableau;
+	}
+	
+	public function getNotes2($id){
+		$sql = "SELECT * FROM NOTE WHERE UTI_UTIL_ID = ".$id;
+		$req = $this->executerRequete($sql);
+		$tableau=array();
+		while($row = odbc_fetch_array($req)){
+			array_push($tableau, $row);
+		}
+		return $tableau;
 	}
 	
 }?>

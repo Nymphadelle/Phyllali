@@ -22,7 +22,7 @@ foreach ($donnees as $donnee) {
 	else
 		array_push($tmp[5],$donnee);
 }
-print_r($donnees);
+
 ?>
 
   <script>
