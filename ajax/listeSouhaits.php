@@ -38,34 +38,58 @@ if(isset($mesSouhaits) && $mesSouhaits == 1){
 	$i=1;
 	$troc = new Troc();
 	$tableauSouhait=$troc->getMesSouhaits($id_util);
-
 	if(!empty($tableauSouhait)){
+		echo '<table>
+				<tr bgcolor="#99275a">
+					<td align="center">
+						<font color="white">Souhait n°</font>
+					</td>
+					<td align="center">
+						<font color="white">Objet ciblé</font>
+					</td>
+					<td align="center">
+						<font color="white">Propriétaire</font>
+					</td>
+					<td align="center">
+						<font color="white">Produits proposés en échange</font>
+					</td>
+					<td align="center">
+						<font color="white">Date du souhait</font>
+					</td>
+				</tr>';
+				
 		foreach($tableauSouhait as $ligne){
-			
-			echo "<b>Souhait n°".$i."</b><br>";
-			echo "Objet ciblé : ".$ligne['LIBELLE_PDT']."<br>";
-			echo "Propriétaire de l'objet : ".$ligne['PRENOM']."<br>";
-			echo "Date du souhait : ".$ligne['DATE_PROPOSITION']."<br>";
-			echo "Produits proposés à l'échange : </br>";
+			echo '<tr>
+					<td align="center">'.$i.'</td><td>';
+			if($ligne['PHOTO_PDT']!=null)
+				echo '<img src="Resources/PhotosTroc/'.$ligne['PHOTO_PDT'].'" width="80" />';
+			else
+				echo '<img src="Resources/images/no_image.jpg" />';		
+			echo '</td>
+					<td align="center">'.$ligne['PRENOM'].'</td><td align="center">';
 			if(isset($ligne['ECHANGE'])){
 				foreach($ligne['ECHANGE'] as $echange){
-					echo $echange['LIBELLE_PDT']."<br>";
+				if($echange['PHOTO_PDT']!=null)
+					echo '<img src="Resources/PhotosTroc/'.$echange['PHOTO_PDT'].'" width="80" />';
+				else
+					echo '<img src="Resources/images/no_image.jpg" />';		
 				}
-			}
-			
+			}		
+			echo '</td>
+					<td align="center">'.$ligne['DATE_PROPOSITION'].'</td><td>';		
 			?>
 			<div class='annuler_souhait' id='annuler_souhait' style="position:relative; width:175px;">
 				<a class="btn_anul" id="<?php echo $ligne['TROC_ID'] ?>" >
-				<input type="button" class="btn_annuler_souhait" value="annuler">
 			<img src="Resources/images/annuler_souhait.png" width="175" /></a>
 			</div>
+				</td>
+			</tr>
 			
-			<?php
-			
-			echo "<br>";
-			
+			<?php			
 			$i++;
+			
 		}
+		echo '</table>';
 	}
 	else{
 		echo "Aucun souhait en cours";
@@ -78,27 +102,54 @@ else if(isset($mesSouhaits) && $mesSouhaits == 0){
 	echo "<h2>Liste des demandes de troc sur vos objets</h2>";
 	$tableauSouhait=$troc->getLeursSouhaits($id_util);
 	if(!empty($tableauSouhait)){
+		echo '<table>
+				<tr bgcolor="#99275a">
+					<td align="center">
+						<font color="white">Souhait n°</font>
+					</td>
+					<td align="center">
+						<font color="white">Objet ciblé</font>
+					</td>
+					<td align="center">
+						<font color="white">Personne interessée</font>
+					</td>
+					<td align="center">
+						<font color="white">Produits proposés en échange</font>
+					</td>
+					<td align="center">
+						<font color="white">Date du souhait</font>
+					</td>
+				</tr>';
 		foreach($tableauSouhait as $ligne){
-			echo "<b>Demande n°".$i."</b><br>";
-			echo "Objet ciblé :".$ligne['LIBELLE_PDT']."<br>";
-			echo "Propriétaire de l'objet : <a class='proprio' data-proprio ='".$ligne['ID_EMETTEUR']."'>".$ligne['PRENOM']."</a>".$user->getImageNote($ligne['ID_EMETTEUR'])."<br>";
-			echo "Date du souhait : ".$ligne['DATE_PROPOSITION']."<br>";
-			echo "Produits proposés à l'échange :";
+			echo '<tr>
+					<td align="center">'.$i.'</td><td>';
+			if($ligne['PHOTO_PDT']!=null)
+				echo '<img src="Resources/PhotosTroc/'.$ligne['PHOTO_PDT'].'" width="80" />';
+			else
+				echo '<img src="Resources/images/no_image.jpg" />';		
+			echo '</td>
+					<td align="center">'.$ligne['PRENOM'].'</td><td align="center">';
 			if(isset($ligne['ECHANGE'])){
-				echo "<div class = 'ObjetsEchange'>";
 				foreach($ligne['ECHANGE'] as $echange){
-					echo "<div class='vignette' id=".$echange['PDT_ID'].">";
-					echo $echange['LIBELLE_PDT']."<br>";
-					echo "</div>";
-					
+				if($echange['PHOTO_PDT']!=null)
+					echo '<img src="Resources/PhotosTroc/'.$echange['PHOTO_PDT'].'" width="80" />';
+				else
+					echo '<img src="Resources/images/no_image.jpg" />';		
 				}
-				echo "</div>";
-			}
-			echo "<br>";
-			echo "<div class='bouton'>";
-			echo "<a class='boutonTroc' class=".$ligne['TROC_ID']."><img src='Resources/images/troc.png' width='175'></a><br><br>";
-			echo "</div>";
+			}		
+			echo '</td>
+					<td align="center">'.$ligne['DATE_PROPOSITION'].'</td><td>';		
+			?>
+			<div class='annuler_souhait' id='annuler_souhait' style="position:relative; width:175px;">
+				<a class="btn_anul" id="<?php echo $ligne['TROC_ID'] ?>" >
+			<img src="Resources/images/annuler_souhait.png" width="175" /></a>
+			</div>
+				</td>
+			</tr>
+			
+			<?php			
 			$i++;
+			
 		}
 		}
 	

@@ -7,7 +7,7 @@ class Troc extends Connect{
 /*xxxxxxxxx METHODES xxxxxxxxxx*/
 	
 	public function getMesSouhaits($id_util){
-		$sql = "SELECT TROC_ID, LIBELLE_PDT, PRENOM, DATE_PROPOSITION FROM PRODUIT_ACTIF, UTILISATEUR, TROC, PRODUIT  ";
+		$sql = "SELECT TROC_ID, LIBELLE_PDT, PRENOM, DATE_PROPOSITION, PHOTO_PDT FROM PRODUIT_ACTIF, UTILISATEUR, TROC, PRODUIT  ";
 		$sql .= " WHERE ID_EMETTEUR=".$id_util." AND PRODUIT_ACTIF.PDT_ID = ID_PROD_VOULU ";
 		$sql .= " AND PRODUIT.PDT_ID = PRODUIT_ACTIF.PDT_ID AND UTILISATEUR.UTIL_ID = ID_CIBLE";
 		$ret = $this->executerRequete($sql);
@@ -19,7 +19,7 @@ class Troc extends Connect{
 			array_push($tableauSouhait, $ligne);
 		}
 		foreach($id_troc as $id){
-			$sql2 = "SELECT TROC_ID, LIBELLE_PDT FROM PRODUIT, PROPOSE WHERE TROC_ID=".$id." AND PRODUIT.PDT_ID=PROPOSE.PDT_ID AND PROPOSE.UTIL_ID =".$id_util."";
+			$sql2 = "SELECT TROC_ID, LIBELLE_PDT, PHOTO_PDT FROM PRODUIT, PROPOSE WHERE TROC_ID=".$id." AND PRODUIT.PDT_ID=PROPOSE.PDT_ID AND PROPOSE.UTIL_ID =".$id_util."";
 			$ret2=$this->executerRequete($sql2);
 			while($row = odbc_fetch_array($ret2)){
 				array_push($tableauProduits, $row);
@@ -41,7 +41,7 @@ class Troc extends Connect{
 	}
 	
 	public function getLeursSouhaits($id_util){
-		$sql="SELECT ID_CIBLE, ID_EMETTEUR, TROC_ID, LIBELLE_PDT, PRENOM, DATE_PROPOSITION FROM PRODUIT_ACTIF, UTILISATEUR, TROC, PRODUIT ";
+		$sql="SELECT ID_CIBLE, ID_EMETTEUR, TROC_ID, LIBELLE_PDT, PRENOM, DATE_PROPOSITION,PHOTO_PDT FROM PRODUIT_ACTIF, UTILISATEUR, TROC, PRODUIT ";
 		$sql .="WHERE ID_CIBLE = ".$id_util." AND PRODUIT_ACTIF.PDT_ID = ID_PROD_VOULU ";
 		$sql .="AND PRODUIT.PDT_ID = PRODUIT_ACTIF.PDT_ID AND UTILISATEUR.UTIL_ID = ID_EMETTEUR";
 		$ret= $this->executerRequete($sql);
@@ -53,7 +53,7 @@ class Troc extends Connect{
 			array_push($tableauSouhait, $ligne);
 		}
 		foreach($id_troc as $id){
-			$sql2 = "SELECT TROC_ID, LIBELLE_PDT, PRODUIT.PDT_ID FROM PRODUIT, PROPOSE WHERE TROC_ID=".$id." AND PRODUIT.PDT_ID=PROPOSE.PDT_ID";
+			$sql2 = "SELECT TROC_ID, LIBELLE_PDT, PRODUIT.PDT_ID,PHOTO_PDT FROM PRODUIT, PROPOSE WHERE TROC_ID=".$id." AND PRODUIT.PDT_ID=PROPOSE.PDT_ID";
 			$ret2=$this->executerRequete($sql2);
 			while($row = odbc_fetch_array($ret2)){
 				array_push($tableauProduits, $row);

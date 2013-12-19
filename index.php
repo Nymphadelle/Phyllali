@@ -35,7 +35,7 @@ $donnees = new Produit();
 			$tmp = $user->getImageNote($_SESSION['id']);
 
 				
-			echo "Bonjour, ".$_SESSION['prenom']." ";
+			echo "<div>Bonjour, ".$_SESSION['prenom']."</div> ";
 			if ($tmp != '')
 				echo $tmp;
 			echo "</div>";

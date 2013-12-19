@@ -157,6 +157,8 @@ text-decoration: underline;
 
 .afficherprofil{
 cursor: pointer;
+display : inline ;
+
 }
 
 #presentation{
