@@ -99,9 +99,24 @@ $donnees = new Produit();
 						}
 						echo $pdt2['LIBELLE_PDT']."</br>";
 						echo '</div></div>';
-							}
+						}
 						else {
-							echo '<h2> Ne seriez vous pas interessé par ces echanges ? </h2>';
+							echo '<h2> Ne seriez vous pas interessé par ces echanges ? </h2><table>';
+							foreach ($paires as $paire) {
+								echo '<tr><td>';
+								$pdt1 = $donnees->getProduitParId($paire['yours']);
+								$pdt2 = $donnees->getProduitParId($paire['his']);
+								echo 'seriez vous interessé par <b>'.$pdt2['LIBELLE_PDT'].'</b> en échange de votre <b>'.$pdt1['LIBELLE_PDT'].'</b> ?<br><br></td>';
+								echo '<td><div class="vignette" id='.$pdt2["PDT_ID"].'>';
+								if($pdt2['PHOTO_PDT']!=null)
+									echo '<img src="Resources/PhotosTroc/'.$pdt2['PHOTO_PDT'].'" width="125" />';
+								else
+									echo '<img src="Resources/images/no_image.jpg" />';
+								
+								echo $pdt2['LIBELLE_PDT']."</br></td>";
+								echo '</div>';
+							}
+							echo '</table>';
 						}
 			}
 			else {

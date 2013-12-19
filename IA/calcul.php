@@ -31,6 +31,8 @@ foreach ($poids as $val) {
 }
 
 
+
+
 $array2 = array();
 $array3 = array();
 for ($i=0;$i<sizeof($array);$i++)

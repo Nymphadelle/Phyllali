@@ -148,7 +148,7 @@ class Produit extends Connect{
 	}
 	
 	public function getPaires($id) {
-		$sql =  "select P1 as yours, P2 as his from COUPLES_PRODUITS WHERE P1 IN(select PDT_ID FROM PRODUIT_ACTIF WHERE UTIL_ID = 7) AND P2 NOT IN(select PDT_ID FROM PRODUIT_ACTIF WHERE UTIL_ID = 7)";
+		$sql =  "select P1 as yours, P2 as his from COUPLES_PRODUITS WHERE P1 IN(select PDT_ID FROM PRODUIT_ACTIF WHERE UTIL_ID = ".$id.") AND P2 NOT IN(select PDT_ID FROM PRODUIT_ACTIF WHERE UTIL_ID = ".$id.")";
 		$produits = $this->executerRequete($sql);
 		$tab = array();
 		while(odbc_fetch_row($produits)){
@@ -158,7 +158,7 @@ class Produit extends Connect{
 			}
 			array_push($tab, $tableau);
 		}
-		$sql =  "select P1 as his, P2 as yours from COUPLES_PRODUITS WHERE P2 IN(select PDT_ID FROM PRODUIT_ACTIF WHERE UTIL_ID = 7) AND P1 NOT IN(select PDT_ID FROM PRODUIT_ACTIF WHERE UTIL_ID = 7)";
+		$sql =  "select P1 as his, P2 as yours from COUPLES_PRODUITS WHERE P2 IN(select PDT_ID FROM PRODUIT_ACTIF WHERE UTIL_ID = ".$id.") AND P1 NOT IN(select PDT_ID FROM PRODUIT_ACTIF WHERE UTIL_ID = ".$id.")";
 		$produits = $this->executerRequete($sql);
 		while(odbc_fetch_row($produits)){
 			$tableau = array();		
