@@ -2,6 +2,8 @@
 
 require_once("../Classes/Troc.php");
 require_once("../Classes/Produit.php");
+require_once("../Classes/Utilisateur.php");
+$user = new Utilisateur();
 session_start();
 $id_util = $_SESSION['id'];
 if(isset($_POST['souhaits'])){
@@ -15,6 +17,20 @@ if(isset($_POST['souhaits'])){
 	</div>
 	
 <?php
+//si suppression
+if(isset($mesSouhaits) && $mesSouhaits == 3){
+
+	if(isset($_POST['id_troc'])){
+	$id = $_POST['id_troc'];
+	$troc = new Troc();
+
+	$troc->deleteTroc($id);
+	//on va recharger les souhaits
+	$mesSouhaits = 1;
+}
+
+}
+
 echo "<div class='Aff_Produits'>";
 
 if(isset($mesSouhaits) && $mesSouhaits == 1){
@@ -22,19 +38,32 @@ if(isset($mesSouhaits) && $mesSouhaits == 1){
 	$i=1;
 	$troc = new Troc();
 	$tableauSouhait=$troc->getMesSouhaits($id_util);
+
 	if(!empty($tableauSouhait)){
 		foreach($tableauSouhait as $ligne){
+			
 			echo "<b>Souhait n°".$i."</b><br>";
 			echo "Objet ciblé : ".$ligne['LIBELLE_PDT']."<br>";
 			echo "Propriétaire de l'objet : ".$ligne['PRENOM']."<br>";
 			echo "Date du souhait : ".$ligne['DATE_PROPOSITION']."<br>";
-			echo "Produits proposés à l'échange :";
+			echo "Produits proposés à l'échange : </br>";
 			if(isset($ligne['ECHANGE'])){
 				foreach($ligne['ECHANGE'] as $echange){
 					echo $echange['LIBELLE_PDT']."<br>";
 				}
 			}
-			echo "<br><br>";
+			
+			?>
+			<div class='annuler_souhait' id='annuler_souhait' style="position:relative; width:175px;">
+				<a class="btn_anul" id="<?php echo $ligne['TROC_ID'] ?>" >
+				<input type="button" class="btn_annuler_souhait" value="annuler">
+			<img src="Resources/images/annuler_souhait.png" width="175" /></a>
+			</div>
+			
+			<?php
+			
+			echo "<br>";
+			
 			$i++;
 		}
 	}
@@ -42,6 +71,7 @@ if(isset($mesSouhaits) && $mesSouhaits == 1){
 		echo "Aucun souhait en cours";
 	}
 }
+
 else if(isset($mesSouhaits) && $mesSouhaits == 0){
 	$i=1;
 	$troc = new Troc();
@@ -51,7 +81,7 @@ else if(isset($mesSouhaits) && $mesSouhaits == 0){
 		foreach($tableauSouhait as $ligne){
 			echo "<b>Demande n°".$i."</b><br>";
 			echo "Objet ciblé :".$ligne['LIBELLE_PDT']."<br>";
-			echo "Propriétaire de l'objet : <a class='proprio' data-proprio ='".$ligne['ID_EMETTEUR']."'>".$ligne['PRENOM']."</a><br>";
+			echo "Propriétaire de l'objet : <a class='proprio' data-proprio ='".$ligne['ID_EMETTEUR']."'>".$ligne['PRENOM']."</a>".$user->getImageNote($ligne['ID_EMETTEUR'])."<br>";
 			echo "Date du souhait : ".$ligne['DATE_PROPOSITION']."<br>";
 			echo "Produits proposés à l'échange :";
 			if(isset($ligne['ECHANGE'])){

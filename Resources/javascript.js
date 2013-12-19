@@ -123,30 +123,61 @@ $('body').on('click', '#validerModifInfos', function(event){
 
 
 
-// handler sur le bouton valider un souhait
-$('html').on('click', '#valider_souhait', function(event){
+
+
+//handler sur le bouton annuler un souhait
+//$("#annuler_souhait").unbind().click(function(event){
+$('#presentation').on('click', '#annuler_souhait', function(event){
 	// on annule le comportemet par défaut du bouton
+
 	event.preventDefault();
 	
+	if (confirm('Etes-vous sur de vouloir suprimmer ce souhait ?')) {
+		$.ajax({
+			type:"POST",
+			url:"ajax/listeSouhaits.php",
+			data:{souhaits:"3", id_troc:$(".btn_anul").attr("id")}
+		})
+		.done(function(html){
+			$("#presentation").html(html);
+				$("#load").hide();
+		})
+	} else {
+		// Do nothing!
+	}
+	
+		
+});
+
+// handler sur le bouton valider un souhait
+$('html').unbind().on('click', '#valider_souhait', function(event){
+	// on annule le comportemet par défaut du bouton
+	event.preventDefault();
 	var valeurs = [];
 	$(function(){
 		tabval=new Array();
-		tabval = $(":checkbox:checked").map(function(){ return $(this).val()}).get()
+		tabval = $(".check_pdt:checkbox:checked").map(function(){ return $(this).val()}).get()
+		
+		tabmodes = new Array();
+		tabmodes = $(".check_modes:checkbox:checked").map(function(){ return $(this).val()}).get()
 	} )
+	
+	if(tabval.length>0 && tabmodes.length>0){
+	
 	$.ajax({
 		type:"POST",
 		url:"ajax/souhaitFini.php",
-		data:{liste_pdts:tabval}
+		data:{liste_pdts:tabval, liste_modes:tabmodes}
 	})
 	.done(function( html ) {
 		$( ".Aff_Produits" ).html(html);
 	});
+	}else if(tabval.length==0){
+		alert("Veuillez sélectionner au moins un produit");
+	}else{
+		alert("Veuillez sélectionner au moins un mode de livraison");
+	}
 });
-
-
-
-
-
 
 
 // handler sur le bouton ajouter un produit
@@ -304,5 +335,41 @@ $("body").on('click', ".proprio", function(event){
 	})
 });
 
+$("body").on('click', ".noterutil", function(event){
+	event.preventDefault();
+	console.log("id de la cible :"+$("#uticible").val());
+	chaine = "#uticible"+this.id;
+	$.ajax({
+		type:"POST",
+		url:"ajax/formnote.php",
+		data:{troc:this.id,uti:$(chaine).val()}
+	})
+	.done(function(html){
+		$("#presentation").html(html);
+	})
+});
 
 
+$("body").on('click', "#envoyernote", function(event){
+	event.preventDefault();
+	$.ajax({
+		type:"POST",
+		url:"ajax/insertionnote.php",
+		data:{note:$('#note').find(":selected").text(),com:$("#commentaire").val(),uti:$("#idcible").val(),troc:$("#troc").val()}
+	})
+	.done(function(html){
+		console.log(html);
+	})
+});
+
+$("body").on('click', ".afficherprofil", function(event){
+	event.preventDefault();
+		$.ajax({
+		type:"POST",
+		url:"ajax/getNotes.php",
+		data:{id:this.id}
+	})
+	.done(function(html){
+		$("#presentation").html(html);
+	})
+});

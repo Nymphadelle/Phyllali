@@ -1,10 +1,12 @@
 
 <?php
 require_once 'Classes/Produit.php';
+require_once 'Classes/Utilisateur.php';
 require_once 'Classes/Categorie.php';
 session_start();
 
 $donnees = new Categorie();
+$user = new Utilisateur();
 $categories = $donnees->getCategories();
 
 $donnees = new Produit();
@@ -30,7 +32,12 @@ $donnees = new Produit();
 		<div id="compte">
 		<?php
 		if(isset($_SESSION['id']) && $_SESSION['id'] != ''){
-			echo "Bonjour, ".$_SESSION['prenom'];
+			$tmp = $user->getImageNote($_SESSION['id']);
+
+				
+			echo "Bonjour, ".$_SESSION['prenom']." ";
+			if ($tmp != '')
+				echo $tmp;
 			echo "</div>";
 			echo "<div id='picto'>";
 			echo "<a id='modpro' title='Modifier profil'><img src='Resources/images/prof.png' width='30'></a>";

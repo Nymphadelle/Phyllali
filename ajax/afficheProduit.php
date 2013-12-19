@@ -2,12 +2,15 @@
 
 session_start();
 require_once '../Classes/Produit.php';
+require_once '../Classes/Utilisateur.php';
 
 $id_pdt = $_GET['id_pdt'];
 
 $donnee = new Produit();
-$produit = $donnee->getProduitParId($id_pdt);
+$user = new Utilisateur();
 
+$produit = $donnee->getProduitParId($id_pdt);
+$tmp = $user->getImageNote($produit['UTIL_ID']);
 ?>
 <script type="text/javascript" src="Resources/javascript.js?v=<?php echo rand();?>"></script>
 
@@ -26,7 +29,9 @@ $produit = $donnee->getProduitParId($id_pdt);
 		<div class ="description" style="float:left;margin:15px;width:450px;">
 		<?php 
 			echo "Nom du produit : ".$produit['LIBELLE_PDT']."</br>"; 
-			echo 'Propri&eacute;taire : <a class="proprietaire" id="'.$produit['UTIL_ID'].'">'.$produit['mail'].'</a></br>';
+			
+			
+			echo 'Propri&eacute;taire : <a class="proprietaire" id="'.$produit['UTIL_ID'].'">'.$produit['mail'].'</a> '.$tmp.'</br>';
 			echo 'Categorie : <a class="cat" id="'.$produit['ID_CATEGORIE'].'">'.$produit['NOM_CATEG'].'</a></br></br>';
 			echo "Description : ".$produit['DESCRIPTION'];
 			echo "</br>Etat : ".$produit['ETAT'];

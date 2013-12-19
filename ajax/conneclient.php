@@ -7,6 +7,7 @@
 		$_SESSION['id']=$utilisateur[0];
 		$_SESSION['prenom']=$utilisateur[1];
 		$_SESSION['mail']=$utilisateur[2];
+		$_SESSION['note']=$utilisateur[3];
 		echo $_SESSION['prenom'];
 	}
 	else{
