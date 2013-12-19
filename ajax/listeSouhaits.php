@@ -66,7 +66,7 @@ if(isset($mesSouhaits) && $mesSouhaits == 1){
 			else
 				echo '<img src="Resources/images/no_image.jpg" />';		
 			echo '</td>
-					<td align="center">'.$ligne['PRENOM'].'</td><td align="center">';
+					<td align="center">'.$ligne['PRENOM'].'</a></td><td align="center">';
 			if(isset($ligne['ECHANGE'])){
 				foreach($ligne['ECHANGE'] as $echange){
 				if($echange['PHOTO_PDT']!=null)
@@ -78,6 +78,7 @@ if(isset($mesSouhaits) && $mesSouhaits == 1){
 			echo '</td>
 					<td align="center">'.$ligne['DATE_PROPOSITION'].'</td><td>';		
 			?>
+			
 			<div class='annuler_souhait' id='annuler_souhait' style="position:relative; width:175px;">
 				<a class="btn_anul" id="<?php echo $ligne['TROC_ID'] ?>" >
 			<img src="Resources/images/annuler_souhait.png" width="175" /></a>
@@ -128,7 +129,7 @@ else if(isset($mesSouhaits) && $mesSouhaits == 0){
 			else
 				echo '<img src="Resources/images/no_image.jpg" />';		
 			echo '</td>
-					<td align="center">'.$ligne['PRENOM'].'</td><td align="center">';
+					<td align="center"><a class="proprio" data-proprio = "'.$ligne['ID_EMETTEUR'].'">'.$ligne['PRENOM'].'</a></td><td align="center">';
 			if(isset($ligne['ECHANGE'])){
 				foreach($ligne['ECHANGE'] as $echange){
 				if($echange['PHOTO_PDT']!=null)
@@ -140,6 +141,10 @@ else if(isset($mesSouhaits) && $mesSouhaits == 0){
 			echo '</td>
 					<td align="center">'.$ligne['DATE_PROPOSITION'].'</td><td>';		
 			?>
+			<div class='finaliser_souhait' id='finaliser_souhait'>
+				<a class="btn_final"></a>
+				<img src="Resources/images/troc.png" width = "175"/></a>
+			</div>
 			<div class='annuler_souhait' id='annuler_souhait' style="position:relative; width:175px;">
 				<a class="btn_anul" id="<?php echo $ligne['TROC_ID'] ?>" >
 			<img src="Resources/images/annuler_souhait.png" width="175" /></a>

@@ -61,6 +61,8 @@ class Troc extends Connect{
 		}
 		for($i=0; $i<count($tableauSouhait); $i++){
 			for($j=0; $j<count($tableauProduits); $j++){
+				echo "<br>";
+				echo "<br>";
 				if($tableauProduits[$j]['TROC_ID'] == $tableauSouhait[$i]['TROC_ID']){
 					$tableauSouhait[$i]['ECHANGE']= $tableauProduits;
 				}
