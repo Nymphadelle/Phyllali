@@ -37,7 +37,6 @@ class Troc extends Connect{
 		
 		
 		return $tableauSouhait;
-		
 	}
 	
 	public function getLeursSouhaits($id_util){

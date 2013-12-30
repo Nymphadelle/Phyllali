@@ -30,7 +30,6 @@ $tmp = $user->getImageNote($produit['UTIL_ID']);
 		<?php 
 			echo "Nom du produit : ".$produit['LIBELLE_PDT']."</br>"; 
 			
-			
 			echo 'Propri&eacute;taire : <a class="proprietaire" id="'.$produit['UTIL_ID'].'">'.$produit['mail'].'</a> '.$tmp.'</br>';
 			echo 'Categorie : <a class="cat" id="'.$produit['ID_CATEGORIE'].'">'.$produit['NOM_CATEG'].'</a></br></br>';
 			echo "Description : ".$produit['DESCRIPTION'];
