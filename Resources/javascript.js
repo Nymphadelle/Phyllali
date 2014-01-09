@@ -210,6 +210,34 @@ $("#connexion").unbind().click(function(event) {
 // handler sur le bouton ajouter un produit
 $('body').on('click', '.vignette', function(event){
 // appel de la page afficheProduit.php
+	$.ajax({
+	  type:"GET",
+	  url: "ajax/afficheProduit.php",
+	  data: {id_pdt: this.id}
+	})
+  .done(function( html ) {
+		// si l'appel a reussi, on affiche le résultat
+		$( ".Aff_Produits" ).html(html);
+  });
+});
+
+$('html').on('click', '.vignette_index', function(event){
+// appel de la page afficheProduit.php
+alert();
+ 	$.ajax({
+	  type:"GET",
+	  url: "ajax/afficheProduit.php",
+	  data: {id_pdt: this.id}
+	})
+  .done(function( html ) {
+		// si l'appel a reussi, on affiche le résultat
+		$("#presentation").html(html);
+  });
+});
+
+//appel la fiche du produit depuis la liste des produits actifs d'un utilisateur
+$('body').on('click', '.pdtactif', function(event){
+// appel de la page afficheProduit.php
  	$.ajax({
 	  type:"GET",
 	  url: "ajax/afficheProduit.php",
@@ -287,7 +315,18 @@ $("body").on('click', "#historique", function(event){
 	})
 });
 
-
+// clic sur le nom du propriétaire d'un produit > affiche la liste de ses produits
+$(".proprietaire").click(function() {
+	$.ajax({
+		type:"POST",
+		url:"ajax/listeSouhaits.php",
+		data:{souhaits:2, util:$(".proprietaire").attr("id")}
+	})
+	.done(function(html){
+		$("#presentation").html(html);
+		$("#ListerSouhaits").hide();
+	})
+});
 
 // bouton ficheSouhait
 $("#souhaiter").click(function() {

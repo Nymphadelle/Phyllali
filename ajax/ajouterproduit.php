@@ -78,7 +78,7 @@ require_once '../Classes/Produit.php';
 
 		<TR>
 			<TD COLSPAN=2>
-			<INPUT type="submit" value="Ajouter l'objet" id="valider_objet"> <!-- onclick="verif(); return false;"> -->
+			<INPUT type="submit" value="Ajouter l'objet" id="valider_objet">
 			</TD>
 		</TR>
 	</TABLE>

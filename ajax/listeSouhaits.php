@@ -3,12 +3,19 @@
 require_once("../Classes/Troc.php");
 require_once("../Classes/Produit.php");
 require_once("../Classes/Utilisateur.php");
+
 $user = new Utilisateur();
 session_start();
-$id_util = $_SESSION['id'];
+
+if(isset($_POST['util'])){
+	$id_util = $_POST['util'];
+} else {
+	$id_util = $_SESSION['id'];
+}
 if(isset($_POST['souhaits'])){
 	$mesSouhaits=$_POST['souhaits'];
 }
+
 ?>
 	<div id='ListerSouhaits'>
 	<a class = 'mesSouhaits' data-type='1' title='Afficher mes demandes de troc'><img src="Resources/images/in.png" width="150"></a>
@@ -38,6 +45,7 @@ if(isset($mesSouhaits) && $mesSouhaits == 1){
 	$i=1;
 	$troc = new Troc();
 	$tableauSouhait=$troc->getMesSouhaits($id_util);
+
 	if(!empty($tableauSouhait)){
 		echo '<table>
 				<tr bgcolor="#99275a">
@@ -164,11 +172,15 @@ else if(isset($mesSouhaits) && $mesSouhaits == 0){
 }
 else if(isset($mesSouhaits) && $mesSouhaits == 2){
 	$produit = new Produit();
-	$prodActifs = $produit->getProduitsActifsFromUtil($_SESSION['id']);
-	echo "<h2>Vos produits actuellements actifs</h2>";
+	$prodActifs = $produit->getProduitsActifsFromUtil($id_util);
+	if(isset($_POST['util'])) {
+		echo "<h2>Produits actifs de ".$user->getName($id_util)."</h2>";
+	} else {
+		echo "<h2>Vos produits actuellements actifs</h2>";
+	}
 	if (count($prodActifs) > 0) {
 		foreach($prodActifs as $prods) { ?>
-			<div class="pdtactif">
+			<div class="pdtactif" id="<?php echo $prods['PDT_ID'] ?>">
 				<table>
 					<tr>
 						<td align="center">
@@ -198,6 +210,5 @@ else if(isset($mesSouhaits) && $mesSouhaits == 2){
 		echo 'Aucun produits actifs';
 }
 echo "</div>";
-
 
 ?>
