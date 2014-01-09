@@ -223,7 +223,6 @@ $('body').on('click', '.vignette', function(event){
 
 $('html').on('click', '.vignette_index', function(event){
 // appel de la page afficheProduit.php
-alert();
  	$.ajax({
 	  type:"GET",
 	  url: "ajax/afficheProduit.php",

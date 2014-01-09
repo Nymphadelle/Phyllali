@@ -109,5 +109,5 @@ foreach($solution->sol as $couple) {
 	$prod->insertCouple($hash[substr($couple->action[0],0,1)],$hash[substr($couple->action[0],1,1)]);
 }
 
-
+header('Location: ../index.php');
 ?>

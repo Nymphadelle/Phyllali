@@ -44,6 +44,7 @@ class Produit extends Connect{
 			$sql ='select * from PRODUIT_ACTIF INNER JOIN PRODUIT ON PRODUIT_ACTIF.PDT_ID = PRODUIT.PDT_ID order by PRODUIT.PDT_ID desc ';
 		else
 			$sql ='select * from PRODUIT_ACTIF INNER JOIN PRODUIT ON PRODUIT_ACTIF.PDT_ID = PRODUIT.PDT_ID WHERE PRODUIT_ACTIF.PDT_ID NOT IN (select PDT_ID from PRODUIT_ACTIF WHERE UTIL_ID = '.$id.') order by PRODUIT.PDT_ID desc ';
+		
 		$produits = $this->executerRequete($sql);
 		$tab = array();
 		while(odbc_fetch_row($produits)){
