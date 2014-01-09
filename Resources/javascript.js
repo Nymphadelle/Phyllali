@@ -396,7 +396,7 @@ $("body").on('click', "#envoyernote", function(event){
 		data:{note:$('#note').find(":selected").text(),com:$("#commentaire").val(),uti:$("#idcible").val(),troc:$("#troc").val()}
 	})
 	.done(function(html){
-		console.log(html);
+		$(location).attr('href',"index.php");
 	})
 });
 

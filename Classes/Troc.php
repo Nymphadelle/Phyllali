@@ -111,7 +111,7 @@ class Troc extends Connect{
 		$ret= $this->executerRequete($sql);
 	}
 	
-	public function ajouterNote($id,$idcible,$com,$note,$troc){
+	public function ajouterNote($idcible,$id,$com,$note,$troc){
 		$sql = "INSERT INTO NOTE(TROC_H_ID,UTIL_ID,UTI_UTIL_ID,NOTE,COMMENTAIRE,DATE) values (".$troc.",".$id.",".$idcible.",".$note.",'".$com."',getdate())";
 		$ret= $this->executerRequete($sql);
 		echo $sql.'   ';
