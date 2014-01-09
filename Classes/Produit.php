@@ -87,6 +87,8 @@ class Produit extends Connect{
 		$sql .=" FROM UTILISATEUR, CONNEXION, PRODUIT, CATEGORIE" ;
 		$sql .= " WHERE util = PRODUIT.UTIL_ID AND CATEGORIE.ID_CATEGORIE = ";
 		$sql .= " PRODUIT.ID_CATEGORIE AND PDT_ID =".$id_pdt;
+		/*echo $sql;
+		echo '<br><br>';*/
 		
 		$produit = $this->executerRequete($sql);
 		//$tab = array();
