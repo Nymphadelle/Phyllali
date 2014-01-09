@@ -132,10 +132,14 @@ else if(isset($mesSouhaits) && $mesSouhaits == 0){
 		foreach($tableauSouhait as $ligne){
 			echo '<tr>
 					<td align="center">'.$i.'</td><td>';
-			if($ligne['PHOTO_PDT']!=null)
+			if($ligne['PHOTO_PDT']!=null){
 				echo '<img src="Resources/PhotosTroc/'.$ligne['PHOTO_PDT'].'" width="80" />';
-			else
+				}
+			else{
 				echo '<img src="Resources/images/no_image.jpg" />';		
+				}
+				echo "<br>";
+				echo "<center>".$ligne['LIBELLE_PDT']."</center>";
 			echo '</td>
 					<td align="center"><a class="proprio" data-proprio = "'.$ligne['ID_EMETTEUR'].'">'.$ligne['PRENOM'].'</a></td><td align="center">';
 			if(isset($ligne['ECHANGE'])){
@@ -145,12 +149,13 @@ else if(isset($mesSouhaits) && $mesSouhaits == 0){
 				else
 					echo '<img src="Resources/images/no_image.jpg" />';		
 				}
+				
 			}		
 			echo '</td>
 					<td align="center">'.$ligne['DATE_PROPOSITION'].'</td><td>';		
 			?>
 			<div class='finaliser_souhait' id='finaliser_souhait'>
-				<a class="btn_final"></a>
+				<a class="btn_final" data-troc="<?php echo $ligne['TROC_ID'] ?>" data-util="<?php echo $ligne['ID_EMETTEUR'] ?>" data-produit="<?php echo $ligne['LIBELLE_PDT']?>">
 				<img src="Resources/images/troc.png" width = "175"/></a>
 			</div>
 			<div class='annuler_souhait' id='annuler_souhait' style="position:relative; width:175px;">

@@ -200,6 +200,35 @@ class Produit extends Connect{
 		$sql = "delete FROM PRODUIT_PASSIF WHERE PDT_ID=".$idprod." INSERT INTO PRODUIT_ACTIF(PDT_ID,UTIL_ID) values (".$idprod.",".$idutil.")";
 		$produits = $this->executerRequete($sql);	
 	}
+	
+	public function getProduitsProposes($id_troc, $id_util){
+		$sql = "SELECT PROPOSE.PDT_ID, LIBELLE_PDT FROM PROPOSE, PRODUIT WHERE PROPOSE.TROC_ID = ".$id_troc." AND PRODUIT.PDT_ID = PROPOSE.PDT_ID";
+		$produits = $this->executerRequete($sql);
+
+		if(!odbc_num_rows($produits)){
+		$tab = array();
+		while(odbc_fetch_row($produits)){
+			$tableau = array();		
+				for($i=1;$i<=odbc_num_fields($produits);$i++){
+					$tableau[odbc_field_name ( $produits, $i )] =odbc_result($produits,$i);
+				}
+				array_push($tab, $tableau);
+			}
+		}
+		else{
+			$tab = array();
+			$sql ="SELECT PRODUIT_ACTIF.PDT_ID, LIBELLE_PDT, PHOTO_PDT FROM PRODUIT_ACTIF, PRODUIT WHERE PRODUIT_ACTIF.UTIL_ID =".$id_util." AND PRODUIT_ACTIF.PDT_ID = PRODUIT.PDT_ID";
+			$produits = $this->executerRequete($sql);
+			while(odbc_fetch_row($produits)){
+			$tableau = array();		
+				for($i=1;$i<=odbc_num_fields($produits);$i++){
+					$tableau[odbc_field_name ( $produits, $i )] =odbc_result($produits,$i);
+				}
+				array_push($tab, $tableau);
+			}
+		}
+		return $tab;
+	}
 }
 
 

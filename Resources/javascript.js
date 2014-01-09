@@ -412,3 +412,41 @@ $("body").on('click', ".afficherprofil", function(event){
 		$("#presentation").html(html);
 	})
 });
+
+$("body").on('click', ".btn_final", function(event){
+	event.preventDefault();
+	$.ajax({
+		type:"POST",
+		url:"ajax/finaliserTroc.php",
+		
+		data:{idtroc:$('.btn_final').attr('data-troc'), idutil:$('.btn_final').attr('data-util'), idprod:$('.btn_final').attr('data-produit')}
+	})
+	.done(function( html ) {
+		// si l'appel a reussi, on affiche le résultat
+		$( "#presentation" ).html(html);
+})
+});
+
+
+
+$("body").on('click', ".btn_finalTroc", function(event){
+	event.preventDefault();
+	$pdt = $('.radioTroc:checked').val();
+	$livr = $('.radioLivr:checked').val();
+	if($pdt != null && $livr != null){
+		$.ajax({
+			type:"POST",
+			url:"ajax/trocConfirme.php",
+			
+			data:{idtroc:$('.btn_finalTroc').attr('data-troc'), pdt:$pdt, livr:$livr }
+		})
+		.done(function( html ) {
+			// si l'appel a reussi, on affiche le résultat
+			$( "#presentation" ).html(html);
+		});
+	}
+	else{
+		alert("Vous devez choisir un produit et un mode de livraison");
+	}
+
+});

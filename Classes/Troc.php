@@ -133,4 +133,8 @@ class Troc extends Connect{
 		$ret= $this->executerRequete($sql);
 		echo $sql;
 	}	
+	public function finalisationTroc($idtroc, $idpdt, $mode_livr){
+		$sql = "exec finalisation_troc(".$idtroc.", ".$idpdt.",'".$mode_livr."')";
+		$finalisation = $this->executerRequete($sql);
+	}
 }

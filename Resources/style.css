@@ -3,6 +3,8 @@
   #effect { width: 240px; height: 42px; padding: 0.4em; position: relative; }
   #effect h3 { margin: 0; padding: 0.4em; text-align: center; }
 
+
+
   #load{
     position: absolute;
     top: 50%;
@@ -264,4 +266,27 @@ opacity: 0.5;
 
 .bouton{
 	clear:both;
+}
+
+.TrocFinal{
+position:relative;
+width : 950px;
+overflow-x:scroll;
+
+}
+
+.TrocFinal li{
+margin-right:5px;
+display:inline-table;
+text-align:center;
+}
+
+.produitsTroc{
+display:inline;
+}
+
+
+
+.livraison{
+	margin-top:20px;
 }
